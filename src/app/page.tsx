@@ -229,7 +229,6 @@ export default function Home() {
 
       <section className="relative isolate min-h-[100svh] overflow-hidden">
         <div className="absolute inset-0 -z-30 bg-[radial-gradient(1400px_760px_at_20%_-10%,rgba(25,195,255,0.55),rgba(6,42,68,0)_62%),radial-gradient(1100px_660px_at_85%_10%,rgba(18,167,255,0.50),rgba(6,42,68,0)_60%),linear-gradient(to_bottom,rgba(6,42,68,0.78),rgba(6,42,68,0.95))]" />
-        <div className="absolute inset-0 -z-25 bg-[url('/images/img14.jpg')] bg-cover bg-center" />
 
         <video
           className="absolute inset-0 -z-20 h-full w-full object-cover opacity-100"
@@ -237,8 +236,7 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="metadata"
-          poster="/images/img14.jpg"
+          preload="auto"
         >
           <source src="/images/hero3.mp4" type="video/mp4" />
         </video>
