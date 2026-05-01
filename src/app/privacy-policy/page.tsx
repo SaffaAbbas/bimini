@@ -4,21 +4,23 @@ export default function PrivacyPolicyPage() {
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <header className="relative isolate min-h-[55svh] overflow-hidden">
-        <div className="absolute inset-0 -z-20 bg-[radial-gradient(1400px_760px_at_20%_-10%,rgba(25,195,255,0.45),rgba(6,42,68,0)_62%),radial-gradient(1100px_660px_at_85%_10%,rgba(18,167,255,0.40),rgba(6,42,68,0)_60%),linear-gradient(to_bottom,rgba(6,42,68,0.92),rgba(6,42,68,0.92))]" />
+        <div className="absolute inset-0 -z-30 bg-[color:var(--brand-deep)]" />
+        <img
+          src="/images/img17.jpg"
+          alt=""
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center opacity-100"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(6,42,68,0.25),rgba(6,42,68,0.55))]" />
         <SiteHeader bookNowHref="/contact" />
 
         <div className="mx-auto flex min-h-[55svh] max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <p className="text-sm font-extrabold tracking-widest text-white/90">
-              PRIVACY
-            </p>
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Privacy Policy
             </h1>
-            <p className="mt-4 max-w-2xl text-pretty text-base leading-7 text-white/85 sm:text-lg">
-              Replace this content with your official privacy policy. (I can
-              format your final copy nicely.)
-            </p>
           </div>
         </div>
       </header>
@@ -54,4 +56,3 @@ export default function PrivacyPolicyPage() {
     </main>
   );
 }
-
