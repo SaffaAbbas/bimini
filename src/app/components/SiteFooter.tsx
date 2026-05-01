@@ -158,13 +158,25 @@ export function SiteFooter() {
             © {new Date().getFullYear()} Bimini Tours & Adventures. All rights
             reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end">
-            {["VISA", "AMEX", "MASTERCARD", "DISCOVER"].map((x) => (
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
+            {[
+              { alt: "Discover", src: "/images/discover.png" },
+              { alt: "Visa", src: "/images/visa.png" },
+              { alt: "American Express", src: "/images/express.png" },
+              { alt: "Mastercard", src: "/images/mastercardpng.png" },
+            ].map((x) => (
               <span
-                key={x}
-                className="inline-flex items-center justify-center rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-extrabold tracking-widest text-slate-700 ring-1 ring-slate-200"
+                key={x.alt}
+                className="inline-flex items-center justify-center px-2 py-1"
+                aria-label={x.alt}
+                title={x.alt}
               >
-                {x}
+                <img
+                  src={x.src}
+                  alt={x.alt}
+                  className="h-7 w-auto object-contain sm:h-8"
+                  loading="lazy"
+                />
               </span>
             ))}
           </div>
