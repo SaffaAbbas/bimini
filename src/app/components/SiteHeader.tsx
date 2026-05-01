@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function SiteHeader({
@@ -71,32 +72,44 @@ export function SiteHeader({
       <div className={shellClassName} ref={menuRef}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2.5 lg:px-8 lg:py-3">
           <div className="flex items-center gap-3">
-            <img
-              src="/images/bimini.png"
-              alt="Bimini Tours & Adventures"
-              className={logoClassName}
-            />
+            <Link
+              href="/"
+              className="pointer-events-auto inline-flex items-center"
+              aria-label="Go to homepage"
+              onClick={() => setMobileOpen(false)}
+              prefetch
+            >
+              <img
+                src="/images/bimini.png"
+                alt="Bimini Tours & Adventures"
+                className={logoClassName}
+              />
+            </Link>
           </div>
 
           <nav className="hidden items-center gap-1 md:flex">
             {links.map((l) => (
-              <a
+              <Link
                 key={l.label}
                 href={l.href}
                 className={navLinkClass}
+                onClick={() => setMobileOpen(false)}
+                prefetch
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <a
+            <Link
               href={bookNowHref}
               className="hidden md:inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-accent)] px-4 py-2.5 text-sm font-semibold text-[color:var(--brand-primary-2)] transition-colors hover:brightness-95"
+              onClick={() => setMobileOpen(false)}
+              prefetch
             >
               Book Now
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -142,24 +155,26 @@ export function SiteHeader({
             <div className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
               <nav className="flex flex-col items-center gap-1 text-center">
                 {links.map((l) => (
-                  <a
+                  <Link
                     key={l.label}
                     href={l.href}
                     onClick={() => setMobileOpen(false)}
                     className="w-full rounded-xl px-4 py-3 text-base font-semibold text-slate-800 hover:bg-slate-100"
+                    prefetch
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 ))}
               </nav>
 
-              <a
+              <Link
                 href={bookNowHref}
                 onClick={() => setMobileOpen(false)}
                 className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-[color:var(--brand-accent)] px-4 py-3 text-base font-extrabold text-[color:var(--brand-primary-2)] transition-colors hover:brightness-95"
+                prefetch
               >
                 Book Now
-              </a>
+              </Link>
             </div>
           </div>
         ) : null}
