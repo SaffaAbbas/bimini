@@ -65,7 +65,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 grid gap-10 text-center lg:grid-cols-12 lg:text-left">
-          <div className="lg:col-span-4 flex -mt-6 justify-center lg:justify-start">
+          <div className="lg:col-span-3 flex -mt-6 justify-center lg:justify-start">
             <img
               src="/images/bimini.png"
               alt="Bimini Tours & Adventures"
@@ -73,7 +73,7 @@ export function SiteFooter() {
             />
           </div>
 
-          <div className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-8 lg:justify-items-stretch">
+          <div className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-9 lg:justify-items-stretch">
             <div>
               <p className="text-sm font-extrabold text-slate-900">
                 Destinations
