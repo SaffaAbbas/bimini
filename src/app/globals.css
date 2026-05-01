@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  /* Brand palette (from the Bimini logo) */
+  --brand-primary: #0b56b7; /* logo blue */
+  --brand-primary-2: #0a3f90; /* deeper blue */
+  --brand-accent: #f5c400; /* logo yellow */
+  --brand-deep: #062a44; /* deep ocean */
+  --brand-ocean: #12a7ff; /* bright ocean */
+  --brand-sea: #19c3ff; /* light sea */
+  --accent: var(--brand-primary);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::selection {
+  background: rgba(37, 99, 235, 0.25);
+}
+
+@keyframes ocean-drift {
+  0% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      250% 0%,
+      -220% 0%,
+      180% 0%;
   }
 }
 
+@keyframes ocean-shimmer {
+  0% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.75;
+    transform: translateY(-4px);
+  }
+  100% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+}
+
+.ocean-surface {
+  background-image:
+    radial-gradient(1200px 500px at 15% -10%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 60%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.14) 0,
+      rgba(255, 255, 255, 0.14) 14px,
+      rgba(255, 255, 255, 0.04) 22px,
+      rgba(255, 255, 255, 0.04) 44px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 10px,
+      rgba(0, 0, 0, 0) 28px,
+      rgba(0, 0, 0, 0) 56px
+    );
+  animation: ocean-drift 16s linear infinite;
+  filter: saturate(1.05);
+  mask-image: radial-gradient(120% 70% at 50% 0%, #000 58%, rgba(0, 0, 0, 0) 100%);
+}
+
+.ocean-shimmer {
+  animation: ocean-shimmer 6.5s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee-tech {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-tech {
+  animation: marquee-tech 29s linear infinite;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE & Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari */
 }
