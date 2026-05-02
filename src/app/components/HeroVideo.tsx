@@ -4,7 +4,6 @@ import {
   HERO_VIDEO_DESKTOP_SRC,
   HERO_VIDEO_MOBILE_MEDIA,
   HERO_VIDEO_MOBILE_SRC,
-  HERO_VIDEO_POSTER_SRC,
 } from "./hero-assets";
 import { useAutoplayBackgroundVideo } from "./useAutoplayBackgroundVideo";
 
@@ -20,7 +19,7 @@ export function HeroVideo() {
       loop
       playsInline
       preload="auto"
-      poster={HERO_VIDEO_POSTER_SRC}
+      // poster={HERO_VIDEO_POSTER_SRC}
     >
       <source
         src={HERO_VIDEO_MOBILE_SRC}
