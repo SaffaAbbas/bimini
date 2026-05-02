@@ -6,7 +6,6 @@ import {
   HERO_VIDEO_DESKTOP_SRC,
   HERO_VIDEO_MOBILE_MEDIA,
   HERO_VIDEO_MOBILE_SRC,
-  HERO_VIDEO_POSTER_SRC,
 } from "./hero-assets";
 import { useAutoplayBackgroundVideo } from "./useAutoplayBackgroundVideo";
 
@@ -19,7 +18,6 @@ type HeroProps = {
 export default function Hero({
   videoSrcMobile = HERO_VIDEO_MOBILE_SRC,
   videoSrcDesktop = HERO_VIDEO_DESKTOP_SRC,
-  posterSrc = HERO_VIDEO_POSTER_SRC,
 }: HeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [videoOk, setVideoOk] = useState(true);
@@ -36,7 +34,7 @@ export default function Hero({
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(el);
@@ -57,7 +55,6 @@ export default function Hero({
           loop
           playsInline
           preload="auto"
-          poster={posterSrc}
           onError={() => setVideoOk(false)}
         >
           <source
