@@ -234,7 +234,8 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/images/hero3.jpg"
         >
           <source src="/images/hero3.mp4" type="video/mp4" />
         </video>
