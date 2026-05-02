@@ -1,3 +1,4 @@
+import { HeroVideo } from "./components/HeroVideo";
 import { SiteHeader } from "./components/SiteHeader";
 
 export default function Home() {
@@ -228,17 +229,7 @@ export default function Home() {
       <SiteHeader bookNowHref="/contact" />
 
       <section className="relative isolate min-h-[100svh] overflow-hidden">
-        <video
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/hero3.jpg"
-        >
-          <source src="/images/hero3.mp4" type="video/mp4" />
-        </video>
+        <HeroVideo />
 
         <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pb-0 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center pb-28 pt-12 text-center sm:pb-32 sm:pt-16 lg:pb-40">
