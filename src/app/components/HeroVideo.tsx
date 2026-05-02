@@ -14,7 +14,6 @@ export function HeroVideo() {
       loop
       playsInline
       preload="auto"
-      poster="/images/hero3.jpg"
     >
       <source src="/images/hero4.mp4" type="video/mp4" />
     </video>
