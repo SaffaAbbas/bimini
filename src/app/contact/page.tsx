@@ -28,16 +28,14 @@ export default function ContactPage() {
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <header className="relative isolate min-h-[100svh] overflow-hidden">
-        <div className="absolute inset-0 -z-30 bg-[color:var(--brand-deep)]" />
         <img
-          src="/images/img17.jpg"
+          src="/images/hero3.jpg"
           alt=""
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center opacity-100"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(6,42,68,0.25),rgba(6,42,68,0.55))]" />
 
         <SiteHeader bookNowHref="#form" />
 
@@ -46,7 +44,7 @@ export default function ContactPage() {
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Contact Us
             </h1>
-            <p className="mt-4 text-pretty text-base leading-7 text-white/85 sm:text-lg">
+            <p className="mt-4 text-pretty text-base leading-7 text-white sm:text-lg">
               Contact us to book your adventure, Call/text us anytime
             </p>
           </div>

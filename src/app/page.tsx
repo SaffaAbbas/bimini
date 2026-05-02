@@ -223,15 +223,13 @@ export default function Home() {
   ] as const;
 
   return (
-    <main className="min-h-[100svh] w-full bg-[color:var(--brand-deep)] text-white">
+    <main className="min-h-[100svh] w-full bg-white text-slate-900">
       {/* fixed header */}
       <SiteHeader bookNowHref="/contact" />
 
       <section className="relative isolate min-h-[100svh] overflow-hidden">
-        <div className="absolute inset-0 -z-30 bg-[radial-gradient(1400px_760px_at_20%_-10%,rgba(25,195,255,0.55),rgba(6,42,68,0)_62%),radial-gradient(1100px_660px_at_85%_10%,rgba(18,167,255,0.50),rgba(6,42,68,0)_60%),linear-gradient(to_bottom,rgba(6,42,68,0.78),rgba(6,42,68,0.95))]" />
-
         <video
-          className="absolute inset-0 -z-20 h-full w-full object-cover opacity-100"
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
           autoPlay
           muted
           loop
@@ -243,7 +241,7 @@ export default function Home() {
 
         <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pb-0 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center pb-28 pt-12 text-center sm:pb-32 sm:pt-16 lg:pb-40">
-            <p className="text-sm font-bold tracking-wide text-white/90">
+            <p className="text-sm font-bold tracking-wide text-white">
               Bimini, Bahamas
             </p>
             <h1 className="mt-4 text-balance font-extrabold tracking-tight text-white text-4xl sm:text-6xl lg:text-7xl">
@@ -252,8 +250,8 @@ export default function Home() {
             <p className="mt-4 text-balance text-2xl font-bold tracking-tight text-white sm:text-4xl">
               Bimini Tours & Adventures
             </p>
-            <div className="mt-6 h-px w-44 bg-white/55" />
-            <p className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white/90 sm:text-lg">
+            <div className="mt-6 h-px w-44 bg-white" />
+            <p className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white sm:text-lg">
               Snorkeling, fishing charters, island tours,
               eco-adventures—explore, adventure, chill.
             </p>
@@ -261,13 +259,13 @@ export default function Home() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
               <a
                 href="#tours"
-                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#063a5a] hover:bg-white/90"
+                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#063a5a] hover:bg-slate-100"
               >
                 View Tours
               </a>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-white/10 px-7 py-3 text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur hover:bg-white/15"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-7 py-3 text-sm font-semibold text-white hover:bg-white hover:text-[#063a5a]"
               >
                 Contact Us
               </a>
@@ -283,7 +281,7 @@ export default function Home() {
           >
             <path
               d="M0,60 C160,100 320,20 480,60 C640,100 800,20 960,60 C1120,100 1280,20 1440,60 L1440,120 L0,120 Z"
-              fill="rgba(255,255,255,0.85)"
+              fill="#ffffff"
             />
             <path
               d="M0,72 C180,112 360,30 540,72 C720,112 900,30 1080,72 C1260,112 1350,35 1440,72 L1440,120 L0,120 Z"
@@ -424,13 +422,12 @@ export default function Home() {
 
       <section className="relative isolate w-full overflow-hidden -mt-px">
         <div className="absolute inset-0 -z-20 bg-[url('/images/img14.jpg')] bg-cover bg-center" />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(6,42,68,0.88),rgba(6,42,68,0.15),rgba(6,42,68,0.05))]" />
         <div className="mx-auto flex min-h-[280px] max-w-7xl items-center px-6 py-10 sm:min-h-[320px] sm:py-12 lg:min-h-[380px] lg:px-8 lg:py-14">
           <div className="max-w-2xl">
-            <h3 className="text-balance text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <h3 className="text-balance text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
               Make today a Bimini day.
             </h3>
-            <p className="mt-4 text-pretty text-sm leading-6 text-white/90 sm:text-base sm:leading-7">
+            <p className="mt-4 text-pretty text-sm leading-6 text-slate-800 sm:text-base sm:leading-7">
               Crystal‑clear water, white‑sand beaches, and unforgettable
               adventures—pick your perfect tour and let our local team handle
               the rest.

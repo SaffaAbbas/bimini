@@ -4,11 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function SiteHeader({
-  bookNowHref,
-}: {
-  bookNowHref: string;
-}) {
+export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -33,7 +29,8 @@ export function SiteHeader({
     const onPointerDown = (e: PointerEvent) => {
       const el = menuRef.current;
       if (!el) return;
-      if (e.target instanceof Node && !el.contains(e.target)) setMobileOpen(false);
+      if (e.target instanceof Node && !el.contains(e.target))
+        setMobileOpen(false);
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -55,17 +52,19 @@ export function SiteHeader({
     [isHome],
   );
 
-  const shellClassName = scrolled
-    ? "pointer-events-auto transition-all duration-200 bg-white/92 text-slate-900 shadow-sm shadow-black/10"
-    : "pointer-events-auto transition-all duration-200 bg-transparent text-white";
+  const solid = scrolled || mobileOpen;
 
-  const navLinkClass = scrolled
+  const shellClassName = solid
+    ? "pointer-events-auto bg-white/92 text-slate-900 shadow-sm shadow-black/10 backdrop-blur-sm transition-all duration-200"
+    : "pointer-events-auto bg-transparent text-white transition-all duration-200";
+
+  const navLinkClass = solid
     ? "rounded-full px-4 py-2 text-base font-semibold transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900"
     : "rounded-full px-4 py-2 text-base font-semibold transition-colors text-white/95 hover:bg-white/10 hover:text-white";
 
-  const logoClassName = scrolled
-    ? "h-12 w-auto object-contain sm:h-14 lg:h-16"
-    : "h-16 w-auto object-contain sm:h-20 lg:h-24";
+  const logoClassName = solid
+    ? "h-16 w-auto object-contain sm:h-14 lg:h-24"
+    : "h-26 w-auto object-contain sm:h-20 lg:h-34";
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-[999]">
@@ -114,7 +113,7 @@ export function SiteHeader({
             <button
               type="button"
               className={
-                scrolled
+                solid
                   ? "pointer-events-auto inline-flex md:hidden h-11 w-11 items-center justify-center rounded-xl text-slate-800 hover:bg-slate-100"
                   : "pointer-events-auto inline-flex md:hidden h-11 w-11 items-center justify-center rounded-xl text-white hover:bg-white/10"
               }
@@ -182,4 +181,3 @@ export function SiteHeader({
     </div>
   );
 }
-
