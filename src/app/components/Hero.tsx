@@ -2,16 +2,24 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import {
+  HERO_VIDEO_DESKTOP_SRC,
+  HERO_VIDEO_MOBILE_MEDIA,
+  HERO_VIDEO_MOBILE_SRC,
+  HERO_VIDEO_POSTER_SRC,
+} from "./hero-assets";
 import { useAutoplayBackgroundVideo } from "./useAutoplayBackgroundVideo";
 
 type HeroProps = {
-  videoSrc?: string;
+  videoSrcMobile?: string;
+  videoSrcDesktop?: string;
   posterSrc?: string;
 };
 
 export default function Hero({
-  videoSrc = "/images/hero4.mp4",
-  posterSrc = "/images/hero3.jpg",
+  videoSrcMobile = HERO_VIDEO_MOBILE_SRC,
+  videoSrcDesktop = HERO_VIDEO_DESKTOP_SRC,
+  posterSrc = HERO_VIDEO_POSTER_SRC,
 }: HeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [videoOk, setVideoOk] = useState(true);
@@ -52,7 +60,12 @@ export default function Hero({
           poster={posterSrc}
           onError={() => setVideoOk(false)}
         >
-          <source src={videoSrc} type="video/mp4" />
+          <source
+            src={videoSrcMobile}
+            type="video/mp4"
+            media={HERO_VIDEO_MOBILE_MEDIA}
+          />
+          <source src={videoSrcDesktop} type="video/mp4" />
         </video>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-black via-neutral-950 to-blue-950" />
