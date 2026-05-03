@@ -13,7 +13,7 @@ export function HeroVideo() {
   return (
     <video
       ref={ref}
-      className="absolute inset-0 -z-20 h-full w-full object-cover"
+      className="absolute inset-0 -z-20 h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-[1.1s] motion-safe:ease-out motion-safe:group-hover:scale-[1.04]"
       autoPlay
       muted
       loop

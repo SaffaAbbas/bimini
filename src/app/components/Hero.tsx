@@ -44,12 +44,12 @@ export default function Hero({
   return (
     <section
       ref={sectionRef}
-      className="relative h-[65vh] w-full overflow-hidden sm:h-[65vh] md:h-[75vh]"
+      className="group relative h-[65vh] w-full overflow-hidden sm:h-[65vh] md:h-[75vh]"
     >
       {videoOk ? (
         <video
           ref={videoRef}
-          className="absolute inset-0 h-full w-full rounded-3xl object-cover"
+          className="absolute inset-0 h-full w-full rounded-3xl object-cover motion-safe:transition-transform motion-safe:duration-[1.1s] motion-safe:ease-out motion-safe:group-hover:scale-[1.04]"
           autoPlay
           muted
           loop

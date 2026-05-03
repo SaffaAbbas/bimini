@@ -1,76 +1,127 @@
+import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
+
+const socialLinkClass =
+  "inline-flex h-12 w-12 items-center justify-center overflow-visible rounded-full bg-white shadow-md ring-1 ring-black/5 transition hover:scale-105 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--brand-primary)]";
+
+function IconFacebook() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-7 w-7 shrink-0"
+      aria-hidden
+      shapeRendering="geometricPrecision"
+    >
+      <path
+        fill="#1877F2"
+        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+      />
+    </svg>
+  );
+}
+
+function IconInstagram() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-7 w-7 shrink-0"
+      aria-hidden
+      shapeRendering="geometricPrecision"
+    >
+      <defs>
+        <linearGradient id="footerInsta" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#FDC830" />
+          <stop offset="22%" stopColor="#F77737" />
+          <stop offset="45%" stopColor="#E4405F" />
+          <stop offset="70%" stopColor="#C13584" />
+          <stop offset="100%" stopColor="#833AB4" />
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#footerInsta)"
+        d="M12 2.2c3.2 0 3.6 0 4.9.06 1.3.06 2.1.25 2.8.55.7.28 1.3.65 1.9 1.2.55.55.92 1.18 1.2 1.9.3.7.48 1.5.54 2.8.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.3-.25 2.1-.55 2.8-.28.7-.65 1.3-1.2 1.9-.55.55-1.18.92-1.9 1.2-.7.3-1.5.48-2.8.54-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.3-.06-2.1-.25-2.8-.55-.7-.28-1.3-.65-1.9-1.2-.55-.55-.92-1.18-1.2-1.9-.3-.7-.48-1.5-.54-2.8-.06-1.3-.07-1.7-.07-4.9s0-3.6.07-4.9c.06-1.3.25-2.1.55-2.8.28-.7.65-1.3 1.2-1.9.55-.55 1.18-.92 1.9-1.2.7-.3 1.5-.48 2.8-.54 1.3-.06 1.7-.07 4.9-.07zm0 1.8c-3.1 0-3.5 0-4.7.06-1.1.05-1.6.2-2 .35-.5.2-.9.44-1.3.88-.44.44-.68.8-.88 1.3-.15.4-.3.9-.35 2-.06 1.2-.06 1.6-.06 4.7s0 3.5.06 4.7c.05 1.1.2 1.6.35 2 .2.5.44.9.88 1.3.44.44.8.68 1.3.88.4.15.9.3 2 .35 1.2.06 1.6.06 4.7.06s3.5 0 4.7-.06c1.1-.05 1.6-.2 2-.35.5-.2.9-.44 1.3-.88.44-.44.68-.8.88-1.3.15-.4.3-.9.35-2 .06-1.2.06-1.6.06-4.7s0-3.5-.06-4.7c-.05-1.1-.2-1.6-.35-2-.2-.5-.44-.9-.88-1.3-.44-.44-.8-.68-1.3-.88-.4-.15-.9-.3-2-.35-1.2-.06-1.6-.06-4.7-.06zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.9a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4zm5.4-3.4a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0z"
+      />
+    </svg>
+  );
+}
+
+function IconYouTube() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-7 w-7 shrink-0"
+      aria-hidden
+      shapeRendering="geometricPrecision"
+    >
+      <path
+        fill="#FF0000"
+        d="M23.5 6.2A3 3 0 0 0 21.4 4C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-5.8 31 31 0 0 0-.5-5.8z"
+      />
+      <path fill="#fff" d="M9.8 15.5V8.5l6.5 3.5-6.5 3.5z" />
+    </svg>
+  );
+}
+
+function IconTikTok() {
+  const d =
+    "M16.5 3c.4 2.7 2.2 4.6 4.8 4.9V11c-1.8 0-3.2-.6-4.3-1.6v6.2c0 3.4-2.5 6.2-6.5 6.2-3.6 0-6.5-2.8-6.5-6.2 0-3.5 3-6.5 7.4-6.1v3.3c-2.2-.3-3.9 1-3.9 2.8 0 1.7 1.4 3.1 3.1 3.1 2.1 0 3.4-1.3 3.4-3.8V3h2.5Z";
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-7 w-7 shrink-0"
+      aria-hidden
+      shapeRendering="geometricPrecision"
+    >
+      <path fill="#25F4EE" d={d} transform="translate(-0.4 -0.35)" />
+      <path fill="#FE2C55" d={d} transform="translate(0.4 0.35)" />
+      <path fill="#000000" d={d} />
+    </svg>
+  );
+}
+
 const social = [
-  {
-    label: "Facebook",
-    href: "#",
-    svg: (
-      <path d="M13.5 12H12v8H8v-8H6v-3.4h2V6.4C8 4.1 9.4 3 11.6 3c1 0 2 .1 2 .1v2.8h-1.4c-1.1 0-1.3.5-1.3 1.2v1.5H14L13.5 12Z" />
-    ),
-  },
-  {
-    label: "Instagram",
-    href: "#",
-    svg: (
-      <>
-        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Z" />
-        <path d="M12 7.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm0 2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Z" />
-        <path d="M18.3 6.5a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z" />
-      </>
-    ),
-  },
-  {
-    label: "YouTube",
-    href: "#",
-    svg: (
-      <>
-        <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5A3 3 0 0 0 2.4 7.2 31 31 0 0 0 2 12a31 31 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.8Z" />
-        <path d="M10.2 15.2V8.8L15.7 12l-5.5 3.2Z" fill="currentColor" />
-      </>
-    ),
-  },
-  {
-    label: "TikTok",
-    href: "#",
-    svg: (
-      <path d="M16.5 3c.4 2.7 2.2 4.6 4.8 4.9V11c-1.8 0-3.2-.6-4.3-1.6v6.2c0 3.4-2.5 6.2-6.5 6.2-3.6 0-6.5-2.8-6.5-6.2 0-3.5 3-6.5 7.4-6.1v3.3c-2.2-.3-3.9 1-3.9 2.8 0 1.7 1.4 3.1 3.1 3.1 2.1 0 3.4-1.3 3.4-3.8V3h2.5Z" />
-    ),
-  },
+  { label: "Facebook", href: "#", Icon: IconFacebook },
+  { label: "Instagram", href: "#", Icon: IconInstagram },
+  { label: "YouTube", href: "#", Icon: IconYouTube },
+  { label: "TikTok", href: "#", Icon: IconTikTok },
 ] as const;
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-slate-200 bg-white text-slate-900">
+    <footer className="mt-auto bg-white text-slate-900">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="text-center">
           <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
             FOLLOW US ON SOCIAL
           </p>
-          <div className="mt-4 flex items-center justify-center gap-3">
-            {social.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                className="grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-700 ring-1 ring-slate-200 hover:bg-slate-200"
-                aria-label={s.label}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5"
-                  fill="currentColor"
+          <div className="mt-4 flex items-center justify-center gap-4">
+            {social.map((s) => {
+              const Icon = s.Icon;
+              return (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  className={socialLinkClass}
+                  aria-label={s.label}
                 >
-                  {s.svg}
-                </svg>
-              </a>
-            ))}
+                  <Icon />
+                </a>
+              );
+            })}
           </div>
         </div>
 
         <div className="mt-12 grid gap-10 text-center lg:grid-cols-12 lg:text-left">
-          <div className="lg:col-span-3 flex -mt-6 justify-center lg:justify-start">
-            <img
-              src="/images/bimini.png"
-              alt="Bimini Tours & Adventures"
-              className="h-28 w-auto object-contain sm:h-32 lg:h-40"
-            />
+          <div className="flex -mt-6 justify-center lg:col-span-3 lg:justify-start">
+            <a
+              href="/"
+              className="inline-block motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:scale-105 motion-safe:active:scale-100"
+            >
+              <img
+                src="/images/bimini.png"
+                alt="Bimini Tours & Adventures"
+                className="h-28 w-auto object-contain sm:h-32 lg:h-40"
+              />
+            </a>
           </div>
 
           <div className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-9 lg:justify-items-stretch">
@@ -80,22 +131,34 @@ export function SiteFooter() {
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>
-                  <a className="hover:text-slate-900" href="#">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="#"
+                  >
                     North Bimini
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="#">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="#"
+                  >
                     South Bimini
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="#">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="#"
+                  >
                     Sandbars & Cays
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="#">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="#"
+                  >
                     Reefs & Wrecks
                   </a>
                 </li>
@@ -106,17 +169,34 @@ export function SiteFooter() {
               <p className="text-sm font-extrabold text-slate-900">About Us</p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>
-                  <a className="hover:text-slate-900" href="/#tours">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/about"
+                  >
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/#tours"
+                  >
                     Our Tours
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="/contact">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/contact"
+                  >
                     Contact Us
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="/#gallery">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/#gallery"
+                  >
                     Gallery
                   </a>
                 </li>
@@ -129,22 +209,34 @@ export function SiteFooter() {
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>
-                  <a className="hover:text-slate-900" href="/faq">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/faq"
+                  >
                     FAQ
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="/terms-and-conditions">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/terms-and-conditions"
+                  >
                     Terms & Conditions
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="/privacy-policy">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/privacy-policy"
+                  >
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a className="hover:text-slate-900" href="/refund-policy">
+                  <a
+                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    href="/refund-policy"
+                  >
                     Refund Policy
                   </a>
                 </li>
@@ -153,36 +245,41 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs font-semibold text-slate-500">
             © {new Date().getFullYear()} Bimini Tours & Adventures. All rights
             reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
-            {[
-              { alt: "Discover", src: "/images/discover.png" },
-              { alt: "Visa", src: "/images/visa.png" },
-              { alt: "American Express", src: "/images/express.png" },
-              { alt: "Mastercard", src: "/images/mastercardpng.png" },
-            ].map((x) => (
-              <span
-                key={x.alt}
-                className="inline-flex items-center justify-center px-2 py-1"
-                aria-label={x.alt}
-                title={x.alt}
-              >
-                <img
-                  src={x.src}
-                  alt={x.alt}
-                  className="h-7 w-auto object-contain sm:h-8"
-                  loading="lazy"
-                />
-              </span>
-            ))}
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
+            {/* <a
+              href="/contact?pay=paypal"
+              className="inline-flex min-h-10 items-center justify-center rounded-lg px-4 py-2 text-xs font-extrabold tracking-wide text-[#003087] shadow-sm ring-1 ring-black/10 transition hover:brightness-95 sm:text-sm"
+              style={{ backgroundColor: "#FFC439" }}
+            >
+              Pay with PayPal
+            </a> */}
+            <div
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+              aria-label="Cards we accept"
+            >
+              {ACCEPTED_CARD_BADGES.map((x) => (
+                <span
+                  key={x.src}
+                  className="inline-flex items-center justify-center px-1.5 py-0.5 motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:scale-110"
+                  title={x.alt}
+                >
+                  <img
+                    src={x.src}
+                    alt={x.alt}
+                    className="h-6 w-auto object-contain sm:h-7"
+                    loading="lazy"
+                  />
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

@@ -1,4 +1,7 @@
+import { Suspense } from "react";
+import { BiminiDayCta } from "../components/BiminiDayCta";
 import { ContactForm } from "../components/ContactForm";
+import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
 
 export default function ContactPage() {
@@ -27,19 +30,19 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
-      <header className="relative isolate min-h-[100svh] overflow-hidden">
+      <SiteHeader bookNowHref="#form" />
+
+      <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
         <img
           src="/images/hero3.jpg"
           alt=""
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
 
-        <SiteHeader bookNowHref="#form" />
-
-        <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pb-20 pt-28 lg:px-8 lg:pt-32">
+        <div className="mx-auto flex min-h-[48svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[50svh] lg:px-8 lg:pb-16 lg:pt-28">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Contact Us
@@ -64,10 +67,14 @@ export default function ContactPage() {
         </div>
       </header>
 
-      <section id="form" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+      <RevealSection
+        id="form"
+        className="mx-auto max-w-7xl px-6 py-14 lg:px-8"
+        delayMs={0}
+      >
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="space-y-3 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+            <div className="space-y-3 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 transition-all duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg">
               <div className="flex items-start justify-between gap-4">
                 <p className="text-sm font-extrabold text-slate-900">Phone</p>
                 <p className="text-sm font-semibold text-slate-700">
@@ -94,7 +101,7 @@ export default function ContactPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-white p-6 ring-1 ring-slate-200 sm:p-8">
+            <div className="rounded-3xl bg-white p-6 ring-1 ring-slate-200 transition-all duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-xl sm:p-8">
               <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
                 QUICK MESSAGE
               </p>
@@ -103,12 +110,20 @@ export default function ContactPage() {
                 steps.
               </p>
               <div className="mt-6">
-                <ContactForm packageOptions={packageOptions} />
+                <Suspense
+                  fallback={
+                    <div className="h-64 animate-pulse rounded-2xl bg-slate-100 ring-1 ring-slate-200" />
+                  }
+                >
+                  <ContactForm packageOptions={packageOptions} />
+                </Suspense>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </RevealSection>
+
+      <BiminiDayCta />
     </main>
   );
 }

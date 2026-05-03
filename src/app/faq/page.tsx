@@ -1,20 +1,23 @@
+import { BiminiDayCta } from "../components/BiminiDayCta";
+import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
 
 export default function FAQPage() {
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
-      <header className="relative isolate min-h-[100svh] overflow-hidden">
+      <SiteHeader bookNowHref="/contact" />
+
+      <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
         <img
           src="/images/hero3.jpg"
           alt=""
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
           loading="eager"
           decoding="async"
           fetchPriority="high"
         />
-        <SiteHeader bookNowHref="/contact" />
 
-        <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pb-20 pt-28 lg:px-8 lg:pt-32">
+        <div className="mx-auto flex min-h-[48svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[50svh] lg:px-8 lg:pb-16 lg:pt-28">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               FAQ
@@ -39,8 +42,8 @@ export default function FAQPage() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-        <div className="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200 sm:p-10">
+      <RevealSection className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
+        <div className="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200 transition-all duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg sm:p-10">
           <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
             COMING NEXT
           </p>
@@ -49,7 +52,9 @@ export default function FAQPage() {
             weather, safety, and booking help.
           </p>
         </div>
-      </section>
+      </RevealSection>
+
+      <BiminiDayCta />
     </main>
   );
 }

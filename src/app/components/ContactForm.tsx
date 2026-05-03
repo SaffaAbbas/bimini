@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { TOUR_TIME_LABELS } from "../lib/tour-checkout-utils";
 
 type FormState = {
   fullName: string;
@@ -26,11 +28,34 @@ function isEmailValid(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 }
 
+function mergePreferredTime(message: string, timeParam: string | null): string {
+  if (!timeParam) return message;
+  const label = TOUR_TIME_LABELS[timeParam] ?? timeParam;
+  const line = `Preferred tour time: ${label}`;
+  const stripped = message
+    .split("\n")
+    .filter((l) => !l.trim().startsWith("Preferred tour time:"))
+    .join("\n")
+    .trim();
+  return stripped ? `${stripped}\n\n${line}` : line;
+}
+
+function mergePrefixedLine(message: string, linePrefix: string, fullLine: string | null): string {
+  if (!fullLine) return message;
+  const stripped = message
+    .split("\n")
+    .filter((l) => !l.trim().startsWith(linePrefix))
+    .join("\n")
+    .trim();
+  return stripped ? `${stripped}\n\n${fullLine}` : fullLine;
+}
+
 export function ContactForm({
   packageOptions,
 }: {
   packageOptions: { value: string; label: string }[];
 }) {
+  const searchParams = useSearchParams();
   const [form, setForm] = useState<FormState>(initialState);
   const [touched, setTouched] = useState<Record<keyof FormState, boolean>>({
     fullName: false,
@@ -42,6 +67,53 @@ export function ContactForm({
     message: false,
   });
   const [status, setStatus] = useState<"idle" | "success">("idle");
+
+  useEffect(() => {
+    const pkg = searchParams.get("package");
+    const date = searchParams.get("date");
+    const guests = searchParams.get("guests");
+    const time = searchParams.get("time");
+    const estimateTotal = searchParams.get("estimateTotal");
+    const pay = searchParams.get("pay");
+
+    setForm((p) => {
+      const next = { ...p };
+
+      if (pkg && packageOptions.some((o) => o.value === pkg)) {
+        next.package = pkg;
+      }
+      if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        next.date = date;
+      }
+      if (guests && /^\d+$/.test(guests)) {
+        const n = Number(guests);
+        if (n >= 1 && n <= 50) next.guests = String(n);
+      }
+      let msg = p.message;
+      if (time) {
+        msg = mergePreferredTime(msg, time);
+      }
+      if (estimateTotal && /^[\d.]+$/.test(estimateTotal)) {
+        msg = mergePrefixedLine(
+          msg,
+          "Estimated cart total",
+          `Estimated cart total (before VAT): $${estimateTotal}`
+        );
+      }
+      if (pay === "paypal") {
+        msg = mergePrefixedLine(msg, "Preferred payment:", "Preferred payment: PayPal");
+      } else if (pay === "card") {
+        msg = mergePrefixedLine(
+          msg,
+          "Preferred payment:",
+          "Preferred payment: Credit / debit card"
+        );
+      }
+      next.message = msg;
+
+      return next;
+    });
+  }, [searchParams, packageOptions]);
 
   const errors = useMemo(() => {
     const e: Partial<Record<keyof FormState, string>> = {};
@@ -96,7 +168,7 @@ export function ContactForm({
   }
 
   const fieldBase =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-[color:var(--brand-primary)] focus:ring-2 focus:ring-[color:var(--brand-primary)]/20";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-shadow duration-200 hover:border-slate-300 hover:shadow-sm focus:border-[color:var(--brand-primary)] focus:ring-2 focus:ring-[color:var(--brand-primary)]/20";
 
   const labelBase = "text-xs font-extrabold tracking-widest text-slate-700";
   const errorText = "mt-1 text-xs font-semibold text-red-600";
@@ -104,7 +176,7 @@ export function ContactForm({
   return (
     <form onSubmit={submit} className="space-y-5">
       {status === "success" ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 shadow-sm transition-shadow duration-300 hover:shadow-md">
           <p className="text-sm font-extrabold">Message sent!</p>
           <p className="mt-1 text-sm text-emerald-800/90">
             We’ll get back to you shortly. If it’s urgent, call us directly.
@@ -233,7 +305,7 @@ export function ContactForm({
         <button
           type="submit"
           disabled={!canSubmit}
-          className="inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-50 hover:brightness-95"
+          className="inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 enabled:motion-safe:hover:-translate-y-0.5 enabled:motion-safe:hover:shadow-lg enabled:active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Send Message
         </button>
