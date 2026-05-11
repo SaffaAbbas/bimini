@@ -34,7 +34,7 @@ export default function ContactPage() {
 
       <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
         <img
-          src="/images/hero3.jpg"
+          src="/images/new33.jpeg"
           alt=""
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
           loading="eager"

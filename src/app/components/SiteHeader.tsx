@@ -28,7 +28,7 @@ function isNavActive(
   label: string,
   pathname: string,
   hash: string,
-  isHome: boolean
+  isHome: boolean,
 ): boolean {
   if (label === "About Us") return pathname === "/about";
   if (label === "Contact") return pathname === "/contact";

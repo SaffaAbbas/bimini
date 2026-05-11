@@ -34,25 +34,26 @@ const offerings = [
   {
     title: "Snorkeling and Diving Excursions",
     body: "Explore the vibrant underwater world of Bimini with guided snorkeling and diving trips to stunning coral reefs, shipwrecks, and marine parks. Witness the incredible biodiversity that thrives beneath the surface.",
-    imageSrc: "/images/underwater.webp",
-    imageAlt: "Snorkelers exploring clear turquoise water over a coral reef in Bimini",
+    imageSrc: "/images/new35.jpeg",
+    imageAlt:
+      "Snorkelers exploring clear turquoise water over a coral reef in Bimini",
   },
   {
     title: "Fishing Charters",
     body: "Experience world-class fishing in the crystal-clear waters of Bimini. Whether you're a seasoned angler or a beginner, our expert captains will guide you to the best fishing spots, where you can catch marlin, tuna, and more.",
-    imageSrc: "/images/fishing.jpg",
+    imageSrc: "/images/new26.jpeg",
     imageAlt: "Sport fishing boat on open blue water near Bimini",
   },
   {
     title: "Island Tours",
     body: "Discover the rich history and culture of Bimini on our guided island tours. Visit historical landmarks, local markets, and charming villages while learning about the island's unique heritage.",
-    imageSrc: "/images/beach.webp",
+    imageSrc: "/images/new42.jpeg",
     imageAlt: "Pristine Bimini beach with white sand and calm turquoise sea",
   },
   {
     title: "Eco-Adventures",
     body: "Immerse yourself in the natural beauty of Bimini with eco-friendly tours that include kayaking through mangroves, bird watching, and exploring pristine beaches. Our eco-tours are designed to educate and inspire while preserving the island's delicate ecosystems.",
-    imageSrc: "/images/beach2.webp",
+    imageSrc: "/images/new23.jpeg",
     imageAlt: "Coastal nature and shallow tropical water along Bimini",
   },
 ] as const;
@@ -64,7 +65,7 @@ export default function AboutPage() {
 
       <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
         <img
-          src="/images/hero3.jpg"
+          src="/images/new31.jpeg"
           alt=""
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
           loading="eager"
@@ -98,7 +99,7 @@ export default function AboutPage() {
       </header>
 
       {/* Let us plan your escape */}
-      <RevealSection className="bg-slate-50/50 py-14 lg:py-16" delayMs={0}>
+      {/* <RevealSection className="bg-slate-50/50 py-14 lg:py-16" delayMs={0}>
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
           <h2 className="text-balance text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Let Us Plan Your Escape to Bimini
@@ -128,18 +129,18 @@ export default function AboutPage() {
             </Link>
           </div>
         </div>
-      </RevealSection>
+      </RevealSection> */}
 
       {/* Mission — same grid pattern as tour packages */}
       <RevealSection className="relative z-0 bg-white" delayMs={80}>
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-          <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-6">
               <div className="mx-auto max-w-lg text-center lg:mx-0 lg:max-w-none lg:text-left">
                 <p className="text-xs font-semibold uppercase leading-snug tracking-[0.18em] text-[color:var(--brand-primary)] sm:text-sm">
                   The mission behind every tour.
                 </p>
-                <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
                   Our Mission
                 </h2>
                 <p className="mt-6 text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
@@ -156,9 +157,9 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="group aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 hover:shadow-xl motion-safe:hover:-translate-y-1">
+              <div className="group aspect-[3/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 hover:shadow-xl motion-safe:hover:-translate-y-1">
                 <img
-                  src="/images/about.jpg"
+                  src="/images/new37.jpeg"
                   alt="Bimini shoreline and clear water"
                   className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-105"
                   loading="lazy"
@@ -173,7 +174,7 @@ export default function AboutPage() {
       {/* What we offer */}
       <RevealSection className="pt-12 pb-6 lg:pt-16 lg:pb-8" delayMs={160}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="text-center text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
             What We Offer
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
@@ -187,7 +188,7 @@ export default function AboutPage() {
       {/* Why choose us — content from your island story */}
       <RevealSection className="pt-6 pb-14 lg:pt-8 lg:pb-20" delayMs={240}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="text-center text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
             Why Choose Us
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-pretty text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -219,10 +220,29 @@ export default function AboutPage() {
         </div>
       </RevealSection>
 
+      {/* Full width image section */}
+      <RevealSection
+        className="relative overflow-hidden py-6 lg:py-10"
+        delayMs={280}
+      >
+        <div className="relative h-[320px] w-full sm:h-[420px] lg:h-[520px]">
+          <img
+            src="/images/new41.jpeg"
+            alt="Beautiful Bimini ocean view"
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+
+          {/* Overlay */}
+          {/* <div className="absolute inset-0 bg-black/30" /> */}
+        </div>
+      </RevealSection>
+
       {/* Closing CTA */}
       <RevealSection className="bg-white py-16 lg:py-24" delayMs={320}>
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+          <h2 className="text-2xl font-extrabold tracking-tight text-blue-800 sm:text-3xl">
             Experience Bimini Like Never Before
           </h2>
           <p className="mt-6 text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">

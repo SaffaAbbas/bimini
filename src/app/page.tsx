@@ -32,15 +32,16 @@ export default function Home() {
               Bimini, Bahamas
             </p>
             <h1 className="mt-4 text-balance font-extrabold tracking-tight text-white text-4xl sm:text-6xl lg:text-7xl">
-              Explore the Bimini Islands
+              Explore Bimini
             </h1>
             <p className="mt-4 text-balance text-2xl font-bold tracking-tight text-white sm:text-4xl">
               Bimini Tours & Adventures
             </p>
             <div className="mt-6 h-px w-44 bg-white" />
             <p className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white sm:text-lg">
-              Snorkeling, fishing charters, island tours,
-              eco-adventures—explore, adventure, chill.
+              Experience Bimini beyond the beach with authentic cultural tours
+              that celebrate history, heritage, food, music, and the island’s
+              way of life.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
@@ -79,10 +80,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="tours"
-        className="bg-white text-[color:var(--brand-deep)]"
-      >
+      <section id="tours" className="bg-white text-[color:var(--brand-deep)]">
         <RevealSection
           as="div"
           className="mx-auto max-w-7xl px-6 pt-16 pb-2 lg:px-8 lg:pb-4"
@@ -91,7 +89,7 @@ export default function Home() {
             <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
               TOUR PACKAGES
             </p>
-            <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="mt-3 text-balance text-3xl  text-blue-800 font-extrabold tracking-tight sm:text-4xl">
               Choose your perfect Bimini day
             </h2>
           </div>
