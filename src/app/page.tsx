@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "framer-motion";
 import { BiminiDayCta } from "./components/BiminiDayCta";
 import { HeroVideo } from "./components/HeroVideo";
 import { RevealSection } from "./components/RevealSection";
@@ -8,15 +10,16 @@ export default function Home() {
   const packages = tourPackages;
 
   const galleryImages = [
-    "/images/img1.jpg",
-    "/images/img23.jpg",
-    "/images/img3.jpg",
-    "/images/img22.webp",
+    "/images/img10.jpg",
+    "/images/new45.jpg",
+    "/images/img18.jpg",
+    "/images/new48.jpg",
+    "/images/new49.jpg",
     "/images/img21.webp",
+    "/images/beach2.webp",
     "/images/img9.jpg",
-    "/images/b3.webp",
-    "/images/b4.jpg",
   ] as const;
+  const images = [...galleryImages, ...galleryImages];
 
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
@@ -34,7 +37,7 @@ export default function Home() {
             <h1 className="mt-4 text-balance font-extrabold tracking-tight text-white text-4xl sm:text-6xl lg:text-7xl">
               Explore Bimini
             </h1>
-            <p className="mt-4 text-balance text-2xl font-bold tracking-tight text-white sm:text-4xl">
+            <p className="mt-4 text-balance text-2xl font-normal tracking-tight text-white sm:text-4xl">
               Bimini Tours & Adventures
             </p>
             <div className="mt-6 h-px w-44 bg-white" />
@@ -80,7 +83,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="tours" className="bg-white text-[color:var(--brand-deep)]">
+      {/* <section id="tours" className="bg-white text-[color:var(--brand-deep)]"> */}
+      <section
+        id="tours"
+        className="relative overflow-hidden text-[color:var(--brand-deep)]"
+      >
         <RevealSection
           as="div"
           className="mx-auto max-w-7xl px-6 pt-16 pb-2 lg:px-8 lg:pb-4"
@@ -109,7 +116,7 @@ export default function Home() {
                   delayMs={Math.min(idx * 90, 480)}
                 >
                   <div className="lg:col-span-6">
-                    <div className="group aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:ease-out hover:shadow-xl motion-safe:hover:-translate-y-1">
+                    <div className="group aspect-[4/3] w-full overflow-hidden rounded-1xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:ease-out hover:shadow-xl motion-safe:hover:-translate-y-1">
                       <img
                         src={pkg.imageSrc}
                         alt={pkg.imageAlt}
@@ -179,19 +186,19 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="gallery" className="bg-white py-0">
+      <section id="gallery" className="bg-white py-16 lg:py-24">
         <RevealSection as="div" className="w-full">
           <div className="mx-auto max-w-7xl px-6 pb-4 pt-2 text-center lg:px-8 lg:pb-6 lg:pt-4">
             <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
               GALLERY
             </p>
-            <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-[color:var(--brand-deep)] sm:text-4xl">
+            <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
               Moments from Bimini
             </h2>
           </div>
         </RevealSection>
 
-        <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-4">
+        {/* <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-4">
           {galleryImages.map((src, i) => (
             <RevealSection
               as="div"
@@ -207,6 +214,33 @@ export default function Home() {
               />
             </RevealSection>
           ))}
+        </div> */}
+        <div className="relative w-full overflow-hidden">
+          <motion.div
+            className="flex"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 20,
+              ease: "linear",
+            }}
+          >
+            {images.map((src, i) => (
+              <RevealSection
+                as="div"
+                key={i}
+                className="relative aspect-[4/3] w-[300px] flex-shrink-0 overflow-hidden"
+              >
+                <img
+                  src={src}
+                  alt={`Gallery ${i + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                />
+              </RevealSection>
+            ))}
+          </motion.div>
         </div>
       </section>
 

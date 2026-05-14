@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+    /* Fonts */
+  --font-sans: var(--font-poppins);
   --bg: #ffffff;
   --fg: #0a0a0a;
   /* Brand palette (from the Bimini logo) */
@@ -11,21 +13,6 @@
   --brand-ocean: #12a7ff; /* bright ocean */
   --brand-sea: #19c3ff; /* light sea */
   --accent: var(--brand-primary);
-}
-@font-face {
-  font-family: "Ogg";
-  src: url("/fonts/ogg-regular-trial.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Ogg", serif;
 }
 
 html,

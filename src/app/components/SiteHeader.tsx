@@ -94,9 +94,12 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
     ? "pointer-events-auto bg-white/92 text-slate-900 shadow-sm shadow-black/10 backdrop-blur-sm transition-all duration-200"
     : "pointer-events-auto bg-transparent text-white transition-all duration-200";
 
+  // const logoClassName = solid
+  //   ? "h-16 w-auto object-contain sm:h-14 lg:h-24"
+  //   : "h-26 w-auto object-contain sm:h-20 lg:h-34";
   const logoClassName = solid
-    ? "h-16 w-auto object-contain sm:h-14 lg:h-24"
-    : "h-26 w-auto object-contain sm:h-20 lg:h-34";
+    ? "h-20 w-auto object-contain sm:h-14 lg:h-30 drop-shadow-[0_0_12px_rgba(245, 237, 237, 0.95)]"
+    : "h-30 w-auto object-contain sm:h-20 lg:h-40 drop-shadow-[0_0_18px_rgba(255,255,255,1)]";
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-[999]">

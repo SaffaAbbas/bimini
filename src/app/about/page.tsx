@@ -97,41 +97,6 @@ export default function AboutPage() {
           </svg>
         </div>
       </header>
-
-      {/* Let us plan your escape */}
-      {/* <RevealSection className="bg-slate-50/50 py-14 lg:py-16" delayMs={0}>
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-balance text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            Let Us Plan Your Escape to Bimini
-          </h2>
-          <p className="mt-5 text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
-            Whether you want beach relaxation, thrilling water sports, or a deep
-            taste of Bahamian culture, Bimini is the perfect escape. Close to
-            the U.S., it is ideal for a quick getaway or a longer stay. Explore
-            our tour packages and discover all Bimini has to offer—your
-            adventure in paradise awaits.
-          </p>
-          <p className="mt-4 text-lg font-semibold text-[color:var(--brand-deep)]">
-            Experience Bimini, where every moment is a treasure!
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Link
-              href="/#tours"
-              className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--brand-primary)] px-8 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg active:translate-y-0 sm:w-auto sm:text-base"
-            >
-              View tour packages
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--brand-accent)] px-8 py-3 text-sm font-extrabold text-[color:var(--brand-primary-2)] shadow-md transition-all duration-200 hover:brightness-95 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg active:translate-y-0 sm:w-auto sm:text-base"
-            >
-              Contact us
-            </Link>
-          </div>
-        </div>
-      </RevealSection> */}
-
-      {/* Mission — same grid pattern as tour packages */}
       <RevealSection className="relative z-0 bg-white" delayMs={80}>
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
@@ -147,17 +112,15 @@ export default function AboutPage() {
                   We connect travelers with Bimini&apos;s landscapes and
                   experiences through personalized tours and expert local guides
                   who know the water, wildlife, and history firsthand. We share
-                  the island respectfully—highlighting its culture and natural
+                  the island respectfully highlighting its culture and natural
                   beauty while helping guests feel at ease from the first
-                  question to the last photo. Our goal is straightforward:
-                  lasting memories and a deeper appreciation for Bimini long
-                  after you head home.
+                  question to the last photo.
                 </p>
               </div>
             </div>
 
             <div className="lg:col-span-6">
-              <div className="group aspect-[3/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 hover:shadow-xl motion-safe:hover:-translate-y-1">
+              <div className="group aspect-[3/3] w-full overflow-hidden rounded-1xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 hover:shadow-xl motion-safe:hover:-translate-y-1">
                 <img
                   src="/images/new37.jpeg"
                   alt="Bimini shoreline and clear water"

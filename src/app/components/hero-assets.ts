@@ -1,8 +1,8 @@
 /** Smaller file for mobile / narrow viewports (production load). */
-export const HERO_VIDEO_MOBILE_SRC = "/images/hero4.mp4";
+export const HERO_VIDEO_MOBILE_SRC = "/images/v10.mp4";
 
 /** Full-quality loop for larger screens. */
-export const HERO_VIDEO_DESKTOP_SRC = "/images/hero4.mp4";
+export const HERO_VIDEO_DESKTOP_SRC = "/images/v10.mp4";
 
 
 

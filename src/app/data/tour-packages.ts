@@ -40,7 +40,7 @@ export const tourPackages: TourPackage[] = [
     slug: "real-deal",
     title: "The Real Deal Package",
     category: "Island Tour",
-    imageSrc: "/images/new18.jpeg",
+    imageSrc: "/images/new43.jpg",
     imageAlt: "Bimini island tour experience",
     duration: "2 hours",
     priceLines: [
