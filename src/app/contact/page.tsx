@@ -3,6 +3,7 @@ import { BiminiDayCta } from "../components/BiminiDayCta";
 import { ContactForm } from "../components/ContactForm";
 import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
+import ImageSlider from "../components/ImageSlider";
 
 export default function ContactPage() {
   const packageOptions = [
@@ -32,7 +33,7 @@ export default function ContactPage() {
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <SiteHeader bookNowHref="#form" />
 
-      <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
+      <header className="group relative isolate min-h-[65svh] overflow-hidden sm:min-h-[75svh] lg:min-h-[85svh]">
         <img
           src="/images/new33.jpeg"
           alt=""
@@ -42,7 +43,7 @@ export default function ContactPage() {
           fetchPriority="high"
         />
 
-        <div className="mx-auto flex min-h-[48svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[50svh] lg:px-8 lg:pb-16 lg:pt-28">
+        <div className="mx-auto flex min-h-[65svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[75svh] lg:px-8 lg:pb-16 lg:pt-28">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               Contact Us
@@ -73,29 +74,74 @@ export default function ContactPage() {
         delayMs={0}
       >
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <div className="space-y-3 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 transition-all duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg">
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-sm font-extrabold text-slate-900">Phone</p>
-                <p className="text-sm font-semibold text-slate-700">
-                  (242) 826‑TOUR (8687)
-                </p>
-              </div>
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-sm font-extrabold text-slate-900">Email</p>
-                <p className="text-sm font-semibold text-slate-700">
-                  bookings@toursbimini.com
-                </p>
-              </div>
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-sm font-extrabold text-slate-900">Hours</p>
-                <p className="text-sm font-semibold text-slate-700">
-                  8:00 AM – 5:00 PM
-                </p>
-              </div>
-              <div className="pt-2 text-xs font-semibold text-slate-600">
-                Cancellation Policy: 48 hours before = full refund. After that =
-                50% fee.
+          <div className="lg:col-span-5 flex items-center">
+            <div className="max-w-md">
+              <h2 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                Let’s plan your perfect island adventure.
+              </h2>
+
+              <p className="mt-2 text-3xl font-semibold leading-tight text-[color:var(--brand-primary)] sm:text-4xl">
+                We’ll keep it simple.
+              </p>
+
+              <div className="mt-14 space-y-10">
+                {/* Email */}
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--brand-primary)]/20 bg-[color:var(--brand-primary)]/5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-[color:var(--brand-primary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-18 8h18V8H3v8z"
+                      />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <p className="text-lg font-semibold text-slate-900">
+                      Email Address
+                    </p>
+                    <p className="mt-1 text-base text-slate-600">
+                      bookings@toursbimini.com
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--brand-primary)]/20 bg-[color:var(--brand-primary)]/5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-[color:var(--brand-primary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.57 2.29a2 2 0 01-.45 1.86l-1.27 1.27a16 16 0 006.36 6.36l1.27-1.27a2 2 0 011.86-.45l2.29.57A2 2 0 0121 16.72V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <p className="text-lg font-semibold text-slate-900">
+                      Phone No
+                    </p>
+                    <p className="mt-1 text-base text-slate-600">
+                      (242) 826-TOUR (8687)
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -122,6 +168,7 @@ export default function ContactPage() {
           </div>
         </div>
       </RevealSection>
+      <ImageSlider />
 
       <BiminiDayCta />
     </main>

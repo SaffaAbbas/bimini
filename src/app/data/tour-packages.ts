@@ -85,7 +85,7 @@ export const tourPackages: TourPackage[] = [
         a: "Tell us when you book and we will do our best to coordinate with the restaurant.",
       },
     ],
-    gallery: ["/images/beach.webp", "/images/img3.jpg", "/images/img4.jpg"],
+    gallery: ["/images/beach.webp", "/images/img3.jpg",],
   },
   {
     slug: "bimini-adventure",

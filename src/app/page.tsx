@@ -115,7 +115,7 @@ export default function Home() {
                   }`}
                   delayMs={Math.min(idx * 90, 480)}
                 >
-                  <div className="lg:col-span-6">
+                  <div className="lg:col-span-7">
                     <div className="group aspect-[4/3] w-full overflow-hidden rounded-1xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:ease-out hover:shadow-xl motion-safe:hover:-translate-y-1">
                       <img
                         src={pkg.imageSrc}
@@ -126,7 +126,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="lg:col-span-6">
+                  <div className="lg:col-span-5">
                     <div className="mx-auto max-w-lg text-center lg:text-left">
                       <h3 className="text-balance text-2xl font-extrabold tracking-tight text-[color:var(--brand-primary)] sm:text-3xl">
                         {pkg.title}

@@ -6,10 +6,10 @@ import { RevealSection } from "./RevealSection";
 export function BiminiDayCta() {
   return (
     // <RevealSection className="group relative isolate w-full overflow-hidden -mt-1px">
-    <RevealSection className="group relative isolate w-full overflow-hidden mt-6 sm:mt-10 lg:mt-14">
+    <RevealSection className="group relative isolate w-full overflow-hidden mt-2 sm:mt-6 lg:mt-10">
       <div className="absolute inset-0 -z-20 bg-[url('/images/img161.jpg')] bg-cover bg-center motion-safe:transition-transform motion-safe:duration-[900ms] motion-safe:ease-out motion-safe:group-hover:scale-105" />
       {/* <div className="mx-auto flex min-h-[280px] max-w-7xl items-center px-6 py-10 sm:min-h-[320px] sm:py-12 lg:min-h-[380px] lg:px-8 lg:py-14"> */}
-      <div className="mx-auto flex min-h-[340px] max-w-7xl items-center px-6 py-10 sm:min-h-[400px] sm:py-12 lg:min-h-[480px] lg:px-8 lg:py-14">
+      <div className="mx-auto flex min-h-[400px] max-w-7xl items-center px-6 py-10 sm:min-h-[400px] sm:py-12 lg:min-h-[560px] lg:px-8 lg:py-14">
         <div className="max-w-2xl">
           <h3 className="text-balance text-3xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)] sm:text-4xl">
             Make today a Bimini day.

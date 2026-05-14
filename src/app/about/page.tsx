@@ -63,7 +63,7 @@ export default function AboutPage() {
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <SiteHeader bookNowHref="/contact" />
 
-      <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
+      <header className="group relative isolate min-h-[65svh] overflow-hidden sm:min-h-[75svh] lg:min-h-[85svh]">
         <img
           src="/images/new31.jpeg"
           alt=""
@@ -73,7 +73,7 @@ export default function AboutPage() {
           fetchPriority="high"
         />
 
-        <div className="mx-auto flex min-h-[48svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[50svh] lg:px-8 lg:pb-16 lg:pt-28">
+        <div className="mx-auto flex min-h-[65svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[75svh] lg:px-8 lg:pb-16 lg:pt-28">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               About Us
