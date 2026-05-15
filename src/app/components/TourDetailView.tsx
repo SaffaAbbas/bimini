@@ -34,11 +34,24 @@ export function TourDetailView({ tour }: { tour: TourPackage }) {
         />
 
         <div className="mx-auto flex min-h-[95svh] max-w-7xl flex-col justify-end px-6 pb-16 pt-24 sm:min-h-[78svh] sm:pb-20 lg:px-8 lg:pt-28 lg:min-h-[90svh]">
-          <p className="text-center text-xs font-extrabold uppercase tracking-[0.2em] text-white/90">
+          <p
+            className="
+    text-center text-xs font-extrabold uppercase
+    tracking-[0.2em] text-white
+    [text-shadow:0_2px_8px_rgba(0,0,0,1),0_0_12px_rgba(0,0,0,0.9)]
+  "
+          >
             Tour packages
           </p>
 
-          <h1 className="mt-3 text-center font-serif text-3xl font-bold tracking-tight text-white text-balance sm:text-4xl md:text-5xl">
+          <h1
+            className="
+    mt-3 text-center font-serif text-3xl font-bold tracking-tight
+    text-white text-balance
+    drop-shadow-[0_3px_10px_rgba(0,0,0,0.95)]
+    sm:text-4xl md:text-5xl
+  "
+          >
             {tour.title}
           </h1>
         </div>
