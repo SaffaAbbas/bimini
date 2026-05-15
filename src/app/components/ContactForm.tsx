@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { btnPrimary } from "./button-styles";
 import { fadeUp, tapScale } from "../lib/motion";
 import { TOUR_TIME_LABELS } from "../lib/tour-checkout-utils";
 
@@ -42,7 +43,11 @@ function mergePreferredTime(message: string, timeParam: string | null): string {
   return stripped ? `${stripped}\n\n${line}` : line;
 }
 
-function mergePrefixedLine(message: string, linePrefix: string, fullLine: string | null): string {
+function mergePrefixedLine(
+  message: string,
+  linePrefix: string,
+  fullLine: string | null,
+): string {
   if (!fullLine) return message;
   const stripped = message
     .split("\n")
@@ -99,16 +104,20 @@ export function ContactForm({
         msg = mergePrefixedLine(
           msg,
           "Estimated cart total",
-          `Estimated cart total (before VAT): $${estimateTotal}`
+          `Estimated cart total (before VAT): $${estimateTotal}`,
         );
       }
       if (pay === "paypal") {
-        msg = mergePrefixedLine(msg, "Preferred payment:", "Preferred payment: PayPal");
+        msg = mergePrefixedLine(
+          msg,
+          "Preferred payment:",
+          "Preferred payment: PayPal",
+        );
       } else if (pay === "card") {
         msg = mergePrefixedLine(
           msg,
           "Preferred payment:",
-          "Preferred payment: Credit / debit card"
+          "Preferred payment: Credit / debit card",
         );
       }
       next.message = msg;
@@ -187,11 +196,11 @@ export function ContactForm({
             exit="hidden"
             className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 shadow-sm"
           >
-          <p className="text-sm font-extrabold">Message sent!</p>
-          <p className="mt-1 text-sm text-emerald-800/90">
-            We’ll get back to you shortly. If it’s urgent, call us directly.
-          </p>
-        </motion.div>
+            <p className="text-sm font-extrabold">Message sent!</p>
+            <p className="mt-1 text-sm text-emerald-800/90">
+              We’ll get back to you shortly. If it’s urgent, call us directly.
+            </p>
+          </motion.div>
         ) : null}
       </AnimatePresence>
 
@@ -318,7 +327,7 @@ export function ContactForm({
           disabled={!canSubmit}
           whileHover={canSubmit ? { y: -2 } : undefined}
           whileTap={canSubmit ? tapScale : undefined}
-          className="inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+          className={`${btnPrimary} transition-all duration-200 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50`}
         >
           Send Message
         </motion.button>
@@ -326,4 +335,3 @@ export function ContactForm({
     </form>
   );
 }
-

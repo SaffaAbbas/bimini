@@ -2,32 +2,139 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { btnAccent, btnAccentFullWidth } from "./button-styles";
 import { easeOut, tapScale } from "../lib/motion";
 
 const accent = "text-[color:var(--brand-accent)]";
 
 type ActiveTab = "home" | "tours" | "gallery" | "about" | "contact";
 
+function resolveActiveTab(pathname: string, hash: string): ActiveTab {
+  if (pathname === "/about") return "about";
+  if (pathname === "/contact") return "contact";
+  if (pathname === "/gallery") return "gallery";
+  if (pathname.startsWith("/tours")) return "tours";
+
+  if (pathname === "/") {
+    const h = hash.replace(/^#/, "").toLowerCase();
+    if (h === "tours") return "tours";
+    if (h === "gallery") return "gallery";
+    return "home";
+  }
+
+  return "home";
+}
+
 export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
   const pathname = usePathname();
-
+  const [hash, setHash] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<ActiveTab>("home");
 
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
+
+  const syncHash = useCallback(() => {
+    setHash(typeof window !== "undefined" ? window.location.hash : "");
+  }, []);
+
+  const setHashInUrl = useCallback(
+    (fragment: string | null) => {
+      if (typeof window === "undefined") return;
+      const next = fragment ? `#${fragment.replace(/^#/, "")}` : "";
+      if (window.location.hash !== next) {
+        window.history.pushState(null, "", next ? `/${next}` : "/");
+      }
+      setHash(next);
+    },
+    [],
+  );
+
+  /** Next.js same-page hash links scroll but often skip updating location.hash */
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      closeMobile();
+
+      const hashIndex = href.indexOf("#");
+      if (hashIndex === -1) {
+        if (href === "/" && pathname === "/") {
+          e.preventDefault();
+          setHashInUrl(null);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        return;
+      }
+
+      const fragment = href.slice(hashIndex + 1);
+      const targetPath = href.slice(0, hashIndex) || "/";
+
+      if (targetPath === "/" && pathname === "/") {
+        e.preventDefault();
+        setHashInUrl(fragment);
+        document.getElementById(fragment)?.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      if (targetPath === "/" && pathname !== "/") {
+        setHashInUrl(fragment);
+      }
+    },
+    [pathname, setHashInUrl, closeMobile],
+  );
 
   useEffect(() => {
-    if (pathname === "/about") setActiveTab("about");
-    else if (pathname === "/contact") setActiveTab("contact");
-    else if (pathname === "/") {
-      if (!activeTab || activeTab === "about" || activeTab === "contact") {
-        setActiveTab("home");
+    syncHash();
+    const t1 = window.setTimeout(syncHash, 0);
+    const t2 = window.setTimeout(syncHash, 150);
+    window.addEventListener("hashchange", syncHash);
+    window.addEventListener("popstate", syncHash);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener("hashchange", syncHash);
+      window.removeEventListener("popstate", syncHash);
+    };
+  }, [syncHash, pathname]);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const tours = document.getElementById("tours");
+    if (!tours) return;
+
+    const onScroll = () => {
+      const nearTop = window.scrollY < 80;
+      const rect = tours.getBoundingClientRect();
+      const inTours =
+        rect.top <= 140 && rect.bottom > window.innerHeight * 0.25;
+
+      if (nearTop) {
+        if (window.location.hash) {
+          window.history.replaceState(null, "", "/");
+        }
+        setHash("");
+        return;
       }
-    }
-  }, [pathname, activeTab]);
+      if (inTours) {
+        const current = window.location.hash.replace(/^#/, "");
+        if (current !== "tours") {
+          window.history.replaceState(null, "", "/#tours");
+        }
+        setHash("#tours");
+      }
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
+
+  const activeTab = useMemo(
+    () => resolveActiveTab(pathname, hash),
+    [pathname, hash],
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -45,11 +152,11 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
 
   const links = useMemo(
     () => [
-      { label: "Home", key: "home", href: "/" },
-      { label: "Tours", key: "tours", href: "/#tours" },
-      { label: "Gallery", key: "gallery", href: "/#gallery" },
-      { label: "About Us", key: "about", href: "/about" },
-      { label: "Contact", key: "contact", href: "/contact" },
+      { label: "Home", key: "home" as const, href: "/" },
+      { label: "Tours", key: "tours" as const, href: "/#tours" },
+      { label: "Gallery", key: "gallery" as const, href: "/gallery" },
+      { label: "About Us", key: "about" as const, href: "/about" },
+      { label: "Contact", key: "contact" as const, href: "/contact" },
     ],
     [],
   );
@@ -84,7 +191,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
           <Link
             href="/"
             className="pointer-events-auto"
-            onClick={() => setActiveTab("home")}
+            onClick={closeMobile}
           >
             <motion.div
               className="relative"
@@ -93,7 +200,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
             >
               <motion.div
-                className="absolute inset-0 -z-10 rounded-full bg-white/30 blur-xl scale-110"
+                className="absolute inset-0 -z-10 scale-110 rounded-full bg-white/30 blur-xl"
                 animate={{ opacity: solid ? 0.5 : 1 }}
                 transition={{ duration: 0.3 }}
               />
@@ -115,10 +222,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                 <Link
                   key={l.label}
                   href={l.href}
-                  onClick={() => {
-                    setActiveTab(l.key as ActiveTab);
-                    setMobileOpen(false);
-                  }}
+                  onClick={(e) => handleNavClick(e, l.href)}
                   className={
                     solid
                       ? active
@@ -128,6 +232,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                         ? `${base} ${accent}`
                         : `${base} text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)] hover:text-white/90`
                   }
+                  aria-current={active ? "page" : undefined}
                 >
                   {l.label}
                   {active ? (
@@ -146,7 +251,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
             })}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <motion.div className="flex items-center gap-3">
             <motion.div
               whileHover={{ y: -2 }}
               whileTap={tapScale}
@@ -154,7 +259,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
             >
               <Link
                 href={bookNowHref}
-                className="inline-flex rounded-xl bg-[color:var(--brand-accent)] px-4 py-2 font-semibold text-[color:var(--brand-primary-2)] shadow-sm transition-shadow hover:shadow-md"
+                className={btnAccent}
               >
                 Book Now
               </Link>
@@ -191,7 +296,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                 )}
               </svg>
             </motion.button>
-          </div>
+          </motion.div>
         </motion.div>
 
         <AnimatePresence>
@@ -227,15 +332,13 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                     >
                       <Link
                         href={l.href}
-                        onClick={() => {
-                          setActiveTab(l.key as ActiveTab);
-                          setMobileOpen(false);
-                        }}
+                        onClick={(e) => handleNavClick(e, l.href)}
                         className={`block rounded-lg py-3 text-center font-semibold transition-colors ${
                           active
                             ? `${accent} bg-slate-50`
                             : "text-slate-700 hover:bg-slate-50"
                         }`}
+                        aria-current={active ? "page" : undefined}
                       >
                         {l.label}
                       </Link>
@@ -251,8 +354,8 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                 >
                   <Link
                     href={bookNowHref}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex w-full items-center justify-center rounded-xl bg-[color:var(--brand-accent)] px-4 py-3 font-semibold text-[color:var(--brand-primary-2)]"
+                    onClick={closeMobile}
+                    className={btnAccentFullWidth}
                   >
                     Book Now
                   </Link>

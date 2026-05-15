@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { AnimatedButton } from "../components/AnimatedButton";
 import { BiminiDayCta } from "../components/BiminiDayCta";
+import { HighlightsStrip } from "../components/HighlightsStrip";
+import { MissionSection } from "../components/MissionSection";
 import { PageHero } from "../components/PageHero";
+import { ParallaxQuoteBanner } from "../components/ParallaxQuoteBanner";
 import { RevealSection } from "../components/RevealSection";
+import { SectionHeading } from "../components/SectionHeading";
 import { SiteHeader } from "../components/SiteHeader";
 import { WhatWeOfferCards } from "../components/WhatWeOfferCards";
+import { WhyChooseGrid } from "../components/WhyChooseGrid";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -59,6 +64,13 @@ const offerings = [
   },
 ] as const;
 
+const highlights = [
+  { value: "Bahamas", label: "Westernmost Out Islands" },
+  { value: "50 mi", label: "From Miami, Florida" },
+  { value: "2", label: "Islands — North & South Bimini" },
+  { value: "Local", label: "Bahamian guides & captains" },
+] as const;
+
 export default function AboutPage() {
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
@@ -68,130 +80,55 @@ export default function AboutPage() {
         title="About Us"
         subtitle="Bimini: the gateway to paradise—where every moment is a treasure."
         imageSrc="/images/new31.jpeg"
+        imageAlt="Bimini coastline"
         minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[85svh]"
         showWave
       />
-      <RevealSection className="relative z-0 bg-white" delayMs={80}>
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-6">
-              <div className="mx-auto max-w-lg text-center lg:mx-0 lg:max-w-none lg:text-left">
-                <p className="text-xs font-semibold uppercase leading-snug tracking-[0.18em] text-[color:var(--brand-primary)] sm:text-sm">
-                  The mission behind every tour.
-                </p>
-                <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
-                  Our Mission
-                </h2>
-                <p className="mt-6 text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
-                  We connect travelers with Bimini&apos;s landscapes and
-                  experiences through personalized tours and expert local guides
-                  who know the water, wildlife, and history firsthand. We share
-                  the island respectfully highlighting its culture and natural
-                  beauty while helping guests feel at ease from the first
-                  question to the last photo.
-                </p>
-              </div>
-            </div>
 
-            <div className="lg:col-span-6">
-              <div className="group aspect-[3/3] w-full overflow-hidden rounded-1xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 hover:shadow-xl motion-safe:hover:-translate-y-1">
-                <img
-                  src="/images/new37.jpeg"
-                  alt="Bimini shoreline and clear water"
-                  className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      <RevealSection className="relative z-0 bg-white" delayMs={80}>
+        <MissionSection />
       </RevealSection>
 
-      {/* What we offer */}
-      <RevealSection className="pt-12 pb-6 lg:pt-16 lg:pb-8" delayMs={160}>
+      <RevealSection delayMs={120} className="p-0">
+        <HighlightsStrip items={highlights} />
+      </RevealSection>
+
+      <RevealSection className="pt-12 pb-6 lg:pt-20 lg:pb-10" delayMs={160}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
-            What We Offer
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-center text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
-            Bimini Tours &amp; Adventures is proud to offer a diverse range of
-            tours and activities designed to cater to every type of traveler.
-          </p>
+          <SectionHeading
+            eyebrow="WHAT WE OFFER"
+            title="Tours for every kind of traveler"
+            subtitle="Snorkeling, fishing, culture, and eco-adventures—each led by guides who call Bimini home."
+          />
           <WhatWeOfferCards items={offerings} />
         </div>
       </RevealSection>
 
-      {/* Why choose us — content from your island story */}
-      <RevealSection className="pt-6 pb-14 lg:pt-8 lg:pb-20" delayMs={240}>
+      <RevealSection className="bg-slate-50/60 py-14 lg:py-20" delayMs={200}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
-            Why Choose Us
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-pretty text-sm leading-relaxed text-slate-600 sm:text-base">
-            A quick snapshot of what makes Bimini—and touring with us—special.
-          </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-6">
-            {whyChoose.map((card) => (
-              <div
-                key={card.title}
-                className="flex h-full flex-col rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-200/80 transition-all duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-lg sm:p-7"
-              >
-                <div className="flex min-h-[3.25rem] items-center justify-center">
-                  <h3 className="text-balance text-base font-extrabold text-[color:var(--brand-primary)] sm:text-lg">
-                    {card.title}
-                  </h3>
-                </div>
-                <div
-                  className="mx-auto my-4 h-px w-14 shrink-0 bg-[color:var(--brand-primary)]/25"
-                  aria-hidden
-                />
-                <div className="flex flex-1 items-start justify-center">
-                  <p className="text-pretty text-sm leading-relaxed text-slate-600 sm:text-[0.9375rem]">
-                    {card.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </RevealSection>
-
-      {/* Full width image section */}
-      <RevealSection
-        className="relative overflow-hidden py-6 lg:py-10"
-        delayMs={280}
-      >
-        <div className="relative h-[320px] w-full sm:h-[420px] lg:h-[520px]">
-          <img
-            src="/images/new41.jpeg"
-            alt="Beautiful Bimini ocean view"
-            className="h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
+          <SectionHeading
+            eyebrow="WHY CHOOSE US"
+            title="What makes Bimini—and us—special"
+            subtitle="A quick snapshot of the island story and how we help you experience it authentically."
           />
-
-          {/* Overlay */}
-          {/* <div className="absolute inset-0 bg-black/30" /> */}
+          <WhyChooseGrid items={whyChoose} />
         </div>
       </RevealSection>
 
-      {/* Closing CTA */}
-      <RevealSection className="bg-white py-16 lg:py-24" delayMs={320}>
+      <ParallaxQuoteBanner
+        imageSrc="/images/new41.jpeg"
+        imageAlt="Beautiful Bimini ocean view"
+        // quote="The sea, once it casts its spell, holds one in its net of wonder forever."
+        // attribution="— Jacques Cousteau"
+      />
+
+      <RevealSection className="bg-white py-16 lg:py-24" delayMs={280}>
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-2xl font-extrabold tracking-tight text-blue-800 sm:text-3xl">
-            Experience Bimini Like Never Before
-          </h2>
-          <p className="mt-6 text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
-            Join us at Bimini Tours &amp; Adventures and embark on a journey
-            filled with exploration, relaxation, and adventure. Our friendly and
-            knowledgeable team is here to ensure that your visit to Bimini is
-            not just a trip, but an experience of a lifetime. Whether
-            you&apos;re looking for thrilling activities, cultural insights, or
-            simply a day of relaxation on the beach, we have the perfect tour
-            for you.
-          </p>
-          <p className="mt-4 text-pretty text-base font-semibold text-slate-800 sm:text-lg">
+          <SectionHeading
+            title="Experience Bimini like never before"
+            subtitle="Join us for exploration, relaxation, and adventure. Whether you want thrills, culture, or a quiet beach day—we have the perfect tour for you."
+          />
+          <p className="mt-6 text-pretty text-base font-semibold text-slate-800 sm:text-lg">
             Book your adventure today and discover the magic of Bimini with
             Bimini Tours &amp; Adventures!
           </p>

@@ -206,7 +206,7 @@ export function SiteFooter() {
                 <li>
                   <a
                     className="inline-block transition-colors duration-200 hover:text-slate-900"
-                    href="/#gallery"
+                    href="/gallery"
                   >
                     Gallery
                   </a>

@@ -35,16 +35,8 @@ export function PageHero({
         decoding="async"
         fetchPriority="high"
       />
-      <motion.div
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/25 via-black/15 to-black/45"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        aria-hidden
-      />
-
       <div
-        className={`mx-auto flex ${minHeightClass} max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32`}
+        className={`relative z-10 mx-auto flex ${minHeightClass} max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32`}
       >
         <motion.div
           className="flex flex-1 flex-col items-center justify-center text-center"
@@ -54,7 +46,7 @@ export function PageHero({
         >
           <motion.h1
             variants={fadeUp}
-            className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl"
+            className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
           >
             {title}
           </motion.h1>

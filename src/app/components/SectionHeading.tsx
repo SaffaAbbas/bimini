@@ -19,9 +19,7 @@ export function SectionHeading({
   className = "",
 }: SectionHeadingProps) {
   const alignClass =
-    align === "center"
-      ? "mx-auto max-w-3xl text-center"
-      : "max-w-lg text-left";
+    align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-lg text-left";
 
   return (
     <motion.div
@@ -41,7 +39,7 @@ export function SectionHeading({
       ) : null}
       <motion.h2
         variants={fadeUp}
-        className={`${eyebrow ? "mt-3" : ""} text-balance text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl`}
+        className={`${eyebrow ? "mt-3" : ""} text-balance text-3xl font-extrabold tracking-tight text-[color:var(--brand-primary-2)] sm:text-4xl`}
       >
         {title}
       </motion.h2>

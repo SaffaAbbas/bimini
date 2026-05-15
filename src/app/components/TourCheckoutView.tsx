@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
+import { btnPrimary, btnPrimaryFullWidth } from "./button-styles";
 import { buildContactHref, formatMoneyUsd } from "../lib/tour-checkout-utils";
 
 const COUPON_CODES: Record<string, number> = {
@@ -209,7 +210,7 @@ export function TourCheckoutView({
             <button
               type="button"
               onClick={applyCoupon}
-              className="shrink-0 rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-sm transition hover:brightness-95"
+              className={`shrink-0 ${btnPrimary}`}
             >
               Apply coupon
             </button>
@@ -247,14 +248,14 @@ export function TourCheckoutView({
             <div className="space-y-3 pt-2">
               <Link
                 href={buildContactHref({ ...contactBase, pay: "message" })}
-                className="flex w-full items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-4 py-3.5 text-center text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition hover:brightness-95"
+                className={`${btnPrimaryFullWidth} uppercase tracking-wide`}
               >
                 Proceed to checkout
               </Link>
               <p className="text-center text-xs font-semibold text-slate-400">— or —</p>
               <Link
                 href={buildContactHref({ ...contactBase, pay: "paypal" })}
-                className="flex w-full items-center justify-center rounded-xl px-4 py-3.5 text-center text-sm font-extrabold text-[#003087] shadow-sm transition hover:brightness-95"
+                className="flex w-full items-center justify-center rounded-full px-4 py-3.5 text-center text-sm font-extrabold text-[#003087] shadow-sm transition hover:brightness-95"
                 style={{ backgroundColor: "#FFC439" }}
               >
                 Pay with PayPal
@@ -277,7 +278,7 @@ export function TourCheckoutView({
                 </div>
                 <Link
                   href={buildContactHref({ ...contactBase, pay: "card" })}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition hover:bg-slate-800"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition hover:bg-slate-800"
                 >
                   <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                     <rect x="2" y="5" width="20" height="14" rx="2" />

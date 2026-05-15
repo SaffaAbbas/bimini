@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { btnAccentDisabled, btnAccentFullWidth } from "./button-styles";
 import { useMemo, useState } from "react";
 import { BOOKING_FOOTNOTE } from "../data/tour-packages";
 
@@ -216,12 +217,12 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
       {selected ? (
         <Link
           href={checkoutHref}
-          className="mt-3 flex w-full items-center justify-center rounded-lg bg-[color:var(--brand-accent)] px-4 py-2.5 text-xs font-extrabold uppercase tracking-wide text-[color:var(--brand-primary-2)] shadow-sm transition hover:brightness-95 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:translate-y-0 sm:py-3 sm:text-sm"
+          className={`mt-3 ${btnAccentFullWidth} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:translate-y-0`}
         >
           Book now
         </Link>
       ) : (
-        <span className="mt-3 flex w-full cursor-not-allowed items-center justify-center rounded-lg bg-slate-200 px-4 py-2.5 text-xs font-extrabold uppercase tracking-wide text-slate-500 sm:py-3 sm:text-sm">
+        <span className={`mt-3 ${btnAccentDisabled}`}>
           Book now
         </span>
       )}

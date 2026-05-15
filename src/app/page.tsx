@@ -1,11 +1,13 @@
-"use client";
+﻿"use client";
 import { motion } from "framer-motion";
 import { AnimatedAnchor } from "./components/AnimatedButton";
+import { btnPrimary } from "./components/button-styles";
 import { BiminiDayCta } from "./components/BiminiDayCta";
 import { HeroVideo } from "./components/HeroVideo";
 import { RevealSection } from "./components/RevealSection";
 import { SectionHeading } from "./components/SectionHeading";
 import { SiteHeader } from "./components/SiteHeader";
+import { GallerySection } from "./components/GallerySection";
 import { tourPackages } from "./data/tour-packages";
 import {
   fadeUp,
@@ -18,18 +20,6 @@ import {
 
 export default function Home() {
   const packages = tourPackages;
-
-  const galleryImages = [
-    "/images/img10.jpg",
-    "/images/new45.jpg",
-    "/images/img18.jpg",
-    "/images/new48.jpg",
-    "/images/new49.jpg",
-    "/images/img21.webp",
-    "/images/beach2.webp",
-    "/images/img9.jpg",
-  ] as const;
-  const images = [...galleryImages, ...galleryImages];
 
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
@@ -68,7 +58,11 @@ export default function Home() {
               className="mt-6 h-px w-44 origin-center bg-white"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: 0.5,
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             />
             <motion.p
               variants={fadeUp}
@@ -172,7 +166,10 @@ export default function Home() {
                   >
                     <motion.div
                       className="group aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200"
-                      whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(6,42,68,0.12)" }}
+                      whileHover={{
+                        y: -4,
+                        boxShadow: "0 20px 40px rgba(6,42,68,0.12)",
+                      }}
                       transition={{ duration: 0.3 }}
                     >
                       <img
@@ -240,7 +237,7 @@ export default function Home() {
                       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:justify-start justify-center">
                         <AnimatedAnchor
                           href={`/tours/${pkg.slug}`}
-                          className="inline-flex items-center justify-center rounded-md bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md hover:brightness-95 hover:shadow-lg"
+                          className={btnPrimary}
                         >
                           Book Now
                         </AnimatedAnchor>
@@ -254,45 +251,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <section id="gallery" className="bg-white py-16 lg:py-24">
-        <RevealSection as="div" className="w-full">
-          <motion.div className="mx-auto max-w-7xl px-6 pb-4 pt-2 text-center lg:px-8 lg:pb-6 lg:pt-4">
-            <SectionHeading
-              eyebrow="GALLERY"
-              title="Moments from Bimini"
-            />
-          </motion.div>
-        </RevealSection>
-
-        <div className="relative w-full overflow-hidden">
-          <motion.div
-            className="flex gap-0"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 28,
-              ease: "linear",
-            }}
-          >
-            {images.map((src, i) => (
-              <motion.div
-                key={`${src}-${i}`}
-                className="relative aspect-[4/3] w-[300px] shrink-0 overflow-hidden"
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.35 }}
-              >
-                <img
-                  src={src}
-                  alt={`Gallery ${(i % galleryImages.length) + 1}`}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <GallerySection variant="marquee" showViewAll className="py-0" />
 
       <BiminiDayCta />
     </main>
