@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { MotionProvider } from "./components/MotionProvider";
 import { SiteFooter } from "./components/SiteFooter";
 
 const poppins = Poppins({
@@ -23,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        {children}
-        <SiteFooter />
+        <MotionProvider>
+          {children}
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );

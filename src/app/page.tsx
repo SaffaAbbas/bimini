@@ -1,10 +1,20 @@
 "use client";
 import { motion } from "framer-motion";
+import { AnimatedAnchor } from "./components/AnimatedButton";
 import { BiminiDayCta } from "./components/BiminiDayCta";
 import { HeroVideo } from "./components/HeroVideo";
 import { RevealSection } from "./components/RevealSection";
+import { SectionHeading } from "./components/SectionHeading";
 import { SiteHeader } from "./components/SiteHeader";
 import { tourPackages } from "./data/tour-packages";
+import {
+  fadeUp,
+  heroStagger,
+  hoverLift,
+  slideFromLeft,
+  slideFromRight,
+  viewportOnce,
+} from "./lib/motion";
 
 export default function Home() {
   const packages = tourPackages;
@@ -23,48 +33,78 @@ export default function Home() {
 
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
-      {/* fixed header */}
       <SiteHeader bookNowHref="/contact" />
 
       <section className="group relative isolate min-h-[100svh] overflow-hidden">
         <HeroVideo />
 
         <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col px-6 pb-0 pt-28 lg:px-8 lg:pt-32">
-          <div className="flex flex-1 flex-col items-center justify-center pb-28 pt-12 text-center sm:pb-32 sm:pt-16 lg:pb-40">
-            <p className="text-sm font-bold tracking-wide text-white">
+          <motion.div
+            className="flex flex-1 flex-col items-center justify-center pb-28 pt-12 text-center sm:pb-32 sm:pt-16 lg:pb-40"
+            variants={heroStagger}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-sm font-bold tracking-wide text-white"
+            >
               Bimini, Bahamas
-            </p>
-            <h1 className="mt-4 text-balance font-extrabold tracking-tight text-white text-4xl sm:text-6xl lg:text-7xl">
+            </motion.p>
+            <motion.h1
+              variants={fadeUp}
+              className="mt-4 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+            >
               Explore Bimini
-            </h1>
-            <p className="mt-4 text-balance text-2xl font-normal tracking-tight text-white sm:text-4xl">
+            </motion.h1>
+            <motion.p
+              variants={fadeUp}
+              className="mt-4 text-balance text-2xl font-normal tracking-tight text-white sm:text-4xl"
+            >
               Bimini Tours & Adventures
-            </p>
-            <div className="mt-6 h-px w-44 bg-white" />
-            <p className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white sm:text-lg">
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="mt-6 h-px w-44 origin-center bg-white"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <motion.p
+              variants={fadeUp}
+              className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white sm:text-lg"
+            >
               Experience Bimini beyond the beach with authentic cultural tours
               that celebrate history, heritage, food, music, and the island’s
               way of life.
-            </p>
+            </motion.p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-              <a
+            <motion.div
+              variants={fadeUp}
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center"
+            >
+              <AnimatedAnchor
                 href="#tours"
-                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#063a5a] shadow-md transition-all duration-200 hover:bg-slate-100 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg active:translate-y-0"
+                className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#063a5a] shadow-md hover:bg-slate-100 hover:shadow-lg"
               >
                 View Tours
-              </a>
-              <a
+              </AnimatedAnchor>
+              <AnimatedAnchor
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-7 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-white hover:text-[#063a5a] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg active:translate-y-0"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-7 py-3 text-sm font-semibold text-white shadow-sm hover:bg-white hover:text-[#063a5a] hover:shadow-lg"
               >
                 Contact Us
-              </a>
-            </div>
-          </div>
+              </AnimatedAnchor>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10">
+        <motion.div
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
           <svg
             viewBox="0 0 1440 120"
             className="h-24 w-full"
@@ -79,11 +119,15 @@ export default function Home() {
               fill="#ffffff"
             />
           </svg>
-          <div className="h-10 bg-white" />
-        </div>
+          <motion.div
+            className="h-10 bg-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.4 }}
+          />
+        </motion.div>
       </section>
 
-      {/* <section id="tours" className="bg-white text-[color:var(--brand-deep)]"> */}
       <section
         id="tours"
         className="relative overflow-hidden text-[color:var(--brand-deep)]"
@@ -92,42 +136,62 @@ export default function Home() {
           as="div"
           className="mx-auto max-w-7xl px-6 pt-16 pb-2 lg:px-8 lg:pb-4"
         >
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
-              TOUR PACKAGES
-            </p>
-            <h2 className="mt-3 text-balance text-3xl  text-blue-800 font-extrabold tracking-tight sm:text-4xl">
-              Choose your perfect Bimini day
-            </h2>
-          </div>
+          <SectionHeading
+            eyebrow="TOUR PACKAGES"
+            title="Choose your perfect Bimini day"
+          />
         </RevealSection>
 
-        <div className="mx-auto max-w-7xl px-6 pb-6 lg:px-8 lg:pb-10">
+        <motion.div
+          className="mx-auto max-w-7xl px-6 pb-6 lg:px-8 lg:pb-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
           <div className="mt-12 space-y-32 lg:mt-16">
             {packages.map((pkg, idx) => {
               const reverse = idx % 2 === 1;
+              const imageVariants = reverse ? slideFromRight : slideFromLeft;
+              const textVariants = reverse ? slideFromLeft : slideFromRight;
+
               return (
                 <RevealSection
                   as="article"
                   key={pkg.slug}
-                  className={`grid items-start gap-14 lg:gap-16 lg:grid-cols-12 ${
+                  className={`grid items-start gap-14 lg:grid-cols-12 lg:gap-16 ${
                     reverse ? "lg:[&>*:first-child]:order-2" : ""
                   }`}
                   delayMs={Math.min(idx * 90, 480)}
                 >
-                  <div className="lg:col-span-7">
-                    <div className="group aspect-[4/3] w-full overflow-hidden rounded-1xl bg-slate-100 shadow-sm ring-1 ring-slate-200 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:ease-out hover:shadow-xl motion-safe:hover:-translate-y-1">
+                  <motion.div
+                    className="lg:col-span-7"
+                    variants={imageVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewportOnce}
+                  >
+                    <motion.div
+                      className="group aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-sm ring-1 ring-slate-200"
+                      whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(6,42,68,0.12)" }}
+                      transition={{ duration: 0.3 }}
+                    >
                       <img
                         src={pkg.imageSrc}
                         alt={pkg.imageAlt}
-                        className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                         loading="lazy"
                       />
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
 
-                  <div className="lg:col-span-5">
-                    <div className="mx-auto max-w-lg text-center lg:text-left">
+                  <motion.div
+                    className="lg:col-span-5"
+                    variants={textVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewportOnce}
+                  >
+                    <motion.div className="mx-auto max-w-lg text-center lg:text-left">
                       <h3 className="text-balance text-2xl font-extrabold tracking-tight text-[color:var(--brand-primary)] sm:text-3xl">
                         {pkg.title}
                       </h3>
@@ -139,11 +203,15 @@ export default function Home() {
                         {pkg.description}
                       </p>
 
-                      <div className="mt-4 rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 transition-all duration-300 hover:bg-slate-100/90 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md">
+                      <motion.div
+                        className="mt-4 rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"
+                        whileHover={hoverLift}
+                        transition={{ duration: 0.2 }}
+                      >
                         <p className="text-sm font-extrabold text-slate-900">
                           Duration: {pkg.duration}
                         </p>
-                        <div className="mt-3 space-y-1">
+                        <motion.div className="mt-3 space-y-1">
                           {pkg.priceLines.map((line) => (
                             <p
                               key={line}
@@ -152,8 +220,8 @@ export default function Home() {
                               {line}
                             </p>
                           ))}
-                        </div>
-                      </div>
+                        </motion.div>
+                      </motion.div>
 
                       <div className="mt-4">
                         <p className="text-sm font-extrabold tracking-wide text-slate-900">
@@ -170,75 +238,57 @@ export default function Home() {
                       </div>
 
                       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:justify-start justify-center">
-                        <a
+                        <AnimatedAnchor
                           href={`/tours/${pkg.slug}`}
-                          className="inline-flex items-center justify-center rounded-md bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg active:translate-y-0"
+                          className="inline-flex items-center justify-center rounded-md bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md hover:brightness-95 hover:shadow-lg"
                         >
                           Book Now
-                        </a>
+                        </AnimatedAnchor>
                       </div>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </RevealSection>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section id="gallery" className="bg-white py-16 lg:py-24">
         <RevealSection as="div" className="w-full">
-          <div className="mx-auto max-w-7xl px-6 pb-4 pt-2 text-center lg:px-8 lg:pb-6 lg:pt-4">
-            <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
-              GALLERY
-            </p>
-            <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-blue-800 sm:text-4xl">
-              Moments from Bimini
-            </h2>
-          </div>
+          <motion.div className="mx-auto max-w-7xl px-6 pb-4 pt-2 text-center lg:px-8 lg:pb-6 lg:pt-4">
+            <SectionHeading
+              eyebrow="GALLERY"
+              title="Moments from Bimini"
+            />
+          </motion.div>
         </RevealSection>
 
-        {/* <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-4">
-          {galleryImages.map((src, i) => (
-            <RevealSection
-              as="div"
-              key={src}
-              className="group relative aspect-[4/3] w-full overflow-hidden bg-slate-200"
-              delayMs={Math.min(i * 55, 350)}
-            >
-              <img
-                src={src}
-                alt={`Bimini gallery photo ${i + 1}`}
-                className="absolute inset-0 h-full w-full object-cover object-center motion-safe:transition-[transform,filter] motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-105 motion-safe:group-hover:brightness-105"
-                loading="lazy"
-              />
-            </RevealSection>
-          ))}
-        </div> */}
         <div className="relative w-full overflow-hidden">
           <motion.div
-            className="flex"
+            className="flex gap-0"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
               repeat: Infinity,
               repeatType: "loop",
-              duration: 20,
+              duration: 28,
               ease: "linear",
             }}
           >
             {images.map((src, i) => (
-              <RevealSection
-                as="div"
-                key={i}
-                className="relative aspect-[4/3] w-[300px] flex-shrink-0 overflow-hidden"
+              <motion.div
+                key={`${src}-${i}`}
+                className="relative aspect-[4/3] w-[300px] shrink-0 overflow-hidden"
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.35 }}
               >
                 <img
                   src={src}
-                  alt={`Gallery ${i + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  alt={`Gallery ${(i % galleryImages.length) + 1}`}
+                  className="h-full w-full object-cover"
                   loading="lazy"
                 />
-              </RevealSection>
+              </motion.div>
             ))}
           </motion.div>
         </div>

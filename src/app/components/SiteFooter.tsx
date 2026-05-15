@@ -1,7 +1,11 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
+import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
 
 const socialLinkClass =
-  "inline-flex h-12 w-12 items-center justify-center overflow-visible rounded-full bg-white shadow-md ring-1 ring-black/5 transition hover:scale-105 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--brand-primary)]";
+  "inline-flex h-12 w-12 items-center justify-center overflow-visible rounded-full bg-white shadow-md ring-1 ring-black/5 transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--brand-primary)]";
 
 function IconFacebook() {
   return (
@@ -88,89 +92,96 @@ const social = [
 export function SiteFooter() {
   return (
     <footer className="mt-auto bg-white text-slate-900">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <motion.div
+        className="mx-auto max-w-7xl px-6 py-12 lg:px-8"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+      >
         <div className="text-center">
-          <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
+          <motion.p
+            variants={fadeUp}
+            className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]"
+          >
             FOLLOW US ON SOCIAL
-          </p>
-          <div className="mt-4 flex items-center justify-center gap-4">
-            {social.map((s) => {
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="mt-4 flex items-center justify-center gap-4"
+          >
+            {social.map((s, i) => {
               const Icon = s.Icon;
               return (
-                <a
+                <motion.a
                   key={s.label}
                   href={s.href}
                   className={socialLinkClass}
                   aria-label={s.label}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
                 >
                   <Icon />
-                </a>
+                </motion.a>
               );
             })}
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mt-12 grid gap-10 text-center lg:grid-cols-12 lg:text-left">
-          <div className="flex -mt-6 justify-center lg:col-span-3 lg:justify-start">
-            <a
+        <motion.div className="mt-12 grid gap-10 text-center lg:grid-cols-12 lg:text-left">
+          <motion.div
+            variants={fadeUp}
+            className="-mt-6 flex justify-center lg:col-span-3 lg:justify-start"
+          >
+            <motion.a
               href="/"
-              className="inline-block motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:scale-105 motion-safe:active:scale-100"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
               <img
                 src="/images/bimini.png"
                 alt="Bimini Tours & Adventures"
                 className="h-28 w-auto object-contain sm:h-32 lg:h-40"
               />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
-          <div className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-9 lg:justify-items-stretch">
-            <div>
+          <motion.div
+            variants={fadeUp}
+            className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-9 lg:justify-items-stretch"
+          >
+            <motion.div variants={fadeUp}>
               <p className="text-sm font-extrabold text-slate-900">
                 Destinations
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                <li>
-                  <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
-                    href="#"
-                  >
-                    North Bimini
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
-                    href="#"
-                  >
-                    South Bimini
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
-                    href="#"
-                  >
-                    Sandbars & Cays
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
-                    href="#"
-                  >
-                    Reefs & Wrecks
-                  </a>
-                </li>
+                {[
+                  "North Bimini",
+                  "South Bimini",
+                  "Sandbars & Cays",
+                  "Reefs & Wrecks",
+                ].map((label) => (
+                  <li key={label}>
+                    <a
+                      className="inline-block transition-colors duration-200 hover:text-slate-900"
+                      href="#"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
               </ul>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div variants={fadeUp}>
               <p className="text-sm font-extrabold text-slate-900">About Us</p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/about"
                   >
                     About Us
@@ -178,7 +189,7 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/#tours"
                   >
                     Our Tours
@@ -186,7 +197,7 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/contact"
                   >
                     Contact Us
@@ -194,23 +205,23 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/#gallery"
                   >
                     Gallery
                   </a>
                 </li>
               </ul>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div variants={fadeUp}>
               <p className="text-sm font-extrabold text-slate-900">
                 Important Links
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/faq"
                   >
                     FAQ
@@ -218,7 +229,7 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/terms-and-conditions"
                   >
                     Terms & Conditions
@@ -226,7 +237,7 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/privacy-policy"
                   >
                     Privacy Policy
@@ -234,39 +245,40 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    className="inline-block transition-all duration-200 hover:text-slate-900 motion-safe:hover:translate-x-0.5"
+                    className="inline-block transition-colors duration-200 hover:text-slate-900"
                     href="/refund-policy"
                   >
                     Refund Policy
                   </a>
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
-        <div className="mt-12 flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <motion.div
+          variants={fadeUp}
+          className="mt-12 flex flex-col gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:items-center sm:justify-between"
+        >
           <p className="text-xs font-semibold text-slate-500">
             © {new Date().getFullYear()} Bimini Tours & Adventures. All rights
             reserved.
           </p>
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
-            {/* <a
-              href="/contact?pay=paypal"
-              className="inline-flex min-h-10 items-center justify-center rounded-lg px-4 py-2 text-xs font-extrabold tracking-wide text-[#003087] shadow-sm ring-1 ring-black/10 transition hover:brightness-95 sm:text-sm"
-              style={{ backgroundColor: "#FFC439" }}
-            >
-              Pay with PayPal
-            </a> */}
-            <div
+          <motion.div
+            className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-end"
+            variants={staggerContainer}
+          >
+            <motion.div
               className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
               aria-label="Cards we accept"
             >
-              {ACCEPTED_CARD_BADGES.map((x) => (
-                <span
+              {ACCEPTED_CARD_BADGES.map((x, i) => (
+                <motion.span
                   key={x.src}
-                  className="inline-flex items-center justify-center px-1.5 py-0.5 motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:scale-110"
+                  className="inline-flex items-center justify-center px-1.5 py-0.5"
                   title={x.alt}
+                  variants={fadeUp}
+                  whileHover={{ scale: 1.12 }}
                 >
                   <img
                     src={x.src}
@@ -274,12 +286,12 @@ export function SiteFooter() {
                     className="h-6 w-auto object-contain sm:h-7"
                     loading="lazy"
                   />
-                </span>
+                </motion.span>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </footer>
   );
 }

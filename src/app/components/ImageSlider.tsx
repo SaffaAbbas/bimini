@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 const tourismImages = [
   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
   "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
@@ -10,41 +12,36 @@ const tourismImages = [
   "https://images.unsplash.com/photo-1468413253725-0d5181091126",
 ];
 
+const loopImages = [...tourismImages, ...tourismImages, ...tourismImages];
+
 export default function ImageSlider() {
   return (
     <section className="w-full overflow-hidden bg-white py-8">
-      <div className="flex w-max animate-marquee items-center gap-4">
-        {/* Repeat many times for smooth infinite loop */}
-        {[...tourismImages, ...tourismImages, ...tourismImages].map(
-          (image, index) => (
-            <div
-              key={index}
-              className="h-28 w-28 shrink-0 overflow-hidden rounded-full"
-            >
-              <img
-                src={image}
-                alt={`Tourism ${index + 1}`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ),
-        )}
-      </div>
-
-      <style jsx>{`
-        .animate-marquee {
-          animation: marquee 18s linear infinite;
-        }
-
-        @keyframes marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-33.333%);
-          }
-        }
-      `}</style>
+      <motion.div
+        className="flex w-max items-center gap-4"
+        animate={{ x: ["0%", "-33.333%"] }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 22,
+          ease: "linear",
+        }}
+      >
+        {loopImages.map((image, index) => (
+          <motion.div
+            key={index}
+            className="h-28 w-28 shrink-0 overflow-hidden rounded-full ring-2 ring-white shadow-md"
+            whileHover={{ scale: 1.08, y: -4 }}
+            transition={{ duration: 0.25 }}
+          >
+            <img
+              src={image}
+              alt={`Tourism ${(index % tourismImages.length) + 1}`}
+              className="h-full w-full object-cover"
+            />
+          </motion.div>
+        ))}
+      </motion.div>
     </section>
   );
 }

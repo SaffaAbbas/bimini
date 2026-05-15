@@ -1,7 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { fadeUp, tapScale } from "../lib/motion";
 import { TOUR_TIME_LABELS } from "../lib/tour-checkout-utils";
 
 type FormState = {
@@ -175,14 +177,23 @@ export function ContactForm({
 
   return (
     <form onSubmit={submit} className="space-y-5">
-      {status === "success" ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <AnimatePresence mode="wait">
+        {status === "success" ? (
+          <motion.div
+            key="success"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900 shadow-sm"
+          >
           <p className="text-sm font-extrabold">Message sent!</p>
           <p className="mt-1 text-sm text-emerald-800/90">
             We’ll get back to you shortly. If it’s urgent, call us directly.
           </p>
-        </div>
-      ) : null}
+        </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -302,13 +313,15 @@ export function ContactForm({
         <p className="text-xs font-semibold text-slate-600">
           By submitting, you agree we may contact you about your booking.
         </p>
-        <button
+        <motion.button
           type="submit"
           disabled={!canSubmit}
-          className="inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 enabled:motion-safe:hover:-translate-y-0.5 enabled:motion-safe:hover:shadow-lg enabled:active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
+          whileHover={canSubmit ? { y: -2 } : undefined}
+          whileTap={canSubmit ? tapScale : undefined}
+          className="inline-flex items-center justify-center rounded-xl bg-[color:var(--brand-primary)] px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all duration-200 hover:brightness-95 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
         >
           Send Message
-        </button>
+        </motion.button>
       </div>
     </form>
   );

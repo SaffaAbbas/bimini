@@ -1,16 +1,16 @@
 "use client";
 
-import {
-  createElement,
-  type CSSProperties,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { revealVariants, viewportOnce } from "../lib/motion";
 
-const REVEAL_TAGS = ["section", "article", "div"] as const;
-export type RevealAs = (typeof REVEAL_TAGS)[number];
+export type RevealAs = "section" | "article" | "motion.div";
+
+const motionComponents = {
+  section: motion.section,
+  article: motion.article,
+  div: motion.div,
+} as const;
 
 type RevealSectionProps = {
   children: ReactNode;
@@ -19,7 +19,7 @@ type RevealSectionProps = {
   /** Extra delay before animation starts (ms). */
   delayMs?: number;
   /** Root element — use `article` for tour rows, `div` for inner blocks. */
-  as?: RevealAs;
+  as?: RevealAs | "div";
 };
 
 export function RevealSection({
@@ -29,40 +29,19 @@ export function RevealSection({
   delayMs = 0,
   as = "section",
 }: RevealSectionProps) {
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const tag = as === "motion.div" ? "motion.div" : as;
+  const Component = motionComponents[tag === "motion.div" ? "div" : tag];
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || visible) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.06, rootMargin: "0px 0px -8% 0px" }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, [visible]);
-
-  const cn = `reveal-section${visible ? " reveal-visible" : ""}${className ? ` ${className}` : ""}`;
-  const style = {
-    "--reveal-delay": `${delayMs}ms`,
-  } as CSSProperties;
-
-  return createElement(
-    as,
-    {
-      ref,
-      id,
-      className: cn,
-      style,
-    },
-    children
+  return (
+    <Component
+      id={id}
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      variants={revealVariants(delayMs)}
+    >
+      {children}
+    </Component>
   );
 }

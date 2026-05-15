@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHero } from "../components/PageHero";
 import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
 
@@ -13,25 +14,11 @@ export default function RefundPolicyPage() {
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <SiteHeader bookNowHref="/contact" />
 
-      <header className="group relative isolate min-h-[55svh] overflow-hidden">
-        <img
-          src="/images/img17.jpg"
-          alt=""
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 -z-10" aria-hidden />
-
-        <div className="mx-auto flex min-h-[55svh] max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32">
-          <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl">
-              Refund Policy
-            </h1>
-          </div>
-        </div>
-      </header>
+      <PageHero
+        title="Refund Policy"
+        imageSrc="/images/img17.jpg"
+        minHeightClass="min-h-[55svh]"
+      />
 
       <RevealSection className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
         <div className="prose prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700">
