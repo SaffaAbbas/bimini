@@ -22,10 +22,7 @@ export default function PrivacyPolicyPage() {
           decoding="async"
           fetchPriority="high"
         />
-        <div
-          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/35 to-black/55"
-          aria-hidden
-        />
+        <div className="absolute inset-0 -z-10" aria-hidden />
 
         <div className="mx-auto flex min-h-[55svh] max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -43,17 +40,17 @@ export default function PrivacyPolicyPage() {
             <strong>Bimini Tours &amp; Adventures</strong> (&ldquo;we,&rdquo;
             &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and protects
             the personal information of individuals (&ldquo;you,&rdquo;
-            &ldquo;your,&rdquo; or &ldquo;user&rdquo;) when using our website and
-            when booking or participating in tours and activities with us. We
-            are committed to safeguarding your privacy and ensuring the
+            &ldquo;your,&rdquo; or &ldquo;user&rdquo;) when using our website
+            and when booking or participating in tours and activities with us.
+            We are committed to safeguarding your privacy and ensuring the
             security of your personal information. Please read this Policy
             carefully to understand our practices regarding your personal data.
           </p>
 
           <h2>Hosting</h2>
           <p>
-            Our website is hosted on{" "}
-            <strong>DigitalOcean Cloud Servers</strong>.
+            Our website is hosted on <strong>DigitalOcean Cloud Servers</strong>
+            .
           </p>
 
           <h2>Information we collect</h2>
@@ -86,8 +83,8 @@ export default function PrivacyPolicyPage() {
           </p>
           <p>
             We may use your personal information to send you promotional offers,
-            newsletters, and updates about our services. You can opt out of these
-            communications at any time.
+            newsletters, and updates about our services. You can opt out of
+            these communications at any time.
           </p>
           <p>
             We may use usage data and cookies to analyze trends, administer the
@@ -149,8 +146,8 @@ export default function PrivacyPolicyPage() {
 
           <h2>Third-party links</h2>
           <p>
-            Our website may contain links to third-party websites or services. We
-            are not responsible for the privacy practices or content of those
+            Our website may contain links to third-party websites or services.
+            We are not responsible for the privacy practices or content of those
             websites. We encourage you to review the privacy policies of
             third-party websites before providing any personal information.
           </p>
@@ -168,9 +165,9 @@ export default function PrivacyPolicyPage() {
           <h2>Updates to the Privacy Policy</h2>
           <p>
             We may update this Privacy Policy from time to time to reflect
-            changes in our practices or legal obligations. The updated Policy will
-            be posted on our website, and the revised effective date will be
-            indicated at the top of the Policy.
+            changes in our practices or legal obligations. The updated Policy
+            will be posted on our website, and the revised effective date will
+            be indicated at the top of the Policy.
           </p>
 
           <p>

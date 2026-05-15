@@ -69,7 +69,15 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
             className="pointer-events-auto"
             onClick={() => setActiveTab("home")}
           >
-            <img src="/images/bimini.png" className={logoClassName} />
+            <div className="relative">
+              {/* soft halo background */}
+              <div className="absolute inset-0 -z-10 rounded-full bg-white/30 blur-xl scale-110" />
+
+              <img
+                src="/images/bimini.png"
+                className={`${logoClassName} brightness-110`}
+              />
+            </div>
           </Link>
 
           {/* NAV */}
@@ -95,7 +103,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
                         : `${base} text-slate-700`
                       : active
                         ? `${base} ${accent}`
-                        : `${base} text-white`
+                        : `${base} text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]`
                   }
                 >
                   {l.label}

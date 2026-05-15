@@ -22,10 +22,7 @@ export default function RefundPolicyPage() {
           decoding="async"
           fetchPriority="high"
         />
-        <div
-          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/35 to-black/55"
-          aria-hidden
-        />
+        <div className="absolute inset-0 -z-10" aria-hidden />
 
         <div className="mx-auto flex min-h-[55svh] max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center text-center">

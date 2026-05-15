@@ -22,10 +22,7 @@ export default function TermsAndConditionsPage() {
           decoding="async"
           fetchPriority="high"
         />
-        <div
-          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/35 to-black/55"
-          aria-hidden
-        />
+        <div className="absolute inset-0 -z-10" aria-hidden />
 
         <div className="mx-auto flex min-h-[55svh] max-w-7xl flex-col px-6 pb-12 pt-28 lg:px-8 lg:pt-32">
           <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -44,17 +41,16 @@ export default function TermsAndConditionsPage() {
             &ldquo;You,&rdquo; or &ldquo;Your&rdquo;) and{" "}
             <strong>Bimini Tours &amp; Adventures</strong> (&ldquo;We,&rdquo;
             &ldquo;Us,&rdquo; or &ldquo;Our&rdquo;) governing bookings,
-            participation in tours, charters, and related services. By
-            accessing our services, you acknowledge and agree to comply with
-            these Terms. Please read them carefully before booking or joining
-            any activity with us.
+            participation in tours, charters, and related services. By accessing
+            our services, you acknowledge and agree to comply with these Terms.
+            Please read them carefully before booking or joining any activity
+            with us.
           </p>
 
           <h2>Hosting</h2>
           <p>
-            Our website is hosted on{" "}
-            <strong>DigitalOcean servers</strong> located in New York, United
-            States.
+            Our website is hosted on <strong>DigitalOcean servers</strong>{" "}
+            located in New York, United States.
           </p>
 
           <h2>Tour agreement</h2>
@@ -65,14 +61,14 @@ export default function TermsAndConditionsPage() {
           <p>
             By entering into this agreement, you confirm that you possess the
             necessary skills, knowledge, and physical fitness to safely
-            participate in the booked activities, including when boarding vessels
-            or using equipment as directed by our crew.
+            participate in the booked activities, including when boarding
+            vessels or using equipment as directed by our crew.
           </p>
           <p>
             The service period begins at the scheduled departure or check-in
             time and ends at the agreed completion time. Late arrivals or late
-            returns may be subject to additional charges or inability to join the
-            group, without refund, where applicable.
+            returns may be subject to additional charges or inability to join
+            the group, without refund, where applicable.
           </p>
           <p>
             We reserve the right to refuse service to any individual for any
@@ -104,8 +100,8 @@ export default function TermsAndConditionsPage() {
 
           <h2>Safety and liability</h2>
           <p>
-            You are responsible for adhering to all safety guidelines provided by
-            us, including local laws, regulations, and rules of navigation.
+            You are responsible for adhering to all safety guidelines provided
+            by us, including local laws, regulations, and rules of navigation.
           </p>
           <p>
             We will provide safety instructions and guidelines before or during
@@ -115,8 +111,8 @@ export default function TermsAndConditionsPage() {
           <p>
             You assume risks and liabilities associated with participation in
             tours and use of equipment as directed, including but not limited to
-            accidents, injuries, or property damage, except as may be required by
-            applicable law.
+            accidents, injuries, or property damage, except as may be required
+            by applicable law.
           </p>
           <p>
             To the fullest extent permitted by law, we are not liable for
@@ -137,12 +133,13 @@ export default function TermsAndConditionsPage() {
           </p>
           <p>
             You are responsible for the proper care of any equipment provided to
-            you during the tour. Damage or loss may result in additional charges.
+            you during the tour. Damage or loss may result in additional
+            charges.
           </p>
           <p>
             Equipment and facilities must be returned in the same condition as
-            received, except for normal wear and tear. Excessive cleaning needs or
-            damages may incur additional fees.
+            received, except for normal wear and tear. Excessive cleaning needs
+            or damages may incur additional fees.
           </p>
 
           <h2>Cancellations and refunds</h2>
@@ -156,8 +153,8 @@ export default function TermsAndConditionsPage() {
             policy.
           </p>
           <p>
-            Refunds or credits, where applicable, may be subject to administrative
-            fees or charges we reasonably incur.
+            Refunds or credits, where applicable, may be subject to
+            administrative fees or charges we reasonably incur.
           </p>
 
           <h2>Insurance</h2>
@@ -182,8 +179,8 @@ export default function TermsAndConditionsPage() {
 
           <h2>Governing law and jurisdiction</h2>
           <p>
-            These Terms shall be governed by and construed in accordance with the
-            laws of the jurisdiction in which we operate.
+            These Terms shall be governed by and construed in accordance with
+            the laws of the jurisdiction in which we operate.
           </p>
           <p>
             Any disputes arising out of or in connection with these Terms shall
@@ -202,8 +199,8 @@ export default function TermsAndConditionsPage() {
           <h2>Severability</h2>
           <p>
             If any provision of these Terms is found to be invalid, illegal, or
-            unenforceable, the remaining provisions shall continue to be valid and
-            enforceable to the fullest extent permitted by law.
+            unenforceable, the remaining provisions shall continue to be valid
+            and enforceable to the fullest extent permitted by law.
           </p>
 
           <h2>Amendments</h2>
