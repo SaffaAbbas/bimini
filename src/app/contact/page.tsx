@@ -26,7 +26,7 @@ export default function ContactPage() {
   const packageOptions = getContactPackageOptions();
 
   return (
-    <main className="min-h-[100svh] w-full bg-white text-slate-900">
+    <main className="min-h-[100svh] w-full overflow-x-clip bg-white text-slate-900">
       <SiteHeader bookNowHref="#form" />
 
       <PageHero
@@ -38,7 +38,7 @@ export default function ContactPage() {
         showWave
       />
 
-      <RevealSection id="form" className="relative overflow-hidden" delayMs={0}>
+      <RevealSection id="form" className="relative overflow-x-clip" delayMs={0}>
         <div
           className="pointer-events-none absolute inset-0 -z-10 opacity-50"
           aria-hidden
@@ -48,9 +48,11 @@ export default function ContactPage() {
           }}
         />
 
-        <div className={`mx-auto max-w-7xl px-6 lg:px-8 ${sectionY}`}>
-          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
+        <div
+          className={`mx-auto max-w-7xl min-w-0 px-4 sm:px-6 lg:px-8 ${sectionY}`}
+        >
+          <div className="mx-auto grid min-w-0 max-w-6xl grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="min-w-0 lg:col-span-5">
               <SectionHeading
                 eyebrow="GET IN TOUCH"
                 title="Let's plan your perfect island adventure"
@@ -58,21 +60,22 @@ export default function ContactPage() {
                 align="left"
                 className="!max-w-none"
               />
-              <div className="mt-8 space-y-5">
+              <div className="mt-6 space-y-4 sm:mt-8 sm:space-y-5">
                 <ContactInfoPanel />
                 <OperatingHoursCard />
               </div>
             </div>
 
-            <div className="lg:col-span-7">
-              <div className="rounded-3xl bg-white p-6 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200/90 sm:p-8 lg:p-10">
-                <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
+            <div className="min-w-0 lg:col-span-7">
+              <div className="min-w-0 rounded-2xl bg-white p-4 shadow-xl shadow-slate-200/60 ring-1 ring-slate-200/90 sm:rounded-3xl sm:p-6 md:p-8 lg:p-10">
+                <p className="text-xs font-extrabold tracking-widest text-[color:var(--brand-primary)] sm:text-sm">
                   QUICK MESSAGE
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   Fill this out and we&apos;ll respond with availability and
-                  booking steps. Prefer WhatsApp or a call? Use the options on
-                  the left.
+                  booking steps. Prefer WhatsApp or a call? Use the contact
+                  options <span className="lg:hidden">above</span>
+                  <span className="hidden lg:inline">on the left</span>.
                 </p>
                 <div className="mt-6">
                   <Suspense

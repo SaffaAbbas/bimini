@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
 import { btnPrimary, btnPrimaryFullWidth } from "./button-styles";
 import { buildContactHref, formatMoneyUsd } from "../lib/tour-checkout-utils";
 import { BookingInquiryNotice } from "./BookingInquiryNotice";
@@ -263,38 +262,12 @@ export function TourCheckoutView({
               >
                 Pay with PayPal
               </Link>
-              <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
-                <p className="text-center text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  Pay by card — we accept
-                </p>
-                <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                  {ACCEPTED_CARD_BADGES.map((b) => (
-                    <img
-                      key={b.src}
-                      src={b.src}
-                      alt={b.alt}
-                      title={b.alt}
-                      className="h-7 w-auto max-w-[4.5rem] object-contain opacity-90 sm:h-8"
-                      loading="lazy"
-                    />
-                  ))}
-                </div>
-                <Link
-                  href={buildContactHref({ ...contactBase, pay: "card" })}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition hover:bg-slate-800"
-                >
-                  <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <rect x="2" y="5" width="20" height="14" rx="2" />
-                    <path d="M2 10h20" />
-                  </svg>
-                  Continue with card
-                </Link>
-              </div>
             </div>
 
             <p className="text-xs italic leading-relaxed text-slate-500">
-              Payments are coordinated after we confirm your date. Submitting the form does not charge your
-              card immediately—we will follow up with secure payment options.
+              Payments are coordinated after we confirm your date. We currently accept PayPal—submitting
+              the form does not charge you immediately; we will follow up with secure PayPal payment
+              instructions.
             </p>
           </div>
         </aside>

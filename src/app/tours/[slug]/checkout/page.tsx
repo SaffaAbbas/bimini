@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!tour) return { title: "Checkout" };
   return tourPageMeta(
     `Checkout — ${tour.title}`,
-    `Review dates, guests, and pricing for ${tour.title}, then send a booking request. Payment is arranged after we confirm availability—not instant card checkout.`,
+    `Review dates, guests, and pricing for ${tour.title}, then send a booking request. PayPal payment is arranged after we confirm availability.`,
   );
 }
 

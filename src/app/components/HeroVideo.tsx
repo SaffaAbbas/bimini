@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  HERO_CLIP_DURATION_MS,
   HERO_VIDEO_DESKTOP_1,
   HERO_VIDEO_DESKTOP_2,
   HERO_VIDEO_DESKTOP_3,
@@ -73,65 +74,62 @@ export function HeroVideo() {
   const video1Ref = useRef<HTMLVideoElement | null>(null);
   const video2Ref = useRef<HTMLVideoElement | null>(null);
   const switchingRef = useRef(false);
+  const activeLayerRef = useRef(0);
+  const videoIndexRef = useRef(0);
 
   const [activeLayer, setActiveLayer] = useState(0);
   const [videoIndex, setVideoIndex] = useState(0);
 
-  const switchToVideo = useCallback(
-    async (targetIndex: number) => {
-      if (
-        switchingRef.current ||
-        targetIndex === videoIndex ||
-        targetIndex < 0 ||
-        targetIndex >= TOTAL
-      ) {
-        return;
-      }
+  activeLayerRef.current = activeLayer;
+  videoIndexRef.current = videoIndex;
 
-      const activeVideo =
-        activeLayer === 0 ? video1Ref.current : video2Ref.current;
-      const hiddenVideo =
-        activeLayer === 0 ? video2Ref.current : video1Ref.current;
+  const switchToVideo = useCallback(async (targetIndex: number) => {
+    if (
+      switchingRef.current ||
+      targetIndex === videoIndexRef.current ||
+      targetIndex < 0 ||
+      targetIndex >= TOTAL
+    ) {
+      return;
+    }
 
-      if (!activeVideo || !hiddenVideo) return;
-
-      switchingRef.current = true;
-
-      hiddenVideo.src = videos[targetIndex];
-      hiddenVideo.load();
-
-      try {
-        await hiddenVideo.play();
-        setVideoIndex(targetIndex);
-        setActiveLayer((prev) => (prev === 0 ? 1 : 0));
-      } catch {
-        /* autoplay may be blocked */
-      } finally {
-        switchingRef.current = false;
-      }
-    },
-    [activeLayer, videoIndex],
-  );
-
-  useEffect(() => {
+    const layer = activeLayerRef.current;
     const activeVideo =
-      activeLayer === 0 ? video1Ref.current : video2Ref.current;
+      layer === 0 ? video1Ref.current : video2Ref.current;
     const hiddenVideo =
-      activeLayer === 0 ? video2Ref.current : video1Ref.current;
+      layer === 0 ? video2Ref.current : video1Ref.current;
 
     if (!activeVideo || !hiddenVideo) return;
 
-    const handleEnded = () => {
-      const nextIndex = (videoIndex + 1) % TOTAL;
+    switchingRef.current = true;
+
+    hiddenVideo.src = videos[targetIndex];
+    hiddenVideo.load();
+
+    try {
+      await hiddenVideo.play();
+      setVideoIndex(targetIndex);
+      setActiveLayer((prev) => (prev === 0 ? 1 : 0));
+    } catch {
+      /* autoplay may be blocked */
+    } finally {
+      switchingRef.current = false;
+    }
+  }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reducedMotion) return;
+
+    const id = window.setInterval(() => {
+      const nextIndex = (videoIndexRef.current + 1) % TOTAL;
       void switchToVideo(nextIndex);
-    };
+    }, HERO_CLIP_DURATION_MS);
 
-    activeVideo.addEventListener("ended", handleEnded);
-
-    return () => {
-      activeVideo.removeEventListener("ended", handleEnded);
-    };
-  }, [activeLayer, videoIndex, switchToVideo]);
+    return () => window.clearInterval(id);
+  }, [switchToVideo]);
 
   useEffect(() => {
     const firstVideo = video1Ref.current;

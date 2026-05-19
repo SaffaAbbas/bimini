@@ -22,7 +22,7 @@ export const siteFaqSections: readonly SiteFaqSection[] = [
       },
       {
         q: "What payment methods do you accept?",
-        a: "We accept major credit and debit cards and can arrange PayPal or other options when you contact us. Cash may be accepted for certain on-island extras—ask when you book.",
+        a: "We accept PayPal for tour bookings. After we confirm your date, we send secure PayPal payment instructions. Cash may be accepted for certain on-island extras—ask when you book.",
       },
       {
         q: "Is a deposit required?",

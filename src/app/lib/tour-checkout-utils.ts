@@ -126,7 +126,7 @@ export function buildContactHref(opts: {
   date: string;
   guests: number;
   time: string;
-  pay?: "card" | "paypal" | "message";
+  pay?: "paypal" | "message";
   estimateTotal?: number;
 }): string {
   const q = new URLSearchParams();

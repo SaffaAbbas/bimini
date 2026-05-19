@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
+import { PAYMENT_BADGES } from "../data/payment-methods";
 import { BUSINESS } from "../data/business-info";
 import {
   DESTINATION_LINKS,
@@ -298,11 +298,14 @@ export function SiteFooter() {
             variants={staggerContainer}
           >
             <div className="flex max-w-md flex-col items-center gap-2 sm:items-end">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                Pay with
+              </p>
               <motion.div
                 className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3"
-                aria-label="Payment methods we accept"
+                aria-label="Pay with PayPal"
               >
-                {ACCEPTED_CARD_BADGES.map((x, i) => (
+                {PAYMENT_BADGES.map((x, i) => (
                   <motion.span
                     key={x.src}
                     className="inline-flex items-center justify-center px-1.5 py-0.5"

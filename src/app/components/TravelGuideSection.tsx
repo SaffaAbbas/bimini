@@ -103,7 +103,7 @@ function GuideAccordion({
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                className="flex w-full items-center gap-3 px-4 py-3.5 text-left sm:px-5"
+                className="flex w-full min-w-0 items-center gap-2 px-3 py-3 text-left sm:gap-3 sm:px-5 sm:py-3.5"
                 aria-expanded={isOpen}
               >
                 <span
@@ -116,7 +116,7 @@ function GuideAccordion({
                   <GuideIcon type={block.icon} />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-sm font-extrabold text-slate-900">
+                  <span className="block text-pretty text-sm font-extrabold leading-snug text-slate-900">
                     {block.title}
                   </span>
                 </span>
@@ -171,7 +171,7 @@ export function TravelGuideSection({
   return (
     <RevealSection
       id="plan-your-trip"
-      className="relative scroll-mt-24 overflow-hidden py-12 sm:py-14 lg:py-16"
+      className="relative scroll-mt-24 overflow-x-clip py-10 sm:py-14 lg:py-16"
     >
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 via-white to-slate-50/80"
@@ -189,7 +189,7 @@ export function TravelGuideSection({
       />
 
       <motion.div
-        className="mx-auto max-w-3xl px-6 text-center lg:max-w-4xl lg:px-8"
+        className="mx-auto max-w-3xl min-w-0 px-4 text-center sm:px-6 lg:max-w-4xl lg:px-8"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -213,14 +213,14 @@ export function TravelGuideSection({
       </motion.div>
 
       <motion.div
-        className="mx-auto mt-8 max-w-2xl px-6 lg:px-8"
+        className="mx-auto mt-6 min-w-0 max-w-2xl px-4 sm:mt-8 sm:px-6 lg:px-8"
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
         variants={fadeUp}
       >
         <motion.div
-          className="flex rounded-full bg-slate-100/90 p-1 ring-1 ring-slate-200/80"
+          className="grid grid-cols-2 gap-2 rounded-2xl bg-slate-100/90 p-1.5 ring-1 ring-slate-200/80 sm:flex sm:rounded-full sm:p-1"
           role="tablist"
           aria-label="Travel planning topics"
         >
@@ -231,22 +231,22 @@ export function TravelGuideSection({
               role="tab"
               aria-selected={tab === t.id}
               onClick={() => setTab(t.id)}
-              className={`relative flex-1 rounded-full px-3 py-2.5 text-center transition sm:px-4 ${
+              className={`relative rounded-xl px-3 py-2.5 text-center transition sm:flex-1 sm:rounded-full sm:px-4 ${
                 tab === t.id ? "text-white" : "text-slate-600 hover:text-slate-900"
               }`}
             >
               {tab === t.id ? (
                 <motion.span
                   layoutId="travel-guide-tab"
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-[color:var(--brand-primary)] to-[color:var(--brand-ocean)] shadow-md"
+                  className="absolute inset-0 rounded-xl bg-gradient-to-r from-[color:var(--brand-primary)] to-[color:var(--brand-ocean)] shadow-md sm:rounded-full"
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               ) : null}
-              <span className="relative z-10 block text-xs font-extrabold sm:text-sm">
+              <span className="relative z-10 block text-xs font-extrabold leading-snug sm:text-sm">
                 {t.label}
               </span>
               <span
-                className={`relative z-10 mt-0.5 hidden text-[10px] font-medium sm:block ${
+                className={`relative z-10 mt-0.5 block text-[10px] font-medium leading-tight sm:text-[11px] ${
                   tab === t.id ? "text-white/85" : "text-slate-500"
                 }`}
               >
@@ -256,7 +256,7 @@ export function TravelGuideSection({
           ))}
         </motion.div>
 
-        <div className="mt-5 rounded-2xl bg-white/60 p-3 ring-1 ring-slate-200/80 backdrop-blur-sm sm:p-4">
+        <div className="mt-4 min-w-0 rounded-2xl bg-white/60 p-2 ring-1 ring-slate-200/80 backdrop-blur-sm sm:mt-5 sm:p-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={tab}
@@ -273,7 +273,7 @@ export function TravelGuideSection({
 
       {showDestinations ? (
         <motion.div
-          className="mx-auto mt-14 max-w-6xl px-6 lg:px-8"
+          className="mx-auto mt-10 min-w-0 max-w-6xl px-4 sm:mt-14 sm:px-6 lg:px-8"
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
@@ -290,7 +290,7 @@ export function TravelGuideSection({
 
           <motion.div
             variants={fadeUp}
-            className="mt-6 flex gap-3 overflow-x-auto pb-2 scrollbar-hide sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-4"
+            className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
           >
             {destinationHighlights.map((d, i) => {
               const isActive = activeDestination === i;
@@ -300,7 +300,7 @@ export function TravelGuideSection({
                   type="button"
                   id={d.slug}
                   onClick={() => setActiveDestination(i)}
-                  className={`group relative min-w-[200px] shrink-0 scroll-mt-28 overflow-hidden rounded-2xl p-5 text-left ring-1 transition sm:min-w-0 ${
+                  className={`group relative w-full scroll-mt-28 overflow-hidden rounded-2xl p-4 text-left ring-1 transition sm:p-5 ${
                     isActive
                       ? "bg-white shadow-lg ring-[color:var(--brand-primary)]/30"
                       : "bg-white/90 ring-slate-200/90 hover:shadow-md hover:ring-slate-300"

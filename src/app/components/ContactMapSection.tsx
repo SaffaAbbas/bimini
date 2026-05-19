@@ -4,10 +4,10 @@ import { RevealSection } from "./RevealSection";
 
 export function ContactMapSection() {
   return (
-    <RevealSection className="mx-auto max-w-6xl px-6 py-12 lg:px-8 lg:py-16">
-      <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/90">
-        <div className="grid lg:grid-cols-2">
-          <div className="p-6 sm:p-8">
+    <RevealSection className="mx-auto max-w-6xl min-w-0 px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+      <div className="min-w-0 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/90">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="min-w-0 p-4 sm:p-6 md:p-8">
             <p className="text-xs font-extrabold uppercase tracking-widest text-[color:var(--brand-primary)]">
               Meeting point
             </p>

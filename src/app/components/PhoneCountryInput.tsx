@@ -94,15 +94,15 @@ export function PhoneCountryInput({
   }
 
   return (
-    <div ref={rootRef} className="relative">
-      <div className="flex overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200 hover:border-slate-300 hover:shadow-sm focus-within:border-[color:var(--brand-primary)] focus-within:ring-2 focus-within:ring-[color:var(--brand-primary)]/20">
+    <div ref={rootRef} className="relative min-w-0 w-full">
+      <div className="flex w-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200 hover:border-slate-300 hover:shadow-sm focus-within:border-[color:var(--brand-primary)] focus-within:ring-2 focus-within:ring-[color:var(--brand-primary)]/20">
         <button
           type="button"
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-controls={listId}
           onClick={() => setOpen((o) => !o)}
-          className="flex shrink-0 items-center gap-1.5 border-r border-slate-200 bg-slate-50/80 px-2.5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 sm:gap-2 sm:px-3"
+          className="flex max-w-[42%] shrink-0 items-center gap-1 border-r border-slate-200 bg-slate-50/80 px-2 py-3 text-xs font-semibold text-slate-800 transition hover:bg-slate-100 sm:max-w-none sm:gap-2 sm:px-3 sm:text-sm"
         >
           <CountryFlag iso2={selected.iso2} size={22} />
           <span className="tabular-nums">+{selected.dial}</span>

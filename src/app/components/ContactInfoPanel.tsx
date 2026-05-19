@@ -64,7 +64,7 @@ export function ContactInfoPanel() {
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className="space-y-5"
+      className="min-w-0 space-y-4 sm:space-y-5"
     >
       {channels.map((ch) => (
         <motion.a
@@ -74,7 +74,7 @@ export function ContactInfoPanel() {
           variants={fadeUp}
           target={"external" in ch && ch.external ? "_blank" : undefined}
           rel={"external" in ch && ch.external ? "noopener noreferrer" : undefined}
-          className="group flex items-start gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/90 transition-shadow duration-300 hover:shadow-lg hover:ring-[color:var(--brand-primary)]/25"
+          className="group flex min-w-0 items-start gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200/90 transition-shadow duration-300 hover:shadow-lg hover:ring-[color:var(--brand-primary)]/25 sm:gap-4 sm:p-5"
           whileHover={{ y: -3 }}
           transition={{ duration: 0.25 }}
         >
@@ -94,7 +94,7 @@ export function ContactInfoPanel() {
             <span className="text-xs font-extrabold uppercase tracking-wide text-[color:var(--brand-primary)]">
               {ch.label}
             </span>
-            <span className="break-words text-base font-semibold leading-snug text-slate-900 group-hover:text-[color:var(--brand-primary)]">
+            <span className="break-all text-sm font-semibold leading-snug text-slate-900 group-hover:text-[color:var(--brand-primary)] sm:break-words sm:text-base">
               {ch.value}
             </span>
           </motion.div>

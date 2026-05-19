@@ -119,12 +119,6 @@ export function ContactForm({
           "Preferred payment:",
           "Preferred payment: PayPal",
         );
-      } else if (pay === "card") {
-        msg = mergePrefixedLine(
-          msg,
-          "Preferred payment:",
-          "Preferred payment: Credit / debit card",
-        );
       }
       next.message = msg;
 
@@ -231,7 +225,7 @@ export function ContactForm({
   const errorText = "mt-1 text-xs font-semibold text-red-600";
 
   return (
-    <form onSubmit={submit} className="space-y-5">
+    <form onSubmit={submit} className="min-w-0 space-y-5">
       <AnimatePresence mode="wait">
         {status === "success" ? (
           <motion.div
@@ -275,7 +269,7 @@ export function ContactForm({
         </p>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2">
         <div>
           <p className={labelBase}>NAME</p>
           <input
@@ -307,7 +301,7 @@ export function ContactForm({
           ) : null}
         </div>
 
-        <div className="sm:col-span-2">
+        <div className="min-[480px]:col-span-2">
           <p className={labelBase}>PHONE</p>
           <PhoneCountryInput
             value={form.phone}
@@ -384,8 +378,8 @@ export function ContactForm({
         ) : null}
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs font-semibold text-slate-600">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+        <p className="text-xs font-semibold leading-relaxed text-slate-600">
           By submitting, you agree we may contact you about your booking.
         </p>
         <motion.button
@@ -393,7 +387,7 @@ export function ContactForm({
           disabled={!canSubmit || status === "sending"}
           whileHover={canSubmit && status !== "sending" ? { y: -2 } : undefined}
           whileTap={canSubmit && status !== "sending" ? tapScale : undefined}
-          className={`${btnPrimary} transition-all duration-200 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50`}
+          className={`${btnPrimary} w-full shrink-0 transition-all duration-200 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto`}
         >
           {status === "sending" ? "Sending…" : "Send Message"}
         </motion.button>

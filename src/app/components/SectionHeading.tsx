@@ -39,7 +39,7 @@ export function SectionHeading({
       ) : null}
       <motion.h2
         variants={fadeUp}
-        className={`${eyebrow ? "mt-3" : ""} text-balance text-3xl font-extrabold tracking-tight text-[color:var(--brand-primary-2)] sm:text-4xl`}
+        className={`${eyebrow ? "mt-3" : ""} text-balance text-2xl font-extrabold tracking-tight text-[color:var(--brand-primary-2)] sm:text-3xl lg:text-4xl`}
       >
         {title}
       </motion.h2>
