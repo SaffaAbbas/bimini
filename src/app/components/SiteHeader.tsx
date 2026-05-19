@@ -40,17 +40,14 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
     setHash(typeof window !== "undefined" ? window.location.hash : "");
   }, []);
 
-  const setHashInUrl = useCallback(
-    (fragment: string | null) => {
-      if (typeof window === "undefined") return;
-      const next = fragment ? `#${fragment.replace(/^#/, "")}` : "";
-      if (window.location.hash !== next) {
-        window.history.pushState(null, "", next ? `/${next}` : "/");
-      }
-      setHash(next);
-    },
-    [],
-  );
+  const setHashInUrl = useCallback((fragment: string | null) => {
+    if (typeof window === "undefined") return;
+    const next = fragment ? `#${fragment.replace(/^#/, "")}` : "";
+    if (window.location.hash !== next) {
+      window.history.pushState(null, "", next ? `/${next}` : "/");
+    }
+    setHash(next);
+  }, []);
 
   /** Next.js same-page hash links scroll but often skip updating location.hash */
   const handleNavClick = useCallback(
@@ -73,7 +70,9 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
       if (targetPath === "/" && pathname === "/") {
         e.preventDefault();
         setHashInUrl(fragment);
-        document.getElementById(fragment)?.scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById(fragment)
+          ?.scrollIntoView({ behavior: "smooth" });
         return;
       }
 
@@ -201,17 +200,10 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
               whileTap={tapScale}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
             >
-              {/* Glow reads as a second logo on mobile — desktop only */}
-              <motion.div
-                className="absolute inset-0 -z-10 hidden scale-110 rounded-full bg-white/30 blur-xl sm:block"
-                animate={{ opacity: solid ? 0.5 : 1 }}
-                transition={{ duration: 0.3 }}
-                aria-hidden
-              />
               <img
                 src="/images/bimini.png"
                 alt=""
-                className={`h-14 w-auto max-w-[min(52vw,11rem)] origin-left object-contain object-left brightness-110 transition-transform duration-300 ease-out sm:h-20 sm:max-w-none ${
+                className={`h-14 w-auto max-w-[min(52vw,11rem)] origin-left object-contain object-left transition-transform duration-300 ease-out sm:h-20 sm:max-w-none ${
                   solid ? "scale-100" : "scale-100 sm:scale-[1.18]"
                 }`}
                 width={160}
@@ -265,10 +257,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
               whileTap={tapScale}
               className="hidden md:block"
             >
-              <Link
-                href={bookNowHref}
-                className={btnAccent}
-              >
+              <Link href={bookNowHref} className={btnAccent}>
                 Book Now
               </Link>
             </motion.div>
