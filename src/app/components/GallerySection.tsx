@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { galleryImages, type GalleryImage } from "../data/gallery-images";
@@ -88,7 +88,8 @@ function GalleryLightbox({
 }
 
 function MarqueeGallery({ images }: { images: readonly GalleryImage[] }) {
-  const loop = [...images, ...images];
+  const reduceMotion = useReducedMotion();
+  const strip = reduceMotion ? images : [...images, ...images];
 
   return (
     <motion.div
@@ -98,46 +99,47 @@ function MarqueeGallery({ images }: { images: readonly GalleryImage[] }) {
       viewport={viewportOnce}
       transition={{ duration: 0.6 }}
     >
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-24"
         aria-hidden
       />
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-24"
         aria-hidden
       />
 
-      <motion.div
-        className="flex gap-3 px-3 sm:gap-4 sm:px-4"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 32,
-          ease: "linear",
-        }}
+      <div
+        className={
+          reduceMotion
+            ? "scrollbar-hide flex gap-3 overflow-x-auto px-3 pb-1 sm:gap-4 sm:px-4"
+            : "overflow-hidden"
+        }
       >
-        {loop.map((img, i) => (
-          <motion.div
-            key={`${img.src}-${i}`}
-            className="group relative aspect-[4/3] w-[260px] shrink-0 overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/80 sm:w-[300px] lg:w-[340px]"
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              loading="lazy"
-              decoding="async"
-            />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-[color:var(--brand-deep)]/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              aria-hidden
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+        <div
+          className={`flex w-max flex-nowrap gap-3 px-3 sm:gap-4 sm:px-4 ${
+            reduceMotion ? "" : "gallery-marquee-track"
+          }`}
+        >
+          {strip.map((img, i) => (
+            <div
+              key={`${img.src}-${i}`}
+              className="group relative aspect-[4/3] w-[260px] shrink-0 overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/80 sm:w-[300px] lg:w-[340px]"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-[color:var(--brand-deep)]/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                aria-hidden
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </motion.div>
   );
 }

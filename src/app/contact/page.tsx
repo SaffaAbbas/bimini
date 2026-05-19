@@ -1,37 +1,29 @@
-﻿import { Suspense } from "react";
+﻿import type { Metadata } from "next";
+import { Suspense } from "react";
 import { BiminiDayCta } from "../components/BiminiDayCta";
 import { ContactForm } from "../components/ContactForm";
 import { ContactInfoPanel } from "../components/ContactInfoPanel";
-import { GallerySection } from "../components/GallerySection";
+import { ContactMapSection } from "../components/ContactMapSection";
+import { OperatingHoursCard } from "../components/OperatingHoursCard";
 import { PageHero } from "../components/PageHero";
 import { RevealSection } from "../components/RevealSection";
 import { SectionHeading } from "../components/SectionHeading";
 import { SiteHeader } from "../components/SiteHeader";
+import { TravelGuideSection } from "../components/TravelGuideSection";
+import { getContactPackageOptions } from "../data/tour-packages";
+import { pageMeta } from "../lib/seo";
 import { sectionY } from "../lib/section-spacing";
 
+export const metadata: Metadata = {
+  ...pageMeta(
+    "Contact Us",
+    "Book your Bimini tour, ask questions, or plan a custom charter. Call, WhatsApp +1 (242) 826-8687, email bookings@toursbimini.com, or send a message—we reply quickly.",
+  ),
+  alternates: { canonical: "/contact" },
+};
+
 export default function ContactPage() {
-  const packageOptions = [
-    { value: "real-deal", label: "The Real Deal Package" },
-    { value: "bimini-adventure", label: "Bimini Adventure Package" },
-    { value: "fishing-charter", label: "Bimini Fishing Charter Package" },
-    { value: "eco-tour", label: "Bimini Eco‑Tour Package" },
-    { value: "family-fun", label: "Bimini Family Fun Package" },
-    {
-      value: "family-culture",
-      label: "Bimini Family Fun‑Filled Culture Package",
-    },
-    {
-      value: "little-bit-of-that",
-      label: "Bimini Little Bit & Little Bit of That Package",
-    },
-    { value: "two-for-one", label: "Two for One Island Tour" },
-    {
-      value: "underwater-adventure",
-      label: "Bimini Underwater Adventure Tour",
-    },
-    { value: "down-for-whateva", label: "Down for Whateva Tour Package" },
-    { value: "private-tours", label: "Private Tours" },
-  ];
+  const packageOptions = getContactPackageOptions();
 
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
@@ -39,18 +31,14 @@ export default function ContactPage() {
 
       <PageHero
         title="Contact Us"
-        subtitle="Book your adventure, ask a question, or plan a custom day on the water—we're here to help."
+        subtitle="Bimini Tours & Adventures."
         imageSrc="/images/new33.jpeg"
         imageAlt="Bimini waters at sunset"
         minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[80svh]"
         showWave
       />
 
-      <RevealSection
-        id="form"
-        className="relative overflow-hidden"
-        delayMs={0}
-      >
+      <RevealSection id="form" className="relative overflow-hidden" delayMs={0}>
         <div
           className="pointer-events-none absolute inset-0 -z-10 opacity-50"
           aria-hidden
@@ -70,8 +58,9 @@ export default function ContactPage() {
                 align="left"
                 className="!max-w-none"
               />
-              <div className="mt-10">
+              <div className="mt-8 space-y-5">
                 <ContactInfoPanel />
+                <OperatingHoursCard />
               </div>
             </div>
 
@@ -82,7 +71,8 @@ export default function ContactPage() {
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   Fill this out and we&apos;ll respond with availability and
-                  booking steps. Prefer to talk? Call or text anytime.
+                  booking steps. Prefer WhatsApp or a call? Use the options on
+                  the left.
                 </p>
                 <div className="mt-6">
                   <Suspense
@@ -99,13 +89,9 @@ export default function ContactPage() {
         </div>
       </RevealSection>
 
-      <GallerySection
-        variant="marquee"
-        showHeading
-        showViewAll
-        compact
-        className="border-t border-slate-100 bg-slate-50/40"
-      />
+      <ContactMapSection />
+
+      {/* <TravelGuideSection /> */}
 
       <BiminiDayCta />
     </main>

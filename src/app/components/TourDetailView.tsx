@@ -2,7 +2,9 @@ import Link from "next/link";
 import type { TourPackage } from "../data/tour-packages";
 import { RevealSection } from "./RevealSection";
 import { TourBookingCalendar } from "./TourBookingCalendar";
+import { BookingInquiryNotice } from "./BookingInquiryNotice";
 import { TourBookingMedia } from "./TourBookingMedia";
+import { TourPriceList } from "./TourPriceList";
 
 function CheckIcon() {
   return (
@@ -161,9 +163,10 @@ export function TourDetailView({ tour }: { tour: TourPackage }) {
                       Book this experience
                     </h2>
                     <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-600">
-                      Choose your date on the calendar, or reach out and
-                      we&apos;ll help with timing and group size.
+                      Choose your date on the calendar, then send a booking
+                      request—we confirm availability before payment.
                     </p>
+                    <BookingInquiryNotice variant="compact" className="mt-3" />
                     <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                       <a
                         href="#tour-book-calendar"
@@ -229,17 +232,7 @@ export function TourDetailView({ tour }: { tour: TourPackage }) {
                 <h2 className="font-serif text-xl font-bold text-slate-900">
                   Pricing
                 </h2>
-                <ul className="mt-5 space-y-3">
-                  {tour.priceLines.map((line, i) => (
-                    <li
-                      key={`${i}-${line}`}
-                      className="flex items-start gap-3 text-sm font-semibold text-slate-800 sm:text-base"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--brand-primary)]" />
-                      {line}
-                    </li>
-                  ))}
-                </ul>
+                <TourPriceList lines={tour.priceLines} className="mt-5" size="md" />
                 <p className="mt-4 text-xs font-medium text-red-600">
                   *All purchases are subject to applicable VAT / government
                   taxes as listed.

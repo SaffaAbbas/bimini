@@ -1,56 +1,74 @@
+import Link from "next/link";
 import { BiminiDayCta } from "../components/BiminiDayCta";
+import { FaqAccordion } from "../components/FaqAccordion";
+import { PageHero } from "../components/PageHero";
 import { RevealSection } from "../components/RevealSection";
+import { SectionHeading } from "../components/SectionHeading";
 import { SiteHeader } from "../components/SiteHeader";
+import { siteFaqSections } from "../data/site-faq";
+import { pageMeta } from "../lib/seo";
+
+export const metadata = pageMeta(
+  "FAQ",
+  "Frequently asked questions about Bimini tours—booking, pricing, VAT, weather cancellations, what to bring, and getting to Bimini from Florida.",
+);
 
 export default function FAQPage() {
   return (
     <main className="min-h-[100svh] w-full bg-white text-slate-900">
       <SiteHeader bookNowHref="/contact" />
 
-      <header className="group relative isolate min-h-[48svh] overflow-hidden sm:min-h-[50svh]">
-        <img
-          src="/images/new33.jpeg"
-          alt=""
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-105"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
+      <PageHero
+        title="Frequently asked questions"
+        subtitle="Booking, pricing, weather, and what to expect on your Bimini adventure."
+        imageSrc="/images/new33.jpeg"
+        imageAlt="Turquoise water in Bimini"
+        minHeightClass="min-h-[48svh] sm:min-h-[52svh]"
+        showWave
+      />
+
+      <RevealSection className="mx-auto max-w-3xl px-6 py-12 lg:px-8 lg:py-16">
+        <SectionHeading
+          eyebrow="HELP CENTER"
+          title="Quick answers before you go"
+          subtitle="For cancellation and refund details, see our policies linked below."
+          align="center"
         />
 
-        <div className="mx-auto flex min-h-[48svh] max-w-7xl flex-col px-6 pb-12 pt-24 sm:min-h-[50svh] lg:px-8 lg:pb-16 lg:pt-28">
-          <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-              FAQ
-            </h1>
-            <p className="mt-4 max-w-2xl text-pretty text-base leading-7 text-white sm:text-lg">
-              Tell me your FAQ questions and answers and I’ll design it nicely.
-            </p>
-          </div>
-        </div>
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-0">
-          <svg
-            viewBox="0 0 1440 120"
-            className="h-20 w-full"
-            preserveAspectRatio="none"
+        <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-slate-600">
+          <Link
+            href="/refund-policy"
+            className="font-semibold text-[color:var(--brand-primary)] hover:underline"
           >
-            <path
-              d="M0,72 C180,112 360,30 540,72 C720,112 900,30 1080,72 C1260,112 1350,35 1440,72 L1440,120 L0,120 Z"
-              fill="#ffffff"
-            />
-          </svg>
-        </div>
-      </header>
+            Refund Policy
+          </Link>
+          {" · "}
+          <Link
+            href="/terms-and-conditions"
+            className="font-semibold text-[color:var(--brand-primary)] hover:underline"
+          >
+            Terms &amp; Conditions
+          </Link>
+          {" · "}
+          <Link
+            href="/contact"
+            className="font-semibold text-[color:var(--brand-primary)] hover:underline"
+          >
+            Contact us
+          </Link>
+        </p>
 
-      <RevealSection className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-        <div className="rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200 transition-all duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg sm:p-10">
-          <p className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]">
-            COMING NEXT
-          </p>
-          <p className="mt-3 text-base leading-7 text-slate-700">
-            Add items like cancellation policy, what to bring, pickup details,
-            weather, safety, and booking help.
-          </p>
+        <div className="mt-12 space-y-12">
+          {siteFaqSections.map((section) => (
+            <section key={section.title}>
+              <h2 className="text-lg font-extrabold tracking-tight text-slate-900">
+                {section.title}
+              </h2>
+              <div className="mt-4">
+                <FaqAccordion items={section.items} />
+              </div>
+            </section>
+          ))}
         </div>
       </RevealSection>
 

@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
 import { BiminiDayCta } from "../components/BiminiDayCta";
 import { GallerySection } from "../components/GallerySection";
 import { PageHero } from "../components/PageHero";
 import { SiteHeader } from "../components/SiteHeader";
+import { pageMeta } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Gallery",
-  description:
-    "Browse photos from Bimini Tours & Adventures — island beaches, snorkeling, fishing, and unforgettable moments in the Bahamas.",
-};
+export const metadata = pageMeta(
+  "Photo Gallery",
+  "Photos from Bimini Tours & Adventures—snorkeling, beaches, fishing, and island life in the Bahamas. See what your day on the water could look like.",
+);
 
 export default function GalleryPage() {
   return (

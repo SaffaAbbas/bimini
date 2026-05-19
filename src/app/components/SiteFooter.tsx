@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion";
 import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
+import { BUSINESS } from "../data/business-info";
+import {
+  DESTINATION_LINKS,
+  EXPLORE_LINKS,
+  SOCIAL_LINKS,
+} from "../data/site-links";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
 
 const socialLinkClass =
@@ -82,12 +88,17 @@ function IconTikTok() {
   );
 }
 
-const social = [
-  { label: "Facebook", href: "#", Icon: IconFacebook },
-  { label: "Instagram", href: "#", Icon: IconInstagram },
-  { label: "YouTube", href: "#", Icon: IconYouTube },
-  { label: "TikTok", href: "#", Icon: IconTikTok },
-] as const;
+const socialPlatforms = [
+  { key: "facebook" as const, label: "Facebook", Icon: IconFacebook },
+  { key: "instagram" as const, label: "Instagram", Icon: IconInstagram },
+  { key: "youtube" as const, label: "YouTube", Icon: IconYouTube },
+  { key: "tiktok" as const, label: "TikTok", Icon: IconTikTok },
+];
+
+const activeSocial = socialPlatforms.filter((s) => {
+  const href = SOCIAL_LINKS[s.key]?.trim();
+  return Boolean(href);
+});
 
 export function SiteFooter() {
   return (
@@ -99,39 +110,46 @@ export function SiteFooter() {
         whileInView="visible"
         viewport={viewportOnce}
       >
-        <div className="text-center">
-          <motion.p
-            variants={fadeUp}
-            className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]"
-          >
-            FOLLOW US ON SOCIAL
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            className="mt-4 flex items-center justify-center gap-4"
-          >
-            {social.map((s, i) => {
-              const Icon = s.Icon;
-              return (
-                <motion.a
-                  key={s.label}
-                  href={s.href}
-                  className={socialLinkClass}
-                  aria-label={s.label}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
-                >
-                  <Icon />
-                </motion.a>
-              );
-            })}
-          </motion.div>
-        </div>
+        {activeSocial.length > 0 ? (
+          <div className="text-center">
+            <motion.p
+              variants={fadeUp}
+              className="text-sm font-extrabold tracking-widest text-[color:var(--brand-primary)]"
+            >
+              FOLLOW US ON SOCIAL
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="mt-4 flex items-center justify-center gap-4"
+            >
+              {activeSocial.map((s, i) => {
+                const Icon = s.Icon;
+                const href = SOCIAL_LINKS[s.key].trim();
+                return (
+                  <motion.a
+                    key={s.label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={socialLinkClass}
+                    aria-label={s.label}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
+                  >
+                    <Icon />
+                  </motion.a>
+                );
+              })}
+            </motion.div>
+          </div>
+        ) : null}
 
-        <motion.div className="mt-12 grid gap-10 text-center lg:grid-cols-12 lg:text-left">
+        <motion.div
+          className={`grid gap-10 text-center lg:grid-cols-12 lg:text-left ${activeSocial.length > 0 ? "mt-12" : ""}`}
+        >
           <motion.div
             variants={fadeUp}
             className="-mt-6 flex justify-center lg:col-span-3 lg:justify-start"
@@ -151,23 +169,34 @@ export function SiteFooter() {
 
           <motion.div
             variants={fadeUp}
-            className="grid justify-items-center gap-10 sm:grid-cols-3 lg:col-span-9 lg:justify-items-stretch"
+            className="grid justify-items-center gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:col-span-9 lg:justify-items-stretch"
           >
             <motion.div variants={fadeUp}>
               <p className="text-sm font-extrabold text-slate-900">
                 Destinations
               </p>
               <ul className="mt-4 space-y-3 text-sm text-slate-600">
-                {[
-                  "North Bimini",
-                  "South Bimini",
-                  "Sandbars & Cays",
-                  "Reefs & Wrecks",
-                ].map((label) => (
+                {DESTINATION_LINKS.map(({ label, href }) => (
                   <li key={label}>
                     <a
                       className="inline-block transition-colors duration-200 hover:text-slate-900"
-                      href="#"
+                      href={href}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <p className="text-sm font-extrabold text-slate-900">Explore</p>
+              <ul className="mt-4 space-y-3 text-sm text-slate-600">
+                {EXPLORE_LINKS.map(({ label, href }) => (
+                  <li key={label}>
+                    <a
+                      className="inline-block transition-colors duration-200 hover:text-slate-900"
+                      href={href}
                     >
                       {label}
                     </a>
@@ -268,27 +297,29 @@ export function SiteFooter() {
             className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-end"
             variants={staggerContainer}
           >
-            <motion.div
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
-              aria-label="Cards we accept"
-            >
-              {ACCEPTED_CARD_BADGES.map((x, i) => (
-                <motion.span
-                  key={x.src}
-                  className="inline-flex items-center justify-center px-1.5 py-0.5"
-                  title={x.alt}
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.12 }}
-                >
-                  <img
-                    src={x.src}
-                    alt={x.alt}
-                    className="h-6 w-auto object-contain sm:h-7"
-                    loading="lazy"
-                  />
-                </motion.span>
-              ))}
-            </motion.div>
+            <div className="flex max-w-md flex-col items-center gap-2 sm:items-end">
+              <motion.div
+                className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3"
+                aria-label="Payment methods we accept"
+              >
+                {ACCEPTED_CARD_BADGES.map((x, i) => (
+                  <motion.span
+                    key={x.src}
+                    className="inline-flex items-center justify-center px-1.5 py-0.5"
+                    title={x.alt}
+                    variants={fadeUp}
+                    whileHover={{ scale: 1.12 }}
+                  >
+                    <img
+                      src={x.src}
+                      alt={x.alt}
+                      className="h-6 w-auto object-contain sm:h-7"
+                      loading="lazy"
+                    />
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </motion.div>

@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
+import { pageMeta } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions",
-  description:
-    "Terms and conditions for bookings and tours with Bimini Tours & Adventures.",
-};
+export const metadata = pageMeta(
+  "Terms & Conditions",
+  "Terms and conditions for bookings, liability, and tours with Bimini Tours & Adventures in the Bahamas.",
+);
 
 export default function TermsAndConditionsPage() {
   return (

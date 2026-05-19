@@ -137,7 +137,17 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
   );
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    let isScrolled = false;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (!isScrolled && y > 48) {
+        isScrolled = true;
+        setScrolled(true);
+      } else if (isScrolled && y < 12) {
+        isScrolled = false;
+        setScrolled(false);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -163,13 +173,12 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
 
   const solid = scrolled || mobileOpen;
 
-  const shellClassName = solid
-    ? "pointer-events-auto bg-white/92 text-slate-900 shadow-sm backdrop-blur-md"
-    : "pointer-events-auto bg-transparent text-white";
-
-  const logoClassName = solid
-    ? "h-20 w-auto object-contain"
-    : "h-30 w-auto object-contain";
+  const shellClassName = [
+    "pointer-events-auto transition-[background-color,box-shadow,color] duration-300 ease-out",
+    solid
+      ? "bg-white/92 text-slate-900 shadow-sm backdrop-blur-md"
+      : "bg-transparent text-white",
+  ].join(" ");
 
   return (
     <motion.div
@@ -178,36 +187,35 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: easeOut }}
     >
-      <motion.div
-        className={shellClassName}
-        ref={menuRef}
-        layout
-        transition={{ duration: 0.35, ease: easeOut }}
-      >
-        <motion.div
-          className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3"
-          layout
-        >
+      <div className={shellClassName} ref={menuRef}>
+        <motion.div className="mx-auto flex min-h-[5.25rem] max-w-7xl items-center justify-between px-6 py-3">
           <Link
             href="/"
-            className="pointer-events-auto"
+            className="pointer-events-auto block shrink-0 overflow-hidden"
             onClick={closeMobile}
+            aria-label="Bimini Tours & Adventures — Home"
           >
             <motion.div
-              className="relative"
+              className="relative flex h-14 items-center sm:h-20"
               whileHover={{ scale: 1.03 }}
               whileTap={tapScale}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
             >
+              {/* Glow reads as a second logo on mobile — desktop only */}
               <motion.div
-                className="absolute inset-0 -z-10 scale-110 rounded-full bg-white/30 blur-xl"
+                className="absolute inset-0 -z-10 hidden scale-110 rounded-full bg-white/30 blur-xl sm:block"
                 animate={{ opacity: solid ? 0.5 : 1 }}
                 transition={{ duration: 0.3 }}
+                aria-hidden
               />
               <img
                 src="/images/bimini.png"
-                alt="Bimini Tours & Adventures"
-                className={`${logoClassName} brightness-110`}
+                alt=""
+                className={`h-14 w-auto max-w-[min(52vw,11rem)] origin-left object-contain object-left brightness-110 transition-transform duration-300 ease-out sm:h-20 sm:max-w-none ${
+                  solid ? "scale-100" : "scale-100 sm:scale-[1.18]"
+                }`}
+                width={160}
+                height={80}
               />
             </motion.div>
           </Link>
@@ -267,7 +275,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
 
             <motion.button
               type="button"
-              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-lg md:hidden"
+              className="pointer-events-auto inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg touch-manipulation md:hidden"
               onClick={() => setMobileOpen((o) => !o)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -364,7 +372,7 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
             </motion.div>
           ) : null}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

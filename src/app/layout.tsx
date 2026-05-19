@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "./components/MotionProvider";
 import { SiteFooter } from "./components/SiteFooter";
+import { WhatsAppFloatButton } from "./components/WhatsAppFloatButton";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -11,9 +12,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Bimini Tours & Adventures",
-  description:
-    "Discover snorkeling, island tours, fishing charters, eco-adventures, and unforgettable experiences in Bimini, Bahamas.",
+  metadataBase: new URL("https://www.toursbimini.com"),
+  title: {
+    default: "Bimini Tours & Adventures",
+    template: "%s | Bimini Tours & Adventures",
+  },
+  // Description is set per page (home, contact, tours, etc.) — not inherited here.
 };
 
 export default function RootLayout({
@@ -27,6 +31,7 @@ export default function RootLayout({
         <MotionProvider>
           {children}
           <SiteFooter />
+          <WhatsAppFloatButton />
         </MotionProvider>
       </body>
     </html>

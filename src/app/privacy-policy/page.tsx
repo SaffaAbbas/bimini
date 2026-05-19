@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
+import { pageMeta } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "How Bimini Tours & Adventures collects, uses, and protects your personal information.",
-};
+export const metadata = pageMeta(
+  "Privacy Policy",
+  "How Bimini Tours & Adventures collects, uses, and protects your personal information when you book tours or contact us.",
+);
 
 export default function PrivacyPolicyPage() {
   return (

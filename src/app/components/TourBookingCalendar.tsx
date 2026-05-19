@@ -4,6 +4,8 @@ import Link from "next/link";
 import { btnAccentDisabled, btnAccentFullWidth } from "./button-styles";
 import { useMemo, useState } from "react";
 import { BOOKING_FOOTNOTE } from "../data/tour-packages";
+import { BookingInquiryNotice } from "./BookingInquiryNotice";
+import { TourPriceList } from "./TourPriceList";
 
 const TIME_OPTIONS = [
   { value: "09:00", label: "9:00 AM — Available" },
@@ -101,27 +103,26 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
     return `/tours/${tourSlug}/checkout?${q.toString()}`;
   }, [tourSlug, selected, guests, time]);
 
-  const priceSummary =
-    priceLines.length === 1
-      ? priceLines[0]
-      : priceLines.slice(0, 2).join(" · ");
-
   const selectClass =
-    "mt-1.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-900 outline-none focus:border-[color:var(--brand-primary)] focus:ring-1 focus:ring-[color:var(--brand-primary)]/25 sm:text-sm";
+    "mt-1.5 w-full min-h-[44px] rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-[color:var(--brand-primary)] focus:ring-2 focus:ring-[color:var(--brand-primary)]/25 touch-manipulation";
 
   return (
     <div
       id="tour-book-calendar"
-      className="flex h-full min-h-0 w-full flex-col justify-center scroll-mt-24 rounded-xl border-0 bg-transparent p-6 shadow-none sm:p-8"
+      className="flex h-full min-h-0 w-full flex-col justify-center scroll-mt-24 rounded-xl border-0 bg-transparent p-4 shadow-none sm:p-6 md:p-8"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h2 className="font-serif text-base font-bold tracking-tight text-slate-900">Book</h2>
+          <h2 className="font-serif text-base font-bold tracking-tight text-slate-900">
+            Request a date
+          </h2>
           <p className="mt-0.5 text-[11px] leading-snug text-slate-600 sm:text-xs">
-            Date, guests &amp; time — we confirm after your message.
+            Pick guests, time, and date—we confirm availability before you pay.
           </p>
         </div>
       </div>
+
+      <BookingInquiryNotice variant="compact" className="mt-3" />
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div>
@@ -155,7 +156,7 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
           <button
             type="button"
             onClick={prevMonth}
-            className="rounded-md border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 motion-safe:duration-150"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 text-base font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 touch-manipulation motion-safe:duration-150"
             aria-label="Previous month"
           >
             ←
@@ -164,7 +165,7 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
           <button
             type="button"
             onClick={nextMonth}
-            className="rounded-md border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 motion-safe:duration-150"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 text-base font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 touch-manipulation motion-safe:duration-150"
             aria-label="Next month"
           >
             →
@@ -179,17 +180,17 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
           ))}
         </div>
 
-        <div className="mt-0.5 grid grid-cols-7 gap-px">
+        <div className="mt-1 grid grid-cols-7 gap-1 sm:gap-0.5">
           {cells.map((day, i) =>
             day === null ? (
-              <div key={`e-${i}`} className="h-9" aria-hidden />
+              <div key={`e-${i}`} className="min-h-11" aria-hidden />
             ) : (
               <button
                 key={day}
                 type="button"
                 disabled={isDisabled(day)}
                 onClick={() => setSelected(cellDate(day))}
-                className={`mx-auto flex aspect-square max-h-9 w-full max-w-9 items-center justify-center rounded-md text-[11px] font-semibold outline-none transition active:scale-95 sm:text-xs motion-safe:duration-150 ${
+                className={`mx-auto flex min-h-11 min-w-11 items-center justify-center rounded-lg text-sm font-semibold outline-none transition active:scale-95 touch-manipulation sm:min-h-10 sm:min-w-10 sm:text-xs motion-safe:duration-150 ${
                   isDisabled(day)
                     ? "cursor-not-allowed text-slate-300"
                     : isSelected(day)
@@ -204,11 +205,11 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
         </div>
       </div>
 
-      <div className="mt-3 flex items-start justify-between gap-2 border-t border-slate-100 pt-3">
-        <span className="text-[11px] font-semibold text-slate-600 sm:text-xs">Price (est.)</span>
-        <span className="max-w-[65%] text-right text-[11px] font-bold leading-snug text-slate-900 sm:text-xs">
-          {priceSummary}
-        </span>
+      <div className="mt-4 border-t border-slate-100 pt-3">
+        <p className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+          Pricing
+        </p>
+        <TourPriceList lines={priceLines} className="mt-2" />
       </div>
       <p className="mt-1 text-[10px] font-medium leading-snug text-red-600 sm:text-[11px]">
         *Final total + taxes per pricing above.
@@ -217,13 +218,13 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
       {selected ? (
         <Link
           href={checkoutHref}
-          className={`mt-3 ${btnAccentFullWidth} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:translate-y-0`}
+          className={`mt-3 min-h-12 ${btnAccentFullWidth} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:translate-y-0`}
         >
-          Book now
+          Review booking request
         </Link>
       ) : (
         <span className={`mt-3 ${btnAccentDisabled}`}>
-          Book now
+          Review booking request
         </span>
       )}
       {!selected ? (

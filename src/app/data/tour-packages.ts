@@ -317,7 +317,7 @@ export const tourPackages: TourPackage[] = [
   },
   {
     slug: "little-bit-of-that",
-    title: "Bimini Little Bit & Little Bit of That Package",
+    title: "Bimini Little Bit of This & Little Bit of That Package",
     category: "Culture + Adventure",
     imageSrc: "/images/new38.jpeg",
     imageAlt: "Adventure and beach vibes in Bimini",
@@ -371,7 +371,7 @@ export const tourPackages: TourPackage[] = [
     duration: "4 hours",
     priceLines: [
       "Adults: $200 + VAT",
-      "Kids: $150",
+      "Kids: $150 + VAT",
       "Family (4 people): $750 + VAT",
     ],
     description:
@@ -419,7 +419,7 @@ export const tourPackages: TourPackage[] = [
     duration: "2½ – 3 hours",
     priceLines: [
       "Adults: $300 + VAT",
-      "Kids: $250",
+      "Kids: $250 + VAT",
       "Family (4 people): $750 + VAT",
     ],
     description:
@@ -556,4 +556,8 @@ export const tourPackages: TourPackage[] = [
 
 export function getTourBySlug(slug: string): TourPackage | undefined {
   return tourPackages.find((p) => p.slug === slug);
+}
+
+export function getContactPackageOptions() {
+  return tourPackages.map((p) => ({ value: p.slug, label: p.title }));
 }

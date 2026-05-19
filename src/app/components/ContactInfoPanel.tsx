@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { BUSINESS } from "../data/business-info";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
 
 const channels = [
   {
     label: "Email",
-    title: "Email us",
-    value: "bookings@toursbimini.com",
-    href: "mailto:bookings@toursbimini.com",
+    value: BUSINESS.email,
+    href: `mailto:${BUSINESS.email}`,
     icon: (
       <path
         strokeLinecap="round"
@@ -18,10 +18,22 @@ const channels = [
     ),
   },
   {
+    label: "WhatsApp",
+    value: BUSINESS.whatsappDisplay,
+    href: `https://wa.me/${BUSINESS.whatsapp}`,
+    external: true,
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8 10h8M8 14h4m-4 6l1.5-3.5A9 9 0 1112 3a9 9 0 019 17.5L8 20z"
+      />
+    ),
+  },
+  {
     label: "Phone",
-    title: "Call or text",
-    value: "(242) 826-TOUR (8687)",
-    href: "tel:+12428268687",
+    value: BUSINESS.phoneDisplay,
+    href: `tel:${BUSINESS.phoneTel}`,
     icon: (
       <path
         strokeLinecap="round"
@@ -31,8 +43,7 @@ const channels = [
     ),
   },
   {
-    label: "Web",
-    title: "Website",
+    label: "Website",
     value: "toursbimini.com",
     href: "https://www.toursbimini.com",
     external: true,
@@ -59,6 +70,7 @@ export function ContactInfoPanel() {
         <motion.a
           key={ch.label}
           href={ch.href}
+          aria-label={`${ch.label}: ${ch.value}`}
           variants={fadeUp}
           target={"external" in ch && ch.external ? "_blank" : undefined}
           rel={"external" in ch && ch.external ? "noopener noreferrer" : undefined}
@@ -78,13 +90,13 @@ export function ContactInfoPanel() {
               {ch.icon}
             </svg>
           </div>
-          <motion.div>
-            <p className="text-xs font-extrabold uppercase tracking-widest text-[color:var(--brand-primary)]">
-              {ch.title}
-            </p>
-            <p className="mt-1 text-base font-semibold text-slate-900 group-hover:text-[color:var(--brand-primary)]">
+          <motion.div className="flex min-w-0 flex-1 flex-col gap-2">
+            <span className="text-xs font-extrabold uppercase tracking-wide text-[color:var(--brand-primary)]">
+              {ch.label}
+            </span>
+            <span className="break-words text-base font-semibold leading-snug text-slate-900 group-hover:text-[color:var(--brand-primary)]">
               {ch.value}
-            </p>
+            </span>
           </motion.div>
         </motion.a>
       ))}

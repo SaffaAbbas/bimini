@@ -23,7 +23,7 @@ export function MissionSection() {
           <SectionHeading
             eyebrow="OUR MISSION"
             title="Connecting you with the real Bimini"
-            subtitle="We share the island respectfully highlighting its culture and natural beauty while helping guests feel at ease from the first question to the last photo."
+            subtitle="We share the island respectfully, highlighting its culture and natural beauty while helping guests feel at ease from the first question to the last photo."
             align="left"
             className="!max-w-none"
           />

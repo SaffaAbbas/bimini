@@ -91,6 +91,27 @@ body {
   }
 }
 
+@keyframes gallery-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.gallery-marquee-track {
+  animation: gallery-marquee 36s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-marquee-track {
+    animation: none;
+  }
+}
+
 .animate-marquee {
   animation: marquee 20s linear infinite;
 }

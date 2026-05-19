@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { TourDetailView } from "../../components/TourDetailView";
 import { SiteHeader } from "../../components/SiteHeader";
 import { getTourBySlug, tourPackages } from "../../data/tour-packages";
+import { tourPageMeta } from "../../lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,10 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tour = getTourBySlug(slug);
   if (!tour) return { title: "Tour" };
-  return {
-    title: `${tour.title} | Bimini Tours & Adventures`,
-    description: tour.description,
-  };
+  const description = `${tour.description} Duration: ${tour.duration}. Snorkeling, fishing, and island tours in Bimini, Bahamas—request your date online.`;
+
+  return tourPageMeta(tour.title, description);
 }
 
 export default async function TourDetailPage({ params }: Props) {

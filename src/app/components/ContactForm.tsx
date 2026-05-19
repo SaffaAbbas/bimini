@@ -4,6 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { btnPrimary } from "./button-styles";
+import { BookingInquiryNotice } from "./BookingInquiryNotice";
+import { PhoneCountryInput } from "./PhoneCountryInput";
+import { isPhoneValid } from "../data/phone-countries";
 import { fadeUp, tapScale } from "../lib/motion";
 import { TOUR_TIME_LABELS } from "../lib/tour-checkout-utils";
 
@@ -73,7 +76,10 @@ export function ContactForm({
     guests: false,
     message: false,
   });
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(
+    "idle",
+  );
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const pkg = searchParams.get("package");
@@ -132,6 +138,9 @@ export function ContactForm({
     if (!form.email.trim()) e.email = "Email is required.";
     else if (!isEmailValid(form.email)) e.email = "Enter a valid email.";
     if (!form.phone.trim()) e.phone = "Phone is required.";
+    else if (!isPhoneValid(form.phone)) {
+      e.phone = "Enter a valid phone number with country code.";
+    }
     if (!form.package.trim()) e.package = "Select a package.";
     if (!form.date.trim()) e.date = "Select a date.";
     if (!form.guests.trim()) e.guests = "Guests is required.";
@@ -141,8 +150,14 @@ export function ContactForm({
 
   const canSubmit = Object.keys(errors).length === 0;
 
+  const packageFromUrl = searchParams.get("package");
+  const selectedPackageLabel = packageOptions.find(
+    (o) => o.value === form.package,
+  )?.label;
+
   function onChange<K extends keyof FormState>(key: K, value: FormState[K]) {
     setStatus("idle");
+    setSubmitError(null);
     setForm((p) => ({ ...p, [key]: value }));
   }
 
@@ -150,7 +165,7 @@ export function ContactForm({
     setTouched((p) => ({ ...p, [key]: true }));
   }
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
     setTouched({
       fullName: true,
@@ -161,21 +176,52 @@ export function ContactForm({
       guests: true,
       message: true,
     });
-    if (!canSubmit) return;
+    if (!canSubmit || status === "sending") return;
 
-    // No backend yet — we just show a success state.
-    // Later you can connect this to a route handler / email provider.
-    setStatus("success");
-    setForm(initialState);
-    setTouched({
-      fullName: false,
-      email: false,
-      phone: false,
-      package: false,
-      date: false,
-      guests: false,
-      message: false,
-    });
+    const packageLabel =
+      packageOptions.find((o) => o.value === form.package)?.label ??
+      form.package;
+
+    setStatus("sending");
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          packageLabel,
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+
+      if (!res.ok) {
+        setStatus("error");
+        setSubmitError(
+          data.error ?? "Something went wrong. Please try again or call us.",
+        );
+        return;
+      }
+
+      setStatus("success");
+      setForm(initialState);
+      setTouched({
+        fullName: false,
+        email: false,
+        phone: false,
+        package: false,
+        date: false,
+        guests: false,
+        message: false,
+      });
+    } catch {
+      setStatus("error");
+      setSubmitError(
+        "Network error. Check your connection or call us directly.",
+      );
+    }
   }
 
   const fieldBase =
@@ -202,7 +248,32 @@ export function ContactForm({
             </p>
           </motion.div>
         ) : null}
+        {status === "error" && submitError ? (
+          <motion.div
+            key="error"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-900 shadow-sm"
+          >
+            <p className="text-sm font-extrabold">Could not send message</p>
+            <p className="mt-1 text-sm text-red-800/90">{submitError}</p>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
+
+      <BookingInquiryNotice className="mb-1" />
+
+      {form.package && packageFromUrl && selectedPackageLabel ? (
+        <p
+          className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-950"
+          role="status"
+        >
+          You&apos;re inquiring about:{" "}
+          <span className="font-extrabold">{selectedPackageLabel}</span>
+        </p>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -236,20 +307,15 @@ export function ContactForm({
           ) : null}
         </div>
 
-        <div>
+        <div className="sm:col-span-2">
           <p className={labelBase}>PHONE</p>
-          <input
+          <PhoneCountryInput
             value={form.phone}
-            onChange={(e) => onChange("phone", e.target.value)}
+            onChange={(v) => onChange("phone", v)}
             onBlur={() => onBlur("phone")}
-            placeholder="Phone number"
-            className={fieldBase}
-            autoComplete="tel"
-            inputMode="tel"
+            fieldClassName={fieldBase}
+            error={touched.phone ? errors.phone : undefined}
           />
-          {touched.phone && errors.phone ? (
-            <p className={errorText}>{errors.phone}</p>
-          ) : null}
         </div>
 
         <div>
@@ -324,12 +390,12 @@ export function ContactForm({
         </p>
         <motion.button
           type="submit"
-          disabled={!canSubmit}
-          whileHover={canSubmit ? { y: -2 } : undefined}
-          whileTap={canSubmit ? tapScale : undefined}
+          disabled={!canSubmit || status === "sending"}
+          whileHover={canSubmit && status !== "sending" ? { y: -2 } : undefined}
+          whileTap={canSubmit && status !== "sending" ? tapScale : undefined}
           className={`${btnPrimary} transition-all duration-200 enabled:hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50`}
         >
-          Send Message
+          {status === "sending" ? "Sending…" : "Send Message"}
         </motion.button>
       </div>
     </form>

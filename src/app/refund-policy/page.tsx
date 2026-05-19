@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import { PageHero } from "../components/PageHero";
 import { RevealSection } from "../components/RevealSection";
 import { SiteHeader } from "../components/SiteHeader";
+import { pageMeta } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Refund Policy",
-  description:
-    "Cancellation, refund, and weather policies for Bimini Tours & Adventures.",
-};
+export const metadata = pageMeta(
+  "Refund Policy",
+  "Cancellation, refund, and weather policies for Bimini Tours & Adventures—what happens if your tour is rescheduled or called off.",
+);
 
 export default function RefundPolicyPage() {
   return (

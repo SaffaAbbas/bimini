@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { AnimatedButton } from "../components/AnimatedButton";
 import { BiminiDayCta } from "../components/BiminiDayCta";
 import { HighlightsStrip } from "../components/HighlightsStrip";
@@ -8,14 +7,15 @@ import { ParallaxQuoteBanner } from "../components/ParallaxQuoteBanner";
 import { RevealSection } from "../components/RevealSection";
 import { SectionHeading } from "../components/SectionHeading";
 import { SiteHeader } from "../components/SiteHeader";
+import { TravelGuideSection } from "../components/TravelGuideSection";
 import { WhatWeOfferCards } from "../components/WhatWeOfferCards";
 import { WhyChooseGrid } from "../components/WhyChooseGrid";
+import { pageMeta } from "../lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "Discover Bimini—the gateway to paradise—and how Bimini Tours & Adventures connects you with island culture, nature, and unforgettable tours.",
-};
+export const metadata = pageMeta(
+  "About Us",
+  "Meet Bimini Tours & Adventures—local guides, island culture, and how to reach Bimini by ferry, seaplane, or boat. Passport tips for U.S. visitors to the Bahamas.",
+);
 
 const whyChoose = [
   {
@@ -28,7 +28,7 @@ const whyChoose = [
   },
   {
     title: "Natural Wonders",
-    body: "From Radio Beach and Bikini Beach to coral reefs and wrecks, Bimini stuns above and below the water. Discover the Bimini Road and the Healing Hole—nature and mystery side by side.",
+    body: "From Radio Beach and Bimini's white-sand shores to coral reefs and wrecks, the islands stun above and below the water. Discover the Bimini Road and the Healing Hole—nature and mystery side by side.",
   },
   {
     title: "Adventure & Culinary Delights",
@@ -54,7 +54,8 @@ const offerings = [
     title: "Island Tours",
     body: "Discover the rich history and culture of Bimini on our guided island tours. Visit historical landmarks, local markets, and charming villages while learning about the island's unique heritage.",
     imageSrc: "/images/new42.jpeg",
-    imageAlt: "Pristine Bimini beach with white sand and calm turquoise sea",
+    imageAlt:
+      "Pristine beach on Bimini island with white sand and calm turquoise sea",
   },
   {
     title: "Eco-Adventures",
@@ -121,6 +122,8 @@ export default function AboutPage() {
         // quote="The sea, once it casts its spell, holds one in its net of wonder forever."
         // attribution="— Jacques Cousteau"
       />
+
+      <TravelGuideSection showDestinations />
 
       <RevealSection className="bg-white py-16 lg:py-24" delayMs={280}>
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">

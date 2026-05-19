@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { CheckoutPageHeader } from "../../../components/CheckoutPageHeader";
 import { TourCheckoutView } from "../../../components/TourCheckoutView";
 import { getTourBySlug } from "../../../data/tour-packages";
+import { tourPageMeta } from "../../../lib/seo";
 import {
   addHours,
   combineDateAndTime,
@@ -24,7 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tour = getTourBySlug(slug);
   if (!tour) return { title: "Checkout" };
-  return { title: `Checkout — ${tour.title} | Bimini Tours & Adventures` };
+  return tourPageMeta(
+    `Checkout — ${tour.title}`,
+    `Review dates, guests, and pricing for ${tour.title}, then send a booking request. Payment is arranged after we confirm availability—not instant card checkout.`,
+  );
 }
 
 export default async function TourCheckoutPage({ params, searchParams }: Props) {

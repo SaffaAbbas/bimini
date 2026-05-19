@@ -5,6 +5,8 @@ import { useMemo, useState } from "react";
 import { ACCEPTED_CARD_BADGES } from "../data/payment-methods";
 import { btnPrimary, btnPrimaryFullWidth } from "./button-styles";
 import { buildContactHref, formatMoneyUsd } from "../lib/tour-checkout-utils";
+import { BookingInquiryNotice } from "./BookingInquiryNotice";
+import { TourPriceList } from "./TourPriceList";
 
 const COUPON_CODES: Record<string, number> = {
   BIMINI10: 0.1,
@@ -152,11 +154,10 @@ export function TourCheckoutView({
                     </div>
                     <div className="pt-1 text-xs text-slate-500">{estimateBasis}</div>
                   </dl>
-                  <ul className="mt-3 space-y-0.5 text-xs text-slate-500">
-                    {priceLines.map((line, i) => (
-                      <li key={`${i}-${line}`}>• {line}</li>
-                    ))}
-                  </ul>
+                  <TourPriceList
+                    lines={priceLines}
+                    className="mt-3 rounded-lg bg-slate-50/80 p-3 ring-1 ring-slate-100"
+                  />
                 </div>
               </div>
 
@@ -245,12 +246,14 @@ export function TourCheckoutView({
               </p>
             ) : null}
 
+            <BookingInquiryNotice variant="compact" className="pt-1" />
+
             <div className="space-y-3 pt-2">
               <Link
                 href={buildContactHref({ ...contactBase, pay: "message" })}
                 className={`${btnPrimaryFullWidth} uppercase tracking-wide`}
               >
-                Proceed to checkout
+                Send booking request
               </Link>
               <p className="text-center text-xs font-semibold text-slate-400">— or —</p>
               <Link
