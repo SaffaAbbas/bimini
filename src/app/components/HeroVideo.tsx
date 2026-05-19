@@ -167,9 +167,9 @@ export function HeroVideo() {
           }`}
         />
 
-        {/* Light scrim so hero text stays readable — keep subtle */}
+        {/* Smooth top → bottom scrim (no hard line under header) */}
         <motion.div
-          className="absolute inset-0 bg-black/25"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.05)_14%,rgba(0,0,0,0.12)_30%,rgba(0,0,0,0.22)_50%,rgba(0,0,0,0.34)_72%,rgba(0,0,0,0.42)_100%)]"
           aria-hidden
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

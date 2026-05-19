@@ -39,19 +39,19 @@ export function HomeClient() {
           >
             <motion.p
               variants={fadeUp}
-              className="text-sm font-bold tracking-wide text-white"
+              className="text-sm font-bold tracking-wide text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]"
             >
               Bimini, Bahamas
             </motion.p>
             <motion.h1
               variants={fadeUp}
-              className="mt-4 text-balance text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+              className="mt-4 text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] sm:text-6xl lg:text-7xl"
             >
               Explore Bimini
             </motion.h1>
             <motion.p
               variants={fadeUp}
-              className="mt-4 text-balance text-2xl font-normal tracking-tight text-white sm:text-4xl"
+              className="mt-4 text-balance text-2xl font-normal tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] sm:text-4xl"
             >
               Bimini Tours & Adventures
             </motion.p>
@@ -68,7 +68,7 @@ export function HomeClient() {
             />
             <motion.p
               variants={fadeUp}
-              className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white sm:text-lg"
+              className="mt-5 max-w-2xl text-pretty text-base font-semibold leading-7 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-lg"
             >
               Experience Bimini beyond the beach with authentic cultural tours
               that celebrate history, heritage, food, music, and the island’s

@@ -195,7 +195,9 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
             aria-label="Bimini Tours & Adventures — Home"
           >
             <motion.div
-              className="relative flex h-14 items-center sm:h-20"
+              className={`relative flex items-center ${
+                solid ? "h-14 sm:h-20" : "h-[5.25rem] sm:h-[7.75rem]"
+              }`}
               whileHover={{ scale: 1.03 }}
               whileTap={tapScale}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
@@ -203,8 +205,10 @@ export function SiteHeader({ bookNowHref }: { bookNowHref: string }) {
               <img
                 src="/images/bimini.png"
                 alt=""
-                className={`h-14 w-auto max-w-[min(52vw,11rem)] origin-left object-contain object-left transition-transform duration-300 ease-out sm:h-20 sm:max-w-none ${
-                  solid ? "scale-100" : "scale-100 sm:scale-[1.18]"
+                className={`w-auto origin-left object-contain object-left transition-[height,filter] duration-300 ease-out ${
+                  solid
+                    ? "h-14 max-w-[min(52vw,11rem)] sm:h-20 sm:max-w-none"
+                    : "h-[5rem] max-w-[min(68vw,16rem)] brightness-0 invert  sm:h-[7.5rem] sm:max-w-none"
                 }`}
                 width={160}
                 height={80}
