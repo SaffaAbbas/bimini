@@ -166,6 +166,15 @@ export function HeroVideo() {
             activeLayer === 1 ? "opacity-100" : "opacity-0"
           }`}
         />
+
+        {/* Light scrim so hero text stays readable — keep subtle */}
+        <motion.div
+          className="absolute inset-0 bg-black/25"
+          aria-hidden
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        />
       </motion.div>
 
       <HeroVideoControls activeIndex={videoIndex} onSelect={switchToVideo} />
