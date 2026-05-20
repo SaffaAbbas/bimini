@@ -106,8 +106,33 @@ body {
   will-change: transform;
 }
 
+.gallery-marquee-wrap:hover .gallery-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes gallery-shine {
+  from {
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  to {
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+.gallery-tile-shine {
+  animation: gallery-shine 0.85s ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .gallery-marquee-track {
+    animation: none;
+  }
+
+  .gallery-marquee-wrap:hover .gallery-marquee-track {
+    animation-play-state: running;
+  }
+
+  .gallery-tile-shine {
     animation: none;
   }
 }

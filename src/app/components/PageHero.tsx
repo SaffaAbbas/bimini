@@ -53,7 +53,7 @@ export function PageHero({
           {subtitle ? (
             <motion.p
               variants={fadeUp}
-              className="mt-4 max-w-2xl text-pretty text-base leading-7 text-white/95 sm:text-lg"
+              className="mt-4 max-w-2xl font-semibold text-pretty text-base leading-7 text-white/95 sm:text-lg"
             >
               {subtitle}
             </motion.p>

@@ -80,9 +80,9 @@ export default function AboutPage() {
       <PageHero
         title="About Us"
         subtitle="Bimini: the gateway to paradise—where every moment is a treasure."
-        imageSrc="/images/new31.jpeg"
+        imageSrc="/images/new29.jpeg"
         imageAlt="Bimini coastline"
-        minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[85svh]"
+        minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[100svh]"
         showWave
       />
 

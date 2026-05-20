@@ -34,7 +34,7 @@ export default function ContactPage() {
         subtitle="Bimini Tours & Adventures."
         imageSrc="/images/new33.jpeg"
         imageAlt="Bimini waters at sunset"
-        minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[80svh]"
+        minHeightClass="min-h-[65svh] sm:min-h-[75svh] lg:min-h-[100svh]"
         showWave
       />
 
