@@ -8,7 +8,6 @@ import {
   EXPLORE_LINKS,
   SOCIAL_LINKS,
 } from "../data/site-links";
-import { FooterGuestStories } from "./FooterGuestStories";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
 
 const socialLinkClass =
@@ -147,8 +146,6 @@ export function SiteFooter() {
             </motion.div>
           </div>
         ) : null}
-
-        <FooterGuestStories />
 
         <motion.div
           className={`grid gap-10 text-center lg:grid-cols-12 lg:text-left ${activeSocial.length > 0 ? "mt-12" : "mt-12"}`}

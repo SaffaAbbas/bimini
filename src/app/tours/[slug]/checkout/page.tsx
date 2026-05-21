@@ -4,7 +4,12 @@ import { notFound, redirect } from "next/navigation";
 import { CheckoutPageHeader } from "../../../components/CheckoutPageHeader";
 import { TourCheckoutView } from "../../../components/TourCheckoutView";
 import { getTourBySlug } from "../../../data/tour-packages";
+import { getPayPalClientIdPublic } from "../../../lib/paypal-env";
 import { tourPageMeta } from "../../../lib/seo";
+import {
+  parseParticipantsFromSearchParams,
+  totalParticipants,
+} from "../../../lib/tour-participant-pricing";
 import {
   addHours,
   combineDateAndTime,
@@ -27,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!tour) return { title: "Checkout" };
   return tourPageMeta(
     `Checkout — ${tour.title}`,
-    `Review dates, guests, and pricing for ${tour.title}, then send a booking request. PayPal payment is arranged after we confirm availability.`,
+    `Review dates, guests, and pricing for ${tour.title}, then pay with PayPal or send a booking request.`,
   );
 }
 
@@ -38,20 +43,25 @@ export default async function TourCheckoutPage({ params, searchParams }: Props) 
 
   const sp = await searchParams;
   const dateRaw = typeof sp.date === "string" ? sp.date : undefined;
-  const guestsRaw = typeof sp.guests === "string" ? sp.guests : undefined;
   const timeRaw = typeof sp.time === "string" ? sp.time : undefined;
 
   if (!dateRaw || !/^\d{4}-\d{2}-\d{2}$/.test(dateRaw)) {
-    redirect(`/tours/${slug}`);
-  }
-  if (!guestsRaw || !/^\d+$/.test(guestsRaw)) {
     redirect(`/tours/${slug}`);
   }
   if (!timeRaw) {
     redirect(`/tours/${slug}`);
   }
 
-  const guests = Math.min(50, Math.max(1, Number(guestsRaw)));
+  const participants = parseParticipantsFromSearchParams({
+    adults: typeof sp.adults === "string" ? sp.adults : undefined,
+    children: typeof sp.children === "string" ? sp.children : undefined,
+    infants: typeof sp.infants === "string" ? sp.infants : undefined,
+    guests: typeof sp.guests === "string" ? sp.guests : undefined,
+  });
+  const guests = totalParticipants(participants);
+  if (guests < 1) {
+    redirect(`/tours/${slug}`);
+  }
   const start = combineDateAndTime(dateRaw, timeRaw);
   if (!start || Number.isNaN(start.getTime())) {
     redirect(`/tours/${slug}`);
@@ -59,7 +69,8 @@ export default async function TourCheckoutPage({ params, searchParams }: Props) 
 
   const hours = parseDurationHours(tour.duration);
   const end = addHours(start, hours);
-  const est = estimateSubtotalUsd(tour.slug, tour.priceLines, guests);
+  const est = estimateSubtotalUsd(tour.slug, tour.priceLines, participants);
+  const paypalClientId = getPayPalClientIdPublic();
 
   return (
     <main className="min-h-[100svh] w-full bg-slate-50 text-slate-900">
@@ -90,12 +101,17 @@ export default async function TourCheckoutPage({ params, searchParams }: Props) 
         timeValue={timeRaw}
         timeLabel={timeLabel(timeRaw)}
         guests={guests}
+        adults={participants.adults}
+        children={participants.children}
+        infants={participants.infants}
+        priceBreakdown={est?.breakdown ?? []}
         durationLabel={tour.duration}
         fromDisplay={formatBookingWhen(start)}
         toDisplay={formatBookingWhen(end)}
         subtotal={est?.amount ?? null}
         estimateBasis={est?.basis ?? "See package pricing on this page."}
         priceLines={tour.priceLines}
+        paypalClientId={paypalClientId}
       />
     </main>
   );

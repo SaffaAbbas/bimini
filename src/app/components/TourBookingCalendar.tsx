@@ -5,7 +5,14 @@ import { btnAccentDisabled, btnAccentFullWidth } from "./button-styles";
 import { useMemo, useState } from "react";
 import { BOOKING_FOOTNOTE } from "../data/tour-packages";
 import { BookingInquiryNotice } from "./BookingInquiryNotice";
-import { TourPriceList } from "./TourPriceList";
+import {
+  buildCheckoutSearchParams,
+  calculateBookingTotal,
+  getParticipantTierFields,
+  totalParticipants,
+  type ParticipantCounts,
+} from "../lib/tour-participant-pricing";
+import { formatMoneyUsd } from "../lib/tour-checkout-utils";
 
 const TIME_OPTIONS = [
   { value: "09:00", label: "9:00 AM — Available" },
@@ -13,6 +20,8 @@ const TIME_OPTIONS = [
   { value: "13:00", label: "1:00 PM — Available" },
   { value: "15:00", label: "3:00 PM — Available" },
 ] as const;
+
+const QTY_OPTIONS = Array.from({ length: 17 }, (_, i) => i);
 
 function pad2(n: number) {
   return String(n).padStart(2, "0");
@@ -41,13 +50,38 @@ type Props = {
 
 export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
   const today = useMemo(() => startOfDay(new Date()), []);
+  const tierFields = useMemo(
+    () => getParticipantTierFields(tourSlug, priceLines),
+    [tourSlug, priceLines],
+  );
+
   const [view, setView] = useState(() => {
     const n = new Date();
     return { y: n.getFullYear(), m: n.getMonth() };
   });
   const [selected, setSelected] = useState<Date | null>(null);
-  const [guests, setGuests] = useState("2");
+  const [adults, setAdults] = useState("1");
+  const [children, setChildren] = useState("0");
+  const [infants, setInfants] = useState("0");
   const [time, setTime] = useState<string>(TIME_OPTIONS[0].value);
+
+  const participants: ParticipantCounts = useMemo(
+    () => ({
+      adults: Number(adults),
+      children: Number(children),
+      infants: Number(infants),
+    }),
+    [adults, children, infants],
+  );
+
+  const bookingTotal = useMemo(
+    () => calculateBookingTotal(tourSlug, priceLines, participants),
+    [tourSlug, priceLines, participants],
+  );
+
+  const participantTotal = totalParticipants(participants);
+  const canContinue =
+    selected != null && participantTotal >= 1 && bookingTotal != null;
 
   const dim = daysInMonth(view.y, view.m);
   const lead = weekdayOfFirst(view.y, view.m);
@@ -94,144 +128,194 @@ export function TourBookingCalendar({ tourSlug, priceLines }: Props) {
     });
   }
 
-  const checkoutHref = useMemo(() => {
-    if (!selected) return "#";
-    const q = new URLSearchParams();
-    q.set("date", toLocalYMD(selected));
-    q.set("guests", guests);
-    q.set("time", time);
-    return `/tours/${tourSlug}/checkout?${q.toString()}`;
-  }, [tourSlug, selected, guests, time]);
+  const checkoutHref =
+    selected && canContinue
+      ? buildCheckoutSearchParams(tourSlug, toLocalYMD(selected), time, participants)
+      : "#";
 
   const selectClass =
-    "mt-1.5 w-full min-h-[44px] rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-900 outline-none focus:border-[color:var(--brand-primary)] focus:ring-2 focus:ring-[color:var(--brand-primary)]/25 touch-manipulation";
+    "mt-2 w-full min-h-[44px] rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-900 shadow-sm outline-none focus:border-[color:var(--brand-primary)] focus:ring-2 focus:ring-[color:var(--brand-primary)]/25 touch-manipulation";
+
+  function renderParticipantRow(
+    id: string,
+    title: string,
+    price: string,
+    value: string,
+    onChange: (v: string) => void,
+  ) {
+    return (
+      <div key={id} className="border-b border-slate-100 pb-4 last:border-b-0 last:pb-0">
+        <div className="flex items-start justify-between gap-3">
+          <label htmlFor={id} className="text-sm font-bold text-slate-900">
+            {title} <span className="text-red-500" aria-hidden>*</span>
+          </label>
+          <span className="shrink-0 text-sm font-semibold text-slate-700">{price}</span>
+        </div>
+        <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className={selectClass}>
+          {QTY_OPTIONS.map((n) => (
+            <option key={n} value={String(n)}>
+              {n}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
 
   return (
     <div
       id="tour-book-calendar"
-      className="flex h-full min-h-0 w-full flex-col justify-center scroll-mt-24 rounded-xl border-0 bg-transparent p-4 shadow-none sm:p-6 md:p-8"
+      className="flex w-full flex-col scroll-mt-24 bg-white p-4 sm:p-6 lg:p-8"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h2 className="font-serif text-base font-bold tracking-tight text-slate-900">
-            Request a date
-          </h2>
-          <p className="mt-0.5 text-[11px] leading-snug text-slate-600 sm:text-xs">
-            Pick guests, time, and date—we confirm availability before you pay.
+      <h2 className="font-serif text-xl font-bold text-slate-900">Booking calendar</h2>
+
+      {/* 1. Participants — always Adult / Child / Infant like reference site */}
+      <section className="mt-6">
+        <h3 className="text-base font-bold text-slate-900">
+          Enter number of participants <span className="text-red-500">*</span>
+        </h3>
+
+        {tierFields ? (
+          <div className="mt-4 space-y-4">
+            {renderParticipantRow(
+              "participants-adult",
+              tierFields.adultLabel,
+              tierFields.adultPriceLabel,
+              adults,
+              setAdults,
+            )}
+            {renderParticipantRow(
+              "participants-child",
+              tierFields.childLabel,
+              tierFields.childPriceLabel,
+              children,
+              setChildren,
+            )}
+            {renderParticipantRow(
+              "participants-infant",
+              tierFields.infantLabel,
+              tierFields.infantPriceLabel,
+              infants,
+              setInfants,
+            )}
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-amber-900">
+            Contact us for pricing on this package.
           </p>
-        </div>
-      </div>
+        )}
 
-      <BookingInquiryNotice variant="compact" className="mt-3" />
+        {participantTotal >= 1 && bookingTotal == null ? (
+          <p className="mt-3 text-sm font-semibold text-red-600" role="alert">
+            This group size cannot be booked online. Please contact us.
+          </p>
+        ) : null}
+      </section>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
-            Guests
-          </label>
-          <select value={guests} onChange={(e) => setGuests(e.target.value)} className={selectClass}>
-            {Array.from({ length: 16 }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={String(n)}>
-                {n} {n === 1 ? "guest" : "guests"}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="tour-time" className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
-            Time <span className="text-red-500">*</span>
-          </label>
-          <select id="tour-time" value={time} onChange={(e) => setTime(e.target.value)} className={selectClass}>
-            {TIME_OPTIONS.map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <div className="flex items-center justify-between gap-2">
+      {/* 2. Date */}
+      <section className="mt-8">
+        <h3 className="text-base font-bold text-slate-900">
+          Choose a date <span className="text-red-500">*</span>
+        </h3>
+        <div className="mt-3 flex items-center justify-between gap-2">
           <button
             type="button"
             onClick={prevMonth}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 text-base font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 touch-manipulation motion-safe:duration-150"
+            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded border border-slate-300 text-slate-700 hover:bg-slate-50"
             aria-label="Previous month"
           >
             ←
           </button>
-          <p className="text-center text-xs font-bold text-slate-900 sm:text-sm">{monthLabel}</p>
+          <p className="text-sm font-bold text-slate-900">{monthLabel}</p>
           <button
             type="button"
             onClick={nextMonth}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 text-base font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-95 touch-manipulation motion-safe:duration-150"
+            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded border border-slate-300 text-slate-700 hover:bg-slate-50"
             aria-label="Next month"
           >
             →
           </button>
         </div>
 
-        <div className="mt-2 grid grid-cols-7 gap-px text-center text-[9px] font-bold uppercase tracking-tight text-slate-400 sm:text-[10px]">
+        <div className="mt-2 grid grid-cols-7 gap-px text-center text-[11px] font-bold text-slate-500">
           {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
-            <div key={d} className="py-0.5">
+            <div key={d} className="py-1">
               {d}
             </div>
           ))}
         </div>
 
-        <div className="mt-1 grid grid-cols-7 gap-1 sm:gap-0.5">
+        <div className="grid grid-cols-7 gap-1">
           {cells.map((day, i) =>
             day === null ? (
-              <div key={`e-${i}`} className="min-h-11" aria-hidden />
+              <div key={`e-${i}`} className="aspect-square" aria-hidden />
             ) : (
               <button
                 key={day}
                 type="button"
                 disabled={isDisabled(day)}
                 onClick={() => setSelected(cellDate(day))}
-                className={`mx-auto flex min-h-11 min-w-11 items-center justify-center rounded-lg text-sm font-semibold outline-none transition active:scale-95 touch-manipulation sm:min-h-10 sm:min-w-10 sm:text-xs motion-safe:duration-150 ${
+                className={`flex aspect-square items-center justify-center rounded text-sm font-semibold transition ${
                   isDisabled(day)
                     ? "cursor-not-allowed text-slate-300"
                     : isSelected(day)
-                      ? "bg-[color:var(--brand-primary)] text-white shadow-sm ring-2 ring-[color:var(--brand-primary)]/35 ring-offset-1 ring-offset-white"
-                      : "text-slate-800 hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-[color:var(--brand-primary)]/40"
+                      ? "bg-[color:var(--brand-primary)] text-white shadow"
+                      : "text-slate-800 hover:bg-slate-100"
                 }`}
               >
                 {day}
               </button>
-            )
+            ),
           )}
         </div>
-      </div>
+      </section>
 
-      <div className="mt-4 border-t border-slate-100 pt-3">
-        <p className="text-xs font-extrabold uppercase tracking-wider text-slate-500">
-          Pricing
+      {/* 3. Time */}
+      <section className="mt-8">
+        <label htmlFor="tour-time" className="text-base font-bold text-slate-900">
+          Choose a time <span className="text-red-500">*</span>
+        </label>
+        <select id="tour-time" value={time} onChange={(e) => setTime(e.target.value)} className={selectClass}>
+          {TIME_OPTIONS.map((t) => (
+            <option key={t.value} value={t.value}>
+              {t.label}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      {/* 4. Live total */}
+      <section className="mt-8 border-t border-slate-200 pt-6">
+        <h3 className="text-base font-bold text-slate-900">Price (USD)</h3>
+        <p className="mt-2 font-serif text-3xl font-bold text-slate-900" aria-live="polite">
+          {bookingTotal ? formatMoneyUsd(bookingTotal.amount) : "—"}
         </p>
-        <TourPriceList lines={priceLines} className="mt-2" />
-      </div>
-      <p className="mt-1 text-[10px] font-medium leading-snug text-red-600 sm:text-[11px]">
-        *Final total + taxes per pricing above.
-      </p>
+        {bookingTotal?.breakdown.length ? (
+          <ul className="mt-2 space-y-1 text-xs text-slate-600">
+            {bookingTotal.breakdown.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        ) : null}
+        <p className="mt-2 text-xs text-slate-500">+ VAT where listed on package pricing.</p>
+      </section>
 
-      {selected ? (
-        <Link
-          href={checkoutHref}
-          className={`mt-3 min-h-12 ${btnAccentFullWidth} motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:translate-y-0`}
-        >
-          Review booking request
+      <BookingInquiryNotice variant="compact" className="mt-4" />
+
+      {canContinue ? (
+        <Link href={checkoutHref} className={`mt-5 min-h-12 ${btnAccentFullWidth}`}>
+          Book now
         </Link>
       ) : (
-        <span className={`mt-3 ${btnAccentDisabled}`}>
-          Review booking request
-        </span>
+        <span className={`mt-5 ${btnAccentDisabled}`}>Book now</span>
       )}
       {!selected ? (
-        <p className="mt-1.5 text-center text-[10px] text-slate-500 sm:text-xs">Pick a date to continue.</p>
+        <p className="mt-2 text-center text-xs text-slate-500">Select a date to continue.</p>
+      ) : participantTotal < 1 ? (
+        <p className="mt-2 text-center text-xs text-slate-500">Add at least one participant.</p>
       ) : null}
 
-      <p className="mt-3 text-[10px] italic leading-relaxed text-slate-500 sm:text-xs">{BOOKING_FOOTNOTE}</p>
+      <p className="mt-4 text-xs italic text-slate-500">{BOOKING_FOOTNOTE}</p>
     </div>
   );
 }

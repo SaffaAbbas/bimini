@@ -14,8 +14,8 @@ export function BookingInquiryNotice({
         className={`text-xs leading-relaxed text-slate-600 ${className}`}
         role="note"
       >
-        <span className="font-extrabold text-slate-800">Request, not instant booking.</span>{" "}
-        We confirm availability by email or phone, then arrange payment.
+        <span className="font-extrabold text-slate-800">Tour date confirmation.</span>{" "}
+        PayPal payment completes online; we still confirm your date by email or phone before the trip.
       </p>
     );
   }

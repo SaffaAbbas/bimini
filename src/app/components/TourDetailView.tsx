@@ -163,8 +163,8 @@ export function TourDetailView({ tour }: { tour: TourPackage }) {
                       Book this experience
                     </h2>
                     <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-600">
-                      Choose your date on the calendar, then send a booking
-                      request—we confirm availability before payment.
+                      Choose adults, children, and infants, pick a date and time,
+                      then book online or send a request.
                     </p>
                     <BookingInquiryNotice variant="compact" className="mt-3" />
                     <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -191,11 +191,11 @@ export function TourDetailView({ tour }: { tour: TourPackage }) {
                 as="div"
                 className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/80"
               >
-                <div className="grid min-w-0 grid-cols-1 items-stretch md:grid-cols-2">
-                  <div className="order-2 min-w-0 w-full md:order-1">
+                <div className="grid min-w-0 grid-cols-1">
+                  <div className="min-w-0 w-full">
                     <TourBookingMedia tour={tour} />
                   </div>
-                  <div className="order-1 min-w-0 w-full border-t border-slate-100 bg-white md:order-2 md:border-l md:border-t-0">
+                  <div className="min-w-0 w-full border-t border-slate-200 bg-white">
                     <TourBookingCalendar
                       tourSlug={tour.slug}
                       priceLines={tour.priceLines}

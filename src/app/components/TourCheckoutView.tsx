@@ -3,14 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { btnPrimary, btnPrimaryFullWidth } from "./button-styles";
+import { PAYPAL_COUPON_CODES } from "../lib/paypal-coupons";
 import { buildContactHref, formatMoneyUsd } from "../lib/tour-checkout-utils";
 import { BookingInquiryNotice } from "./BookingInquiryNotice";
+import { PayPalCheckout } from "./PayPalCheckout";
 import { TourPriceList } from "./TourPriceList";
-
-const COUPON_CODES: Record<string, number> = {
-  BIMINI10: 0.1,
-  BIMINI: 0.05,
-};
 
 type Props = {
   slug: string;
@@ -22,12 +19,17 @@ type Props = {
   timeValue: string;
   timeLabel: string;
   guests: number;
+  adults: number;
+  children: number;
+  infants: number;
+  priceBreakdown: readonly string[];
   durationLabel: string;
   fromDisplay: string;
   toDisplay: string;
   subtotal: number | null;
   estimateBasis: string;
   priceLines: readonly string[];
+  paypalClientId: string | null;
 };
 
 export function TourCheckoutView({
@@ -40,18 +42,23 @@ export function TourCheckoutView({
   timeValue,
   timeLabel,
   guests,
+  adults,
+  children,
+  infants,
+  priceBreakdown,
   durationLabel,
   fromDisplay,
   toDisplay,
   subtotal,
   estimateBasis,
   priceLines,
+  paypalClientId,
 }: Props) {
   const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
 
-  const discountRate = appliedCoupon ? COUPON_CODES[appliedCoupon] ?? 0 : 0;
+  const discountRate = appliedCoupon ? PAYPAL_COUPON_CODES[appliedCoupon] ?? 0 : 0;
 
   const lineSubtotal = subtotal ?? 0;
   const discountAmount = subtotal != null ? lineSubtotal * discountRate : 0;
@@ -62,11 +69,22 @@ export function TourCheckoutView({
       slug,
       date: dateIso,
       guests,
+      adults,
+      children,
+      infants,
       time: timeValue,
       ...(total != null ? { estimateTotal: total } : {}),
     }),
-    [slug, dateIso, guests, timeValue, total]
+    [slug, dateIso, guests, adults, children, infants, timeValue, total]
   );
+
+  const participantSummary = useMemo(() => {
+    const parts: string[] = [];
+    if (adults > 0) parts.push(`${adults} adult${adults > 1 ? "s" : ""}`);
+    if (children > 0) parts.push(`${children} child${children > 1 ? "ren" : ""}`);
+    if (infants > 0) parts.push(`${infants} infant${infants > 1 ? "s" : ""}`);
+    return parts.join(", ") || `${guests} guests`;
+  }, [adults, children, infants, guests]);
 
   function applyCoupon() {
     const key = couponInput.trim().toUpperCase();
@@ -74,7 +92,7 @@ export function TourCheckoutView({
       setCouponError("Enter a code.");
       return;
     }
-    if (COUPON_CODES[key] == null) {
+    if (PAYPAL_COUPON_CODES[key] == null) {
       setCouponError("That code is not valid.");
       setAppliedCoupon(null);
       return;
@@ -140,8 +158,8 @@ export function TourCheckoutView({
                       <dd className="inline">{durationLabel}</dd>
                     </div>
                     <div>
-                      <dt className="inline font-semibold text-slate-800">Guests: </dt>
-                      <dd className="inline">{guests}</dd>
+                      <dt className="inline font-semibold text-slate-800">Participants: </dt>
+                      <dd className="inline">{participantSummary}</dd>
                     </div>
                     <div>
                       <dt className="inline font-semibold text-slate-800">Start time: </dt>
@@ -152,6 +170,13 @@ export function TourCheckoutView({
                       <dd className="inline text-pretty">{departureLabel}</dd>
                     </div>
                     <div className="pt-1 text-xs text-slate-500">{estimateBasis}</div>
+                    {priceBreakdown.length > 0 ? (
+                      <ul className="mt-2 space-y-0.5 text-xs text-slate-500">
+                        {priceBreakdown.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </dl>
                   <TourPriceList
                     lines={priceLines}
@@ -248,26 +273,53 @@ export function TourCheckoutView({
             <BookingInquiryNotice variant="compact" className="pt-1" />
 
             <div className="space-y-3 pt-2">
+              {paypalClientId && total != null ? (
+                <>
+                  <p className="text-xs font-semibold text-slate-700">Pay now with PayPal</p>
+                  <PayPalCheckout
+                    clientId={paypalClientId}
+                    booking={{
+                      slug,
+                      date: dateIso,
+                      guests,
+                      adults,
+                      children,
+                      infants,
+                      time: timeValue,
+                      coupon: appliedCoupon,
+                    }}
+                    successPath={`/tours/${slug}/checkout/success`}
+                    disabled={subtotal == null}
+                  />
+                  <p className="text-center text-xs font-semibold text-slate-400">— or —</p>
+                </>
+              ) : null}
+
               <Link
                 href={buildContactHref({ ...contactBase, pay: "message" })}
                 className={`${btnPrimaryFullWidth} uppercase tracking-wide`}
               >
                 Send booking request
               </Link>
-              <p className="text-center text-xs font-semibold text-slate-400">— or —</p>
-              <Link
-                href={buildContactHref({ ...contactBase, pay: "paypal" })}
-                className="flex w-full items-center justify-center rounded-full px-4 py-3.5 text-center text-sm font-extrabold text-[#003087] shadow-sm transition hover:brightness-95"
-                style={{ backgroundColor: "#FFC439" }}
-              >
-                Pay with PayPal
-              </Link>
+
+              {!paypalClientId || total == null ? (
+                <>
+                  <p className="text-center text-xs font-semibold text-slate-400">— or —</p>
+                  <Link
+                    href={buildContactHref({ ...contactBase, pay: "paypal" })}
+                    className="flex w-full items-center justify-center rounded-full px-4 py-3.5 text-center text-sm font-extrabold text-[#003087] shadow-sm transition hover:brightness-95"
+                    style={{ backgroundColor: "#FFC439" }}
+                  >
+                    Request PayPal invoice
+                  </Link>
+                </>
+              ) : null}
             </div>
 
             <p className="text-xs italic leading-relaxed text-slate-500">
-              Payments are coordinated after we confirm your date. We currently accept PayPal—submitting
-              the form does not charge you immediately; we will follow up with secure PayPal payment
-              instructions.
+              {paypalClientId && total != null
+                ? "PayPal charges your account when you approve payment. We still confirm your tour date by email before the trip."
+                : "We accept PayPal. If online payment is unavailable for this package, send a booking request and we will follow up with payment instructions."}
             </p>
           </div>
         </aside>

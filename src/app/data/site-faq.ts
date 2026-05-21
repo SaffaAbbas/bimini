@@ -14,7 +14,7 @@ export const siteFaqSections: readonly SiteFaqSection[] = [
     items: [
       {
         q: "How do I book a tour?",
-        a: "Choose a package, pick a date on the tour calendar (or use our contact form), and send a booking request. This is not instant online checkout—we confirm availability by email, phone, or WhatsApp, then send secure payment instructions. Meeting-point details follow in your confirmation.",
+        a: "Choose a package, pick a date on the tour calendar, and checkout. You can pay immediately with PayPal or send a booking request without paying online. We confirm availability by email, phone, or WhatsApp before your trip. Meeting-point details follow in your confirmation.",
       },
       {
         q: "Do prices include VAT?",
@@ -22,7 +22,7 @@ export const siteFaqSections: readonly SiteFaqSection[] = [
       },
       {
         q: "What payment methods do you accept?",
-        a: "We accept PayPal for tour bookings. After we confirm your date, we send secure PayPal payment instructions. Cash may be accepted for certain on-island extras—ask when you book.",
+        a: "We accept PayPal on tour checkout (pay now) or by invoice after we confirm your date. Cash may be accepted for certain on-island extras—ask when you book.",
       },
       {
         q: "Is a deposit required?",

@@ -62,63 +62,34 @@ export function formatMoneyUsd(n: number): string {
   }).format(n);
 }
 
+import {
+  calculateBookingTotal,
+  type ParticipantCounts,
+  participantCountsFromGuests,
+} from "./tour-participant-pricing";
+
 /**
- * Rough USD estimate before VAT — matches listed tiers where possible.
- * Final price is always confirmed by staff.
+ * USD estimate before VAT from participant counts (or legacy guest count).
+ * Final price is always confirmed by staff when noted on the tour.
  */
 export function estimateSubtotalUsd(
   slug: string,
   priceLines: readonly string[],
-  guests: number
-): { amount: number; basis: string } | null {
-  const g = Math.max(1, Math.min(50, guests));
-  const j = priceLines.join(" | ");
+  guestsOrParticipants: number | ParticipantCounts,
+): { amount: number; basis: string; breakdown?: string[] } | null {
+  const counts =
+    typeof guestsOrParticipants === "number"
+      ? participantCountsFromGuests(guestsOrParticipants)
+      : guestsOrParticipants;
 
-  if (slug === "fishing-charter") {
-    const m = j.match(/\$([\d,]+)/);
-    if (m) return { amount: Number(m[1].replace(/,/g, "")), basis: "Private charter (up to 4 guests)" };
-  }
+  const result = calculateBookingTotal(slug, priceLines, counts);
+  if (!result) return null;
 
-  if (slug === "eco-tour") {
-    const m = j.match(/\$([\d,]+)/);
-    if (m) return { amount: Number(m[1].replace(/,/g, "")) * g, basis: `Per person × ${g} guests` };
-  }
-
-  if (slug === "family-fun") {
-    return { amount: 500, basis: "Family package (up to 4 guests)" };
-  }
-
-  if (slug === "family-culture") {
-    return { amount: 600, basis: "Family package (up to 4 guests)" };
-  }
-
-  if (slug === "little-bit-of-that" || slug === "two-for-one" || slug === "underwater-adventure") {
-    const fam = j.match(/Family\s*\(4[^)]*\):\s*\$([\d,]+)/i);
-    if (fam) return { amount: Number(fam[1].replace(/,/g, "")), basis: "Family (4) package rate" };
-  }
-
-  if (slug === "down-for-whateva") {
-    const adult = j.match(/Adults[^\d$]*\$([\d,]+)/i);
-    if (adult) return { amount: Number(adult[1].replace(/,/g, "")) * g, basis: `Adult rate × ${g} guests` };
-    const fam = j.match(/Family[^\d$]*\$([\d,]+)/i);
-    if (fam) return { amount: Number(fam[1].replace(/,/g, "")), basis: "Family (4) package rate" };
-  }
-
-  if (slug === "private-tours") {
-    const m = j.match(/\$([\d,]+)/);
-    if (m) return { amount: Number(m[1].replace(/,/g, "")), basis: "Starting quote (min. group of 4)" };
-  }
-
-  const adultLine = j.match(/Adults:\s*\$([\d,]+(?:\.\d{2})?)/i);
-  if (adultLine) {
-    const rate = Number(adultLine[1].replace(/,/g, ""));
-    return { amount: rate * g, basis: `Adult rate × ${g} guests (kids priced separately)` };
-  }
-
-  const any = j.match(/\$([\d,]+(?:\.\d{2})?)/);
-  if (any) return { amount: Number(any[1].replace(/,/g, "")), basis: "From listed package rate (+ VAT)" };
-
-  return null;
+  return {
+    amount: result.amount,
+    basis: result.basis,
+    breakdown: result.breakdown,
+  };
 }
 
 export function buildContactHref(opts: {
@@ -126,6 +97,9 @@ export function buildContactHref(opts: {
   date: string;
   guests: number;
   time: string;
+  adults?: number;
+  children?: number;
+  infants?: number;
   pay?: "paypal" | "message";
   estimateTotal?: number;
 }): string {
@@ -134,6 +108,9 @@ export function buildContactHref(opts: {
   q.set("date", opts.date);
   q.set("guests", String(opts.guests));
   q.set("time", opts.time);
+  if (opts.adults != null) q.set("adults", String(opts.adults));
+  if (opts.children != null) q.set("children", String(opts.children));
+  if (opts.infants != null) q.set("infants", String(opts.infants));
   if (opts.pay && opts.pay !== "message") q.set("pay", opts.pay);
   if (opts.estimateTotal != null) q.set("estimateTotal", String(Math.round(opts.estimateTotal * 100) / 100));
   return `/contact?${q.toString()}`;
