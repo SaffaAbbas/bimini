@@ -21,7 +21,8 @@ export const DESTINATION_LINKS = [
 
 export const EXPLORE_LINKS = [
   { label: "Our Tours", href: "/#tours" },
-  { label: "Photo Gallery", href: "/gallery" },
+  { label: "Guest stories", href: "/#guest-stories" },
+  { label: "Photo gallery", href: "/gallery" },
   { label: "Plan your trip", href: "/about#plan-your-trip" },
   { label: "Book a Tour", href: "/contact" },
 ] as const;

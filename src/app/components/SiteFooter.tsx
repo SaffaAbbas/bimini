@@ -8,6 +8,7 @@ import {
   EXPLORE_LINKS,
   SOCIAL_LINKS,
 } from "../data/site-links";
+import { FooterGuestStories } from "./FooterGuestStories";
 import { fadeUp, staggerContainer, viewportOnce } from "../lib/motion";
 
 const socialLinkClass =
@@ -147,8 +148,10 @@ export function SiteFooter() {
           </div>
         ) : null}
 
+        <FooterGuestStories />
+
         <motion.div
-          className={`grid gap-10 text-center lg:grid-cols-12 lg:text-left ${activeSocial.length > 0 ? "mt-12" : ""}`}
+          className={`grid gap-10 text-center lg:grid-cols-12 lg:text-left ${activeSocial.length > 0 ? "mt-12" : "mt-12"}`}
         >
           <motion.div
             variants={fadeUp}
@@ -235,9 +238,9 @@ export function SiteFooter() {
                 <li>
                   <a
                     className="inline-block transition-colors duration-200 hover:text-slate-900"
-                    href="/gallery"
+                    href="/#guest-stories"
                   >
-                    Gallery
+                    Guest stories
                   </a>
                 </li>
               </ul>

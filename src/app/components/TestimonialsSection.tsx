@@ -87,7 +87,8 @@ export function TestimonialsSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-12 sm:py-14"
+      id="guest-stories"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-slate-50 to-white py-12 sm:py-14"
       aria-labelledby="testimonials-heading"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
