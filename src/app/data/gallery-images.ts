@@ -15,8 +15,6 @@ export const GALLERY_FILTERS = [
 ];
 
 export type GalleryFilterId = (typeof GALLERY_FILTERS)[number]["id"];
-
-/** Curated Bimini moments — used on home, gallery page, and contact. */
 export const galleryImages: readonly GalleryImage[] = [
   { src: "/images/new47.jpg", alt: "Boat tour departing from Bimini", tag: "water" },
   { src: "/images/new45.jpg", alt: "Guests enjoying a day on the water in Bimini", tag: "water" },

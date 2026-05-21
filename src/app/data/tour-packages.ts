@@ -85,7 +85,7 @@ export const tourPackages: TourPackage[] = [
         a: "Tell us when you book and we will do our best to coordinate with the restaurant.",
       },
     ],
-    gallery: ["/images/beach.webp", "/images/img3.jpg",],
+    gallery: [ "/images/img3.jpg",],
   },
   {
     slug: "bimini-adventure",
@@ -138,7 +138,7 @@ export const tourPackages: TourPackage[] = [
         a: "We may adjust stops for safety; your captain will explain alternatives on the day.",
       },
     ],
-    gallery: ["/images/img10.jpg", "/images/img7.jpg", "/images/b3.webp"],
+    gallery: [ "/images/img7.jpg",],
   },
   {
     slug: "fishing-charter",
@@ -186,7 +186,7 @@ export const tourPackages: TourPackage[] = [
         a: "The listed price covers up to 4; contact us for larger groups or longer trips.",
       },
     ],
-    gallery: ["/images/fishing.jpg", "/images/img9.jpg"],
+    gallery: ["/images/fishing.jpg",],
   },
   {
     slug: "eco-tour",
@@ -227,7 +227,7 @@ export const tourPackages: TourPackage[] = [
         a: "Yes—families welcome; we adjust pacing for mixed ages.",
       },
     ],
-    gallery: ["/images/img7.jpg", "/images/img22.webp"],
+    gallery: ["/images/img7.jpg", ],
   },
   {
     slug: "family-fun",
@@ -270,7 +270,7 @@ export const tourPackages: TourPackage[] = [
         a: "Great for school-age kids and teens; toddlers can enjoy the beach with supervision.",
       },
     ],
-    gallery: ["/images/img3.jpg", "/images/img1.jpg"],
+    gallery: ["/images/img3.jpg", ],
   },
   {
     slug: "family-culture",
@@ -313,7 +313,7 @@ export const tourPackages: TourPackage[] = [
         a: "Moderate walking at stops; comfortable shoes recommended.",
       },
     ],
-    gallery: ["/images/img4.jpg", "/images/img2.jpg"],
+    gallery: [],
   },
   {
     slug: "little-bit-of-that",
@@ -360,7 +360,7 @@ export const tourPackages: TourPackage[] = [
         a: "Ask when booking—we may be able to swap for extra beach time subject to availability.",
       },
     ],
-    gallery: ["/images/img2.jpg", "/images/img6.jpg"],
+    gallery: [ "/images/img6.jpg"],
   },
   {
     slug: "two-for-one",
@@ -468,7 +468,7 @@ export const tourPackages: TourPackage[] = [
         a: "Generally family-friendly; height/age rules may apply—ask at booking.",
       },
     ],
-    gallery: ["/images/underwater.webp", "/images/img21.webp"],
+    gallery: [],
   },
   {
     slug: "down-for-whateva",
@@ -517,7 +517,7 @@ export const tourPackages: TourPackage[] = [
         a: "Pricing tiers differ by package rules—ask us about family options when you call or email.",
       },
     ],
-    gallery: ["/images/down.webp", "/images/b4.jpg"],
+    gallery: ["/images/down.webp",],
   },
   {
     slug: "private-tours",
@@ -561,7 +561,7 @@ export const tourPackages: TourPackage[] = [
         a: "We recommend booking early, especially in peak season, to reserve boats and guides.",
       },
     ],
-    gallery: ["/images/private.png", "/images/img10.jpg"],
+    gallery: ["/images/private.png"],
     footnote:
       "All packages can be booked online or through customer service. Advanced booking recommended during peak season. Cancellations 48 hours before the tour receive a full refund; after that a 50% fee applies. Group discounts for 10+ guests—inquire for details. Questions: (242) 826-TOUR (8687) · www.toursbimini.com",
   },
